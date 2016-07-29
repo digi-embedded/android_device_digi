@@ -342,9 +342,10 @@ fi
 # Check that the file "key_pass.txt" is present, if not create it with default user/pwd:
 if [ ! -f key_pass.txt ]
 then
-    echo "test" > key_pass.txt
-    echo "test" >> key_pass.txt
-    echo "A default file 'key_pass.txt' was created with password = test!"
+    password="$(openssl rand -base64 32)"
+    echo "${password}" > key_pass.txt
+    echo "${password}" >> key_pass.txt
+    echo "A file 'key_pass.txt' was created with a random password!"
 fi
 
 # The following is required otherwise OpenSSL complains
