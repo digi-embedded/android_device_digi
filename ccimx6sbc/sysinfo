@@ -1,0 +1,242 @@
+#!/system/bin/sh
+#===============================================================================
+#
+#  sysinfo
+#
+#  Copyright (C) 2016 by Digi International Inc.
+#  All rights reserved.
+#
+#  This program is free software; you can redistribute it and/or modify it
+#  under the terms of the GNU General Public License version 2 as published by
+#  the Free Software Foundation.
+#
+#
+#  !Description: System information gather script
+#
+#===============================================================================
+
+spaces(){
+	echo ""
+	echo ""
+}
+
+# Return 1 if the applet is unavailable,return 0 otherwise
+busybox_applet_available(){
+	if [ "${BUSYBOX_AVAILABLE}" != "TRUE" ]; then
+		return 1
+	else
+		for i in $*; do
+			if ! busybox --list | grep -qs "${i}"; then
+				return 1
+			fi
+		done
+		return 0
+	fi
+}
+
+write_environment_table(){
+	banner "ENVIRONMENT TABLE"
+
+	echo "||*Component*|*Version*"
+	echo "|| DUT | SN-${BOARD_SN}, ${MACHINE} ${BOARD_VARIANT} SBCv${BOARD_VERSION} board_ID=${BOARD_ID}."
+	echo "|| U-Boot | ${UBOOT_VERSION}"
+	echo "|| Firmware | ${DEA_VERSION}-$(cat /etc/build)"
+	echo "|| Kernel | ${KERNEL_VERSION}"
+	spaces
+}
+
+banner() {
+	format="
+--------------------------------------
+-                                    -
+- %-34s -
+-                                    -
+--------------------------------------
+
+"
+	busybox printf "${format}" "${1}"
+}
+
+make_report(){
+	banner "Kernel version"
+	echo "${KERNEL_VERSION}"
+	spaces
+
+	banner "U-boot saved environment"
+	fw_printenv 2>&1 || echo "[FAILED] fw_printenv"
+	spaces
+
+	banner "Getprop"
+	getprop || echo "[FAILED] getprop"
+	spaces
+
+	banner "Linux boot log"
+	dmesg || echo "[FAILED] dmesg"
+	spaces
+
+	banner "Logcat main"
+	logcat -b main -d
+	spaces
+
+	banner "Logcat system"
+	logcat -b system -d
+	spaces
+
+	banner "Logcat radio"
+	logcat -b radio -d
+	spaces
+
+	banner "Logcat events"
+	logcat -b events -d
+	spaces
+
+	banner "Logcat crash"
+	logcat -b crash -d
+	spaces
+
+	banner "Linux kernel configuration"
+	busybox gzip -dc /proc/config.gz || echo "[FAILED] gzip"
+	spaces
+
+	banner "Dumpsys meminfo"
+	dumpsys meminfo -d || echo "[FAILED] dumpsys meminfo"
+	spaces
+
+	banner "Dumpsys input"
+	dumpsys input || echo "[FAILED] dumpsys input"
+	spaces
+
+	banner "Dumpsys display"
+	dumpsys display || echo "[FAILED] dumpsys display"
+	spaces
+
+	banner "Dumpsys cpuinfo"
+	dumpsys cpuinfo || echo "[FAILED] dumpsys cpuinfo"
+	spaces
+
+	banner "Dumpsys adc"
+	dumpsys adc || echo "[FAILED] dumpsys adc"
+	spaces
+
+	banner "Dumpsys can"
+	dumpsys can || echo "[FAILED] dumpsys can"
+	spaces
+
+	banner "Dumpsys gpio"
+	dumpsys gpio || echo "[FAILED] dumpsys gpio"
+	spaces
+
+	banner "Dumpsys i2c"
+	dumpsys i2c || echo "[FAILED] dumpsys i2c"
+	spaces
+
+	banner "Memory consumption"
+	busybox free || echo "[FAILED] free"
+	spaces
+
+	banner "Running processes"
+	busybox ps -T || echo "[FAILED] ps"
+	spaces
+
+	banner "Mounts"
+	mount || echo "[FAILED] mount"
+	spaces
+
+	banner "Uptime"
+	busybox uptime || echo "[FAILED] uptime"
+	spaces
+
+	banner "Opened ports"
+	busybox netstat -n -l || echo "[FAILED] netstat"
+	spaces
+
+	banner "Routes"
+	busybox route -n -e || echo "[FAILED] route"
+	spaces
+
+	banner "Network configuration"
+	busybox ifconfig -a || echo "[FAILED] ifconfig"
+	spaces
+
+	banner "Wireless configuration"
+	wpa_supplicant -v 2>/dev/null
+	for file in /etc/wifi/*.conf; do
+		echo ""
+		echo "$file:"
+		cat "$file"
+	done
+
+	echo ""
+	hostapd -v 2>&1
+	spaces
+
+	banner "TrustFence"
+	OTP_CFG5="$(cat /sys/fsl_otp/HW_OCOTP_CFG5 2>&1)"
+	if [ "$?" = 0 ]; then
+		if [ "$((${OTP_CFG5} & 2))" != "0" ]; then
+			echo "Device status: [CLOSED]"
+		else
+			echo "Device status: [OPEN]"
+		fi
+	else
+		echo "Device status: unknown (${OTP_CFG5})"
+	fi
+
+	if [ -f "/proc/device-tree/digi,uboot-env,encrypted" ]; then
+		echo "U-Boot environment is encrypted"
+	else
+		echo "U-Boot environment is NOT encrypted"
+	fi
+
+	echo "-------------End of report------------"
+}
+
+DEA_VERSION="dea_version_undefined"
+UBOOT_VERSION="uboot_version_undefined"
+BOARD_VARIANT="board_variant_undefined"
+BOARD_SN="board_sn_undefined"
+BOARD_VERSION="board_version_undefined"
+BOARD_ID="board_id_undefined"
+DEA_BUILD="dea_build_undefined"
+KERNEL_VERSION="kernel_version_undefined"
+DATE="00000000000000"
+
+BUSYBOX_AVAILABLE="FALSE"
+busybox >/dev/null 2>&1
+[ "$?" = 0 ] && BUSYBOX_AVAILABLE="TRUE"
+
+DEA_VERSION="$(getprop ro.build.id)" 2> /dev/null
+
+UBOOT_VERSION="$(cat /proc/device-tree/digi,uboot,version 2>/dev/null)"
+if [ -z "${UBOOT_VERSION}" ]; then
+	busybox_applet_available strings cut
+	[ "$?" = 0 -a -b /dev/block/mmcblk0boot0 ] && UBOOT_VERSION="$(busybox strings /dev/block/mmcblk0boot0 | grep dub -m1 | busybox cut -d' ' -f2)"
+fi
+[ -f /proc/device-tree/digi,machine,name ] && MACHINE="$(cat /proc/device-tree/digi,machine,name)"
+[ -f /proc/device-tree/digi,hwid,variant ] && BOARD_VARIANT="$(cat /proc/device-tree/digi,hwid,variant)"
+[ -f /proc/device-tree/digi,hwid,sn ] && BOARD_SN="$(cat /proc/device-tree/digi,hwid,sn)"
+[ -f /proc/device-tree/digi,carrierboard,version ] && BOARD_VERSION="$(cat /proc/device-tree/digi,carrierboard,version)"
+[ -f /proc/device-tree/digi,carrierboard,id ] && BOARD_ID="$(cat /proc/device-tree/digi,carrierboard,id)"
+[ -f /etc/build ] && DEA_BUILD="$(cat /etc/build)"
+
+if busybox_applet_available uname; then
+	KERNEL_VERSION="$(busybox uname -a)"
+fi
+
+[ -f /system/bin/date ] && DATE="$(date "+%Y%m%d%H%M%S")"
+FILE="/sdcard/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}.txt"
+spaces
+
+write_environment_table
+write_environment_table >> "${FILE}"
+
+sleep 1
+
+make_report >> "${FILE}"
+if [ -f /system/bin/gzip ]; then
+	gzip "${FILE}"
+	echo "Report generated in ${FILE}.gz"
+else
+	echo "Report generated in ${FILE}"
+fi
+spaces
