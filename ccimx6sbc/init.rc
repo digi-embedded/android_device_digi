@@ -39,6 +39,9 @@ on init
     mkdir /var 0775 root shell
     symlink /dev/lock /var/lock
 
+on early-boot
+    exec u:r:modprobe:s0 -- /system/bin/modprobe -a -d /vendor/lib/modules ath6kl_core ath6kl_sdio
+
 on boot
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
