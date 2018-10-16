@@ -84,7 +84,15 @@ TARGET_BOOTLOADER_CONFIG := \
 
 TARGET_KERNEL_DEFCONF := ccimx6sbc_android_defconfig
 TARGET_BOARD_DTS_CONFIG := \
-	ccimx6qsbc:imx6q-ccimx6sbc-id129.dtb
+	imx6q-id129:imx6q-ccimx6sbc-id129.dtb \
+	imx6q-id130:imx6q-ccimx6sbc-id130.dtb \
+	imx6dl-id131:imx6dl-ccimx6sbc-id131.dtb \
+	imx6dl:imx6dl-ccimx6sbc.dtb \
+	imx6dl-wb:imx6dl-ccimx6sbc-wb.dtb \
+	imx6dl-w:imx6dl-ccimx6sbc-w.dtb \
+	imx6q:imx6q-ccimx6sbc.dtb \
+	imx6q-wb:imx6q-ccimx6sbc-wb.dtb \
+	imx6q-w:imx6q-ccimx6sbc-w.dtb
 
 # Do not include key verification in the recovery app
 # neither verification keys in the recovery ramdisk
