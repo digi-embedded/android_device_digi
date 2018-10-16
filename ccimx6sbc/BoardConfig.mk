@@ -19,13 +19,17 @@ PRODUCT_MODEL := ccimx6sbc
 
 # ATHEROS Wi-Fi device support
 BOARD_WLAN_VENDOR            := ATHEROS
-BOARD_WLAN_DEVICE            := DIGI_ATH
-WPA_SUPPLICANT_VERSION       := VER_0_8_UNITE
+BOARD_WLAN_DEVICE            := qcwcn
+WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
 TARGET_DIGI_ATHEROS_FW                      := true
-BOARD_HOSTAPD_PRIVATE_LIB_QCOM              := lib_driver_cmd_qcwcn
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB_QCOM       := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
+
+BOARD_VENDOR_KERNEL_MODULES += \
+                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_core.ko \
+                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_sdio.ko
 
 # for recovery service
 TARGET_SELECT_KEY := 28

@@ -31,13 +31,18 @@ PRODUCT_PACKAGES += \
 	fw_printenv \
 	fw_env.config
 
-# # Digi Atheros wifi firmware file.
-# PRODUCT_PACKAGES += \
-# 	ath6kl-fwencoder \
-# 	athwlan \
-# 	Digi_6203-6233-US \
-# 	Digi_6203-6233-World
-#
+# Digi Atheros wifi firmware file.
+PRODUCT_PACKAGES += \
+        athwlan \
+        Digi_6203-6233-US \
+        Digi_6203-6233-World \
+        Digi_6203_2_ANT-US \
+        Digi_6203_2_ANT-World \
+        Digi_fw-4 \
+        Digi_athtcmd_ram \
+        Digi_nullTestFlow \
+        Digi_utf
+
 # Jars boot order.
 # PRODUCT_BOOT_JARS += \
 # 	CloudConnectorAndroid
