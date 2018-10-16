@@ -41,7 +41,8 @@ PRODUCT_PACKAGES += \
         Digi_fw-4 \
         Digi_athtcmd_ram \
         Digi_nullTestFlow \
-        Digi_utf
+        Digi_utf \
+        wpa_supplicant_overlay_digi.conf
 
 # Jars boot order.
 # PRODUCT_BOOT_JARS += \
