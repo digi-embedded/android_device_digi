@@ -95,7 +95,7 @@ on boot
     # Prepare for bluetooth
     chmod 665 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
-    write /sys/class/rfkill/rfkill0/state 0
+    write /sys/class/rfkill/rfkill0/state 1
 
     # Set rotation to 270 to cofigure as portrait mode
     setprop ro.sf.hwrotation 0
