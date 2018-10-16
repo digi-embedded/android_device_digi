@@ -1,0 +1,66 @@
+#
+# U-Boot bootscript for EMMC images created by Android.
+#
+
+#
+# Set device tree filename depending on the board ID (if defined)
+#
+if test -n "${board_id}"; then
+	setenv fdt_file ${soc_family}-ccimx6sbc-id${board_id}.dtb
+else
+	#
+	# Set device tree filename depending on the hardware variant
+	#
+	if test "${module_variant}" = "0x02"; then
+		setenv fdt_file imx6q-ccimx6sbc-wb.dtb
+	elif test "${module_variant}" = "0x03"; then
+		setenv fdt_file imx6q-ccimx6sbc-wb.dtb
+	elif test "${module_variant}" = "0x04"; then
+		setenv fdt_file imx6q-ccimx6sbc-wb.dtb
+	elif test "${module_variant}" = "0x05"; then
+		setenv fdt_file imx6q-ccimx6sbc-w.dtb
+	elif test "${module_variant}" = "0x06"; then
+		setenv fdt_file imx6q-ccimx6sbc-wb.dtb
+	elif test "${module_variant}" = "0x08"; then
+		setenv fdt_file imx6q-ccimx6sbc.dtb
+	elif test "${module_variant}" = "0x0a"; then
+		setenv fdt_file imx6dl-ccimx6sbc-w.dtb
+	elif test "${module_variant}" = "0x0b"; then
+		setenv fdt_file imx6dl-ccimx6sbc-wb.dtb
+	elif test "${module_variant}" = "0x0c"; then
+		setenv fdt_file imx6dl-ccimx6sbc.dtb
+	elif test "${module_variant}" = "0x0e"; then
+		setenv fdt_file imx6q-ccimx6sbc.dtb
+	elif test "${module_variant}" = "0x0f"; then
+		setenv fdt_file imx6q-ccimx6sbc.dtb
+	elif test "${module_variant}" = "0x11"; then
+		setenv fdt_file imx6q-ccimx6sbc-wb.dtb
+	elif test "${module_variant}" = "0x12"; then
+		setenv fdt_file imx6q-ccimx6sbc-wb.dtb
+	elif test "${module_variant}" = "0x13"; then
+		setenv fdt_file imx6dl-ccimx6sbc-wb.dtb
+	else
+		echo "------ Using default fdt_file"
+	fi
+fi
+
+#
+# Configure filename for the rest of the artifacts
+#
+setenv zimage zImage
+setenv initrd_file uramdisk.img
+
+#
+# Configure android bootargs (androidboot.hardware=freescale needs to go first)
+#
+setenv bootargs_android androidboot.hardware=freescale androidboot.soc_type=$soc_family androidboot.storage_type=emmc $bootargs_android
+if itest.s "x" == "x$cma" ; then
+	cma=448M
+fi
+setenv bootargs_android $bootargs_android cma=$cma
+
+#
+# Boot
+#
+setenv boot_initrd true
+dboot android mmc ${mmcbootdev}:${mmcpart}
