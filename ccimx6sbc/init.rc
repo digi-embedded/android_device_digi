@@ -11,6 +11,7 @@ on init
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
+    symlink /vendor/lib /lib
 
     # setup the global environment
     export SHM_MOUNTPOINT /mnt/shm
