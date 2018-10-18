@@ -12,20 +12,10 @@ endif
 # Build for EXT4
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
+
 TARGET_RECOVERY_FSTAB = device/digi/ccimx6sbc/fstab.freescale
-PRODUCT_COPY_FILES +=	\
-	device/fsl/sabresd_6dq/fstab.freescale:root/fstab.freescale
 
-# Vendor Interface Manifest
-PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/manifest.xml:vendor/manifest.xml
-
-TARGET_BOOTLOADER_BOARD_NAME := ccimx6sbc
 PRODUCT_MODEL := ccimx6sbc
-
-# TODO: If we rework/rename the board makefiles we can use some of the standard
-# Android variables to get the platform name (i.e. TARGET_BOARD_PLATFORM).
-TARGET_PLATFORM_NAME := ccimx6sbc
 
 # ATHEROS Wi-Fi device support
 BOARD_WLAN_VENDOR            := ATHEROS
@@ -75,6 +65,7 @@ TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 # The build system will compile images for all of them, but the SDCARD image
 # will use the first one of the list.
 #
+TARGET_BOOTLOADER_BOARD_NAME := ccimx6sbc
 TARGET_BOOTLOADER_POSTFIX := imx
 TARGET_DTB_POSTFIX := -dtb
 TARGET_BOOTLOADER_CONFIG := \

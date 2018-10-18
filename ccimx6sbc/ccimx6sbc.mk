@@ -47,8 +47,9 @@ PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/init.imx6q.rc:root/init.freescale.imx6q.rc \
 	device/digi/ccimx6sbc/init.imx6dl.rc:root/init.freescale.imx6dl.rc \
 	device/digi/ccimx6sbc/init.imx6qp.rc:root/init.freescale.imx6qp.rc \
-	device/fsl/sabresd_6dq/init.freescale.emmc.rc:root/init.freescale.emmc.rc \
-	device/digi/ccimx6sbc/ueventd.freescale.rc:root/ueventd.freescale.rc
+	device/digi/ccimx6sbc/init.freescale.emmc.rc:root/init.freescale.emmc.rc \
+	device/digi/ccimx6sbc/ueventd.freescale.rc:root/ueventd.freescale.rc \
+	device/digi/ccimx6sbc/fstab.freescale:root/fstab.freescale
 
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/init.can.sh:system/etc/init.can.sh \
@@ -73,6 +74,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	$(LINUX_FIRMWARE_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx6d.bin:vendor/lib/firmware/vpu/vpu_fw_imx6d.bin \
 	$(LINUX_FIRMWARE_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx6q.bin:vendor/lib/firmware/vpu/vpu_fw_imx6q.bin
+
+# Vendor Interface Manifest
+PRODUCT_COPY_FILES += \
+	device/digi/ccimx6sbc/manifest.xml:vendor/manifest.xml
 
 # setup dm-verity configs.
 PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
