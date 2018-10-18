@@ -48,7 +48,11 @@ fi
 # Configure filename for the rest of the artifacts
 #
 setenv zimage zImage
-setenv initrd_file uramdisk.img
+if itest.s "x1" == "x${mmcpart}" ; then
+	setenv initrd_file uramdisk.img
+elif itest.s "x2" == "x${mmcpart}" ; then
+	setenv initrd_file uramdisk-recovery.img
+fi
 
 #
 # Configure android bootargs (androidboot.hardware=freescale needs to go first)
