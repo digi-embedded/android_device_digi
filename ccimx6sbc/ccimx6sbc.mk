@@ -1,5 +1,5 @@
 -include device/fsl/common/imx_path/ImxPathConfig.mk
-$(call inherit-product, device/fsl/imx6/imx6.mk)
+$(call inherit-product, device/digi/imx6/imx6.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 
 # Overrides
