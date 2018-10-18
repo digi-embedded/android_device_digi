@@ -1,5 +1,5 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
 ifeq ($(PRODUCT_IMX_CAR),true)
 $(call inherit-product, packages/services/Car/car_product/build/car.mk)
 endif
@@ -54,33 +54,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += freescale-extended 		\
 		    freescale-extended.xml
 
-# Broadcom firmwares
-PRODUCT_PACKAGES += \
-	Type_ZP.hcd   	\
-	bt_vendor.conf	\
-	bcmdhd.cal		\
-	fw_bcmdhd.bin	\
-	fw_bcmdhd_apsta.bin
-
-# Broadcom BCM4339 extended binary
-PRODUCT_PACKAGES += \
-    bcmdhd.SN8000.OOB.cal     \
-    bcmdhd.SN8000.SDIO.cal    \
-    sn_fw_bcmdhd_apsta.bin    \
-    sn_fw_bcmdhd.bin          \
-    sn_fw_bcmdhd_mfgtest.bin  \
-    1bw_fw_bcmdhd.bin         \
-    1bw_fw_bcmdhd_mfgtest.bin \
-    BCM43341B0.1BW.hcd        \
-    bcmdhd.1BW.OOB.cal        \
-    bcmdhd.1BW.SDIO.cal       \
-    1dx_fw_bcmdhd.bin         \
-    1dx_fw_bcmdhd_mfgtest.bin \
-    BCM43430A1.1DX.hcd        \
-    bcmdhd.1DX.OOB.cal        \
-    bcmdhd.1DX.SDIO.cal       \
-    wl
- 
 # Debug utils
 PRODUCT_PACKAGES += \
 	taskset					\
@@ -332,31 +305,12 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
 	device/fsl/common/input/Dell_Dell_USB_Entry_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Entry_Keyboard.idc \
-	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/eGalax_Touch_Screen.idc \
-	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/HannStar_P1003_Touchscreen.idc \
-	device/fsl/common/input/eGalax_Touch_Screen.idc:system/usr/idc/Novatek_NT11003_Touch_Screen.idc \
-	system/core/rootdir/init.rc:root/init.rc \
 	device/fsl/imx6/etc/init.usb.rc:root/init.freescale.usb.rc \
-	device/fsl/imx6/etc/ota.conf:system/etc/ota.conf \
-        device/fsl/imx6/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_profiles_720p.xml:system/etc/media_profiles_720p.xml \
     
-PRODUCT_COPY_FILES += \
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/BCM4335C0.ZP.hcd:vendor/firmware/bcm/Type_ZP.hcd 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:vendor/firmware/bcm/fw_bcmdhd.bin 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/ZP_BCM4339/fw_bcmdhd.bin:vendor/firmware/bcm/fw_bcmdhd_apsta.bin 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/BCM43341B0.1BW.hcd:vendor/firmware/bcm/1BW_BCM43340/BCM43341B0.1BW.hcd 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:vendor/firmware/bcm/1BW_BCM43340/fw_bcmdhd.bin 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1BW_BCM43340/fw_bcmdhd.bin:vendor/firmware/bcm/1BW_BCM43340/fw_bcmdhd_apsta.bin 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/BCM43430A1.1DX.hcd:vendor/firmware/bcm/1DX_BCM4343W/BCM43430A1.1DX.hcd 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd.bin 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/1DX_BCM4343W/fw_bcmdhd.bin:vendor/firmware/bcm/1DX_BCM4343W/fw_bcmdhd_apsta.bin 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:vendor/firmware/bcm/SN8000_BCM43362/fw_bcmdhd.bin 	\
-	$(IMX_FIRMWARE_PATH)/imx-firmware/brcm/SN8000_BCM43362/fw_bcmdhd.bin:vendor/firmware/bcm/SN8000_BCM43362/fw_bcmdhd_apsta.bin 	\
-
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
