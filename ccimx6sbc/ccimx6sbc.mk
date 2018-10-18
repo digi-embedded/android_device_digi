@@ -44,10 +44,10 @@ UBOOT_IMX_PATH := vendor/digi
 
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/init.rc:root/init.freescale.rc \
+	device/digi/ccimx6sbc/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
 	device/digi/ccimx6sbc/init.imx6q.rc:root/init.freescale.imx6q.rc \
 	device/digi/ccimx6sbc/init.imx6dl.rc:root/init.freescale.imx6dl.rc \
 	device/digi/ccimx6sbc/init.imx6qp.rc:root/init.freescale.imx6qp.rc \
-	device/digi/ccimx6sbc/init.freescale.emmc.rc:root/init.freescale.emmc.rc \
 	device/digi/ccimx6sbc/ueventd.freescale.rc:root/ueventd.freescale.rc \
 	device/digi/ccimx6sbc/fstab.freescale:root/fstab.freescale
 

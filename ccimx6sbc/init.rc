@@ -1,6 +1,5 @@
 import init.${ro.hardware}.usb.rc
 import init.${ro.hardware}.${ro.boot.soc_type}.rc
-import init.${ro.hardware}.${ro.boot.storage_type}.rc
 
 on early-init
     # mount the debugfs
@@ -241,7 +240,10 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     keycodes 114 115 116
 
 on fs
-# mount ext4 partitions
+    wait /dev/block/platform/soc0/soc/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc0/soc/${ro.boot.bootdevice}/by-name /dev/block/by-name
+
+    # mount ext4 partitions
     mount_all /fstab.freescale
 
     # Update dm-verity state and set partition.*.verified properties
