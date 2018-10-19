@@ -25,12 +25,12 @@ UBOOT_IMX_PATH := vendor/digi
 # PRODUCT_PACKAGES += \
 # 	CloudConnectorAndroid \
 # 	CloudConnectorFileSystem
-#
-# # fw_printenv/setenv
-# PRODUCT_PACKAGES += \
-# 	fw_printenv \
-# 	fw_env.config
-#
+
+# fw_printenv/fw_setenv
+PRODUCT_PACKAGES += \
+	fw_printenv \
+	fw_env.config
+
 # # Digi Atheros wifi firmware file.
 # PRODUCT_PACKAGES += \
 # 	ath6kl-fwencoder \
