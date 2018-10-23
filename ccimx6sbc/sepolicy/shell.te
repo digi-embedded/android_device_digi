@@ -1,0 +1,3 @@
+allow shell lock_path:dir { search write add_name };
+allow shell lock_path:file { create write open lock };
+allow shell ubootenv_path:blk_file { create setattr getattr };

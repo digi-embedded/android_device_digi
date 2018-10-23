@@ -27,3 +27,8 @@
 /dev/ttymxc[0-9]*               u:object_r:tty_device:s0
 /dev/ttyUSB[0-9]*               u:object_r:tty_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
+
+#fw_printenv
+/dev/lock(/.*)?                 u:object_r:lock_path:s0
+/dev/block/mmcblk0boot1         u:object_r:ubootenv_path:s0
+/sbin/fw_printenv               u:object_r:fw_printenv_exec:s0

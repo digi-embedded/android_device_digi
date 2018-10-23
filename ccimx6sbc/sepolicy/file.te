@@ -1,0 +1,2 @@
+type lock_path, file_type;
+type ubootenv_path, file_type;
