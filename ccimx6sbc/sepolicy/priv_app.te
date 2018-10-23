@@ -1,0 +1,1 @@
+allow priv_app gpio_service:service_manager find;
