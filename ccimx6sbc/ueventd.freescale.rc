@@ -53,27 +53,9 @@
 /sys/devices/platform/busfreq.0 enable 0660 system system
 
 # GPIO
-/sys/devices/soc0/soc.0/2000000.aips-bus/209c000.gpio/gpio/gpio*  direction  0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/209c000.gpio/gpio/gpio*  edge       0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/209c000.gpio/gpio/gpio*  value      0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a0000.gpio/gpio/gpio*  direction  0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a0000.gpio/gpio/gpio*  edge       0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a0000.gpio/gpio/gpio*  value      0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a4000.gpio/gpio/gpio*  direction  0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a4000.gpio/gpio/gpio*  edge       0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a4000.gpio/gpio/gpio*  value      0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a8000.gpio/gpio/gpio*  direction  0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a8000.gpio/gpio/gpio*  edge       0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20a8000.gpio/gpio/gpio*  value      0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20ac000.gpio/gpio/gpio*  direction  0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20ac000.gpio/gpio/gpio*  edge       0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20ac000.gpio/gpio/gpio*  value      0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20b0000.gpio/gpio/gpio*  direction  0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20b0000.gpio/gpio/gpio*  edge       0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20b0000.gpio/gpio/gpio*  value      0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20b4000.gpio/gpio/gpio*  direction  0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20b4000.gpio/gpio/gpio*  edge       0644  system  system
-/sys/devices/soc0/soc.0/2000000.aips-bus/20b4000.gpio/gpio/gpio*  value      0644  system  system
+/sys/class/gpio/gpio*  direction  0644  system  system
+/sys/class/gpio/gpio*  edge       0644  system  system
+/sys/class/gpio/gpio*  value      0644  system  system
 
 # CPU GOVERNORS
 /sys/devices/system/cpu/cpufreq  conservative/down_threshold        0664  system  system
