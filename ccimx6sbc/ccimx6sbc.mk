@@ -21,6 +21,9 @@ UBOOT_IMX_PATH := vendor/digi
 # 	com.digi.android \
 # 	com.digi.android.xml \
 # 	libdigiapi_jni
+
+PRODUCT_PACKAGES += \
+	digiservices
 #
 # PRODUCT_PACKAGES += \
 # 	CloudConnectorAndroid \
@@ -192,3 +195,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.frp.pst=/dev/block/by-name/frp
+
+PRODUCT_SYSTEM_SERVER_JARS += \
+	digiservices
