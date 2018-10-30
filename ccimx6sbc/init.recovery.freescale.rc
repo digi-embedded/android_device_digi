@@ -17,6 +17,11 @@ on init
     write /config/usb_gadget/g1/strings/0x409/manufacturer ${ro.product.manufacturer}
     write /config/usb_gadget/g1/strings/0x409/product ${ro.product.model}
 
+    # Create /var/lock dir required for "fw_printenv"
+    mkdir /dev/lock 0777 root shell
+    mkdir /var 0777  root shell
+    symlink /dev/lock /var/lock
+
 on property:sys.usb.ffs.ready=1
     rm /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
