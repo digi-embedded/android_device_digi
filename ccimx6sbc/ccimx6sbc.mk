@@ -23,7 +23,8 @@ UBOOT_IMX_PATH := vendor/digi
 # 	libdigiapi_jni
 
 PRODUCT_PACKAGES += \
-	digiservices
+	digiservices \
+	libdigiservices
 #
 # PRODUCT_PACKAGES += \
 # 	CloudConnectorAndroid \
