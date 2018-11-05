@@ -1,1 +1,2 @@
 gpio u:object_r:gpio_service:s0
+adc u:object_r:adc_service:s0

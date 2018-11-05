@@ -1,1 +1,2 @@
 type gpio_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type adc_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
