@@ -58,12 +58,23 @@ fi
 # Configure android bootargs (androidboot.hardware=freescale needs to go first)
 #
 setenv bootargs_android androidboot.hardware=freescale androidboot.soc_type=$soc_family
+
+# Bootdevice (emmc, sd)
 if itest.s "x0" == "x${mmcbootdev}" ; then
 	bootdev=2100000.aips-bus/219c000.usdhc
 elif itest.s "x1" == "x${mmcbootdev}" ; then
 	bootdev=2100000.aips-bus/2198000.usdhc
 fi
 setenv bootargs_android $bootargs_android androidboot.bootdevice=$bootdev
+
+# Serial Number
+setexpr yw *0x021BC630
+setexpr yw sub "(...).*" "\\1" ${yw}
+setexpr sn *0x021BC620
+setexpr sn sub ".*(.....)" "\\1" ${sn}
+setenv bootargs_android $bootargs_android androidboot.serialno="$yw$sn"
+
+# Contiguous memory allocation
 if itest.s "x" == "x$cma" ; then
 	cma=448M
 fi
