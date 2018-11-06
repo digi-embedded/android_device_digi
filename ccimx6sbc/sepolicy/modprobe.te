@@ -1,0 +1,1 @@
+allow modprobe sysfs_mac_address:file r_file_perms;
