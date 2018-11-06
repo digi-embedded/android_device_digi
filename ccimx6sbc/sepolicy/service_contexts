@@ -1,2 +1,3 @@
 gpio u:object_r:gpio_service:s0
 adc u:object_r:adc_service:s0
+gpu_freq u:object_r:gpu_freq_service:s0
