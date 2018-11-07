@@ -1,3 +1,4 @@
 allow untrusted_app gpio_service:service_manager find;
 allow untrusted_app adc_service:service_manager find;
 allow untrusted_app gpu_freq_service:service_manager find;
+allow untrusted_app spi_service:service_manager find;
