@@ -64,7 +64,7 @@
 /sys/devices/system/cpu/cpufreq  conservative/ignore_nice_load      0664  system  system
 /sys/devices/system/cpu/cpufreq  conservative/sampling_down_factor  0664  system  system
 /sys/devices/system/cpu/cpufreq  conservative/sampling_rate         0664  system  system
-/sys/devices/system/cpu/cpufreq  conservative/sampling_rate_min     0664  system  system
+/sys/devices/system/cpu/cpufreq  conservative/min_sampling_rate     0664  system  system
 /sys/devices/system/cpu/cpufreq  conservative/up_threshold          0664  system  system
 /sys/devices/system/cpu/cpufreq  interactive/above_hispeed_delay    0664  system  system
 /sys/devices/system/cpu/cpufreq  interactive/boost                  0664  system  system
@@ -82,5 +82,5 @@
 /sys/devices/system/cpu/cpufreq  ondemand/powersave_bias            0664  system  system
 /sys/devices/system/cpu/cpufreq  ondemand/sampling_down_factor      0664  system  system
 /sys/devices/system/cpu/cpufreq  ondemand/sampling_rate             0664  system  system
-/sys/devices/system/cpu/cpufreq  ondemand/sampling_rate_min         0664  system  system
+/sys/devices/system/cpu/cpufreq  ondemand/min_sampling_rate         0664  system  system
 /sys/devices/system/cpu/cpufreq  ondemand/up_threshold              0664  system  system
