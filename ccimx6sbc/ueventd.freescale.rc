@@ -23,6 +23,7 @@
 /dev/caam_kb              0660   system     system
 /dev/input/event*         0660   system     system
 /dev/spidev*              0660   system     system
+/dev/i2c*                 0660   system     system
 
 # sysfs properties
 /sys/devices/virtual/input/input*   name        0660  system   system
