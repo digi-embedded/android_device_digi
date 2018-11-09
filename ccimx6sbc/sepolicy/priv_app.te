@@ -2,3 +2,4 @@ allow priv_app gpio_service:service_manager find;
 allow priv_app adc_service:service_manager find;
 allow priv_app gpu_freq_service:service_manager find;
 allow priv_app spi_service:service_manager find;
+allow priv_app i2c_service:service_manager find;
