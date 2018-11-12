@@ -55,9 +55,11 @@ elif itest.s "x2" == "x${mmcpart}" ; then
 fi
 
 #
-# Configure android bootargs (androidboot.hardware=freescale needs to go first)
+# Configure android bootargs
 #
-setenv bootargs_android androidboot.hardware=freescale androidboot.soc_type=$soc_family
+setenv bootargs_android androidboot.hardware=freescale
+setenv bootargs_android $bootargs_android androidboot.soc_type=$soc_family
+setenv bootargs_android $bootargs_android androidboot.btaddr=$btaddr
 
 # Bootdevice (emmc, sd)
 if itest.s "x0" == "x${mmcbootdev}" ; then
@@ -67,9 +69,11 @@ elif itest.s "x1" == "x${mmcbootdev}" ; then
 fi
 setenv bootargs_android $bootargs_android androidboot.bootdevice=$bootdev
 
-# HWID
+# HWID cert
 setexpr ocotp_mac0 *0x021BC620
 setexpr ocotp_mac1 *0x021BC630
+setexpr cert sub ".*(.)" "\\1" ${ocotp_mac1}
+setenv bootargs_android $bootargs_android androidboot.hwid-cert="$cert"
 
 # Serial Number
 setexpr yw sub "(...).*" "\\1" ${ocotp_mac1}
