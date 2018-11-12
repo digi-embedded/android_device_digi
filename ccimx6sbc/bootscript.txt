@@ -67,11 +67,13 @@ elif itest.s "x1" == "x${mmcbootdev}" ; then
 fi
 setenv bootargs_android $bootargs_android androidboot.bootdevice=$bootdev
 
+# HWID
+setexpr ocotp_mac0 *0x021BC620
+setexpr ocotp_mac1 *0x021BC630
+
 # Serial Number
-setexpr yw *0x021BC630
-setexpr yw sub "(...).*" "\\1" ${yw}
-setexpr sn *0x021BC620
-setexpr sn sub ".*(.....)" "\\1" ${sn}
+setexpr yw sub "(...).*" "\\1" ${ocotp_mac1}
+setexpr sn sub ".*(.....)" "\\1" ${ocotp_mac0}
 setenv bootargs_android $bootargs_android androidboot.serialno="$yw$sn"
 
 # Contiguous memory allocation
