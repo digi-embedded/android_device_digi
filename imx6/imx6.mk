@@ -87,7 +87,6 @@ PRODUCT_PACKAGES += \
 	power.imx6				\
 	audio.r_submix.default			\
 	libbt-vendor				\
-	libbt-vendor-broadcom		\
 	magd
 
 # Memtrack HAL

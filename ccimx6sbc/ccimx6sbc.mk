@@ -48,6 +48,12 @@ PRODUCT_PACKAGES += \
         Digi_utf \
         wpa_supplicant_overlay_digi.conf
 
+# Digi Atheros bt firmware file.
+PRODUCT_PACKAGES += \
+	PS_ASIC_class_1 \
+	PS_ASIC_class_2 \
+	RamPatch
+
 # Jars boot order.
 # PRODUCT_BOOT_JARS += \
 # 	CloudConnectorAndroid
@@ -64,7 +70,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/init.can.sh:system/etc/init.can.sh \
 	device/digi/ccimx6sbc/init.pwm.sh:system/etc/init.pwm.sh \
-	device/digi/ccimx6sbc/init.bt.sh:system/etc/init.bt.sh \
 	device/digi/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \
 	device/digi/ccimx6sbc/sysinfo:system/bin/sysinfo \
 	device/digi/ccimx6sbc/binaries/bootanimation.zip:system/media/bootanimation.zip
