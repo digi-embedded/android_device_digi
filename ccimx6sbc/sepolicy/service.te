@@ -1,4 +1,5 @@
 type adc_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type can_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type cpu_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type gpio_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type gpu_freq_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
