@@ -11,3 +11,6 @@ on boot
 
     # set front camera.
     setprop front_camera_name uvc,ov5642_camera,ov5640_camera
+
+    # flag to indicate that bluetooth chip is ar3002
+    setprop bluetooth.ar3k true
