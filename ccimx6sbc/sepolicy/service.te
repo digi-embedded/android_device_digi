@@ -3,6 +3,7 @@ type can_service, system_api_service, ephemeral_app_api_service, system_server_s
 type cpu_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type gpio_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type gpu_freq_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type memory_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type spi_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type i2c_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type memory_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type pwm_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type spi_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;

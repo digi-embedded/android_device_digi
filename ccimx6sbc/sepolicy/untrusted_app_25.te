@@ -6,3 +6,4 @@ allow untrusted_app_25 gpu_freq_service:service_manager find;
 allow untrusted_app_25 i2c_service:service_manager find;
 allow untrusted_app_25 memory_service:service_manager find;
 allow untrusted_app_25 spi_service:service_manager find;
+allow untrusted_app_25 pwm_service:service_manager find;
