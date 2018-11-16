@@ -68,7 +68,6 @@ PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/fstab.freescale:root/fstab.freescale
 
 PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/init.pwm.sh:system/etc/init.pwm.sh \
 	device/digi/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \
 	device/digi/ccimx6sbc/sysinfo:system/bin/sysinfo \
 	device/digi/ccimx6sbc/binaries/bootanimation.zip:system/media/bootanimation.zip

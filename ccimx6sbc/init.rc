@@ -145,6 +145,10 @@ on boot
     chown system system /sys/class/backlight/backlight/brightness
     chmod 0660 /sys/class/backlight/backlight/brightness
 
+    # PWM1 for API
+    chown system system /sys/class/leds/pwm1/brightness
+    chmod 0660 /sys/class/leds/pwm1/brightness
+
     # Set light sensor sysfs path and light sensor threshold lux value
     setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-2/device/2-0044/"
     setprop ro.lightsensor.threshold  20
