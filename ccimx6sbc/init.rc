@@ -6,8 +6,6 @@ on early-init
     mount debugfs none /sys/kernel/debug/ mode=0755
 
 on init
-    start watchdogd
-
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
@@ -162,11 +160,6 @@ on boot
 
     # Set WiFi Display Source VideoBitRate Adaptive
     setprop media.wfd.video-bitrate 3000000
-
-# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
-    service watchdogd /sbin/watchdogd 10 20
-    class core
-    seclabel u:r:watchdogd:s0
 
 on property:sys.boot_completed=1
 # Set default CPU frequency governor
