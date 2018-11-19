@@ -7,3 +7,4 @@ type i2c_service, system_api_service, ephemeral_app_api_service, system_server_s
 type memory_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type pwm_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type spi_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type watchdog_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;

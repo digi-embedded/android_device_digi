@@ -1,6 +1,7 @@
 allow system_server i2c_device:chr_file { getattr open read write ioctl };
 allow system_server self:socket { create_socket_perms };
 allow system_server spi_device:chr_file { getattr open read write ioctl };
+allow system_server watchdog_device:chr_file { getattr open read write ioctl };
 
 # socket ioctls
 allowxperm system_server self:socket ioctl { can_ioctls };

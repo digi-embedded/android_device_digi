@@ -7,3 +7,4 @@ allow priv_app i2c_service:service_manager find;
 allow priv_app memory_service:service_manager find;
 allow priv_app pwm_service:service_manager find;
 allow priv_app spi_service:service_manager find;
+allow priv_app watchdog_service:service_manager find;
