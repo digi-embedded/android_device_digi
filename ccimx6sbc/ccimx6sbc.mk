@@ -13,13 +13,10 @@ UBOOT_IMX_PATH := vendor/digi
 # # Digi custom API
 # PRODUCT_PACKAGES += \
 # 	librxtxSerial
-#
-# PRODUCT_PACKAGES += \
-# 	com.digi.android \
-# 	com.digi.android.xml \
-# 	libdigiapi_jni
 
 PRODUCT_PACKAGES += \
+	com.digi.android \
+	com.digi.android.xml \
 	digiservices \
 	libdigiservices
 #
