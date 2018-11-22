@@ -10,9 +10,6 @@ PRODUCT_MANUFACTURER := digi
 KERNEL_IMX_PATH := vendor/digi
 UBOOT_IMX_PATH := vendor/digi
 
-# PRODUCT_PACKAGES += \
-# 	make_ext4fs_static
-#
 # # Digi custom API
 # PRODUCT_PACKAGES += \
 # 	librxtxSerial
