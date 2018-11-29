@@ -25,12 +25,8 @@ if test "${board}" = "ccimx6sbc"; then
 			setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6qsbc2GB.imx;
 		elif test "${module_variant}" = "0x02" || test "${module_variant}" = "0x04" || test "${module_variant}" = "0x05" || test "${module_variant}" = "0x11"; then
 			setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6qsbc.imx;
-		elif test "${module_variant}" = "0x03" || test "${module_variant}" = "0x0e" || test "${module_variant}" = "0x0f"; then
-			setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6qsbc512MB.imx;
 		elif test "${module_variant}" = "0x0b"; then
 			setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6dlsbc.imx;
-		elif test "${module_variant}" = "0x0c" || test "${module_variant}" = "0x13"; then
-			setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6dlsbc512MB.imx;
 		fi
 	fi
 fi
@@ -48,16 +44,14 @@ else
 	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6qsbc2GB.imx";
 	echo "   - For a Quad/Dual CPU with 1GB DDR3, run:";
 	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6qsbc.imx";
-	echo "   - For a Quad/Dual CPU with 512MB DDR3, run:";
-	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6qsbc512MB.imx";
 	echo "   - For a DualLite/Solo CPU with 1GB DDR3, run:";
 	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6dlsbc.imx";
-	echo "   - For a DualLite/Solo CPU with 512MB DDR3, run:";
-	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx6dlsbc512MB.imx";
 	echo "";
 	echo "2. Run the install script again.";
 	echo "";
 	echo "Aborted";
+	echo "";
+	echo "Note: 512MB DDR variants are not supported in Digi Embedded Android 8.";
 	echo "";
 	exit;
 fi;
