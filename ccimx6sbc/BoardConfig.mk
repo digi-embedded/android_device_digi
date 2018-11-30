@@ -55,6 +55,9 @@ IMX_CAMERA_HAL_V3 := true
 # define consumer IR HAL support
 IMX6_CONSUMER_IR_HAL := false
 
+# LVDS backlight support using the Dialog DA9063 PMIC
+BOARD_HAVE_DA9063_BACKLIGHT := true
+
 BOARD_HAS_SENSOR := true
 
 BOARD_SEPOLICY_DIRS := \

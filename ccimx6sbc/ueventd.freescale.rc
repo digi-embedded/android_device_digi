@@ -27,6 +27,7 @@
 /dev/i2c*                 0660   system     system
 
 # sysfs properties
+/sys/class/leds/lvds*-backlight     brightness  0660  system   system
 /sys/devices/virtual/input/input*   name        0660  system   system
 /sys/devices/virtual/input/input*   max         0660  system   system
 /sys/devices/virtual/input/input*   min         0660  system   system

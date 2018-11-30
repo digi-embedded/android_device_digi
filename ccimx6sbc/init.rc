@@ -138,10 +138,8 @@ on boot
     chmod 0755 /sys/kernel/debug/tracing
 
     # Default backlight device
-    setprop hw.backlight.dev "backlight"
-    # Chmod/chown FSL specific sys entry
-    chown system system /sys/class/backlight/backlight/brightness
-    chmod 0660 /sys/class/backlight/backlight/brightness
+    setprop hw.backlight1.dev "lvds0-backlight"
+    setprop hw.backlight2.dev "lvds1-backlight"
 
     # PWM1 for API
     chown system system /sys/class/leds/pwm1/brightness
