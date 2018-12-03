@@ -7,5 +7,6 @@ type gpu_freq_service, system_api_service, ephemeral_app_api_service, system_ser
 type i2c_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type memory_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type pwm_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type serial_port_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type spi_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type watchdog_service, system_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;

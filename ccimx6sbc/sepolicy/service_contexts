@@ -7,5 +7,6 @@ gpu_freq u:object_r:gpu_freq_service:s0
 i2c u:object_r:i2c_service:s0
 memory u:object_r:memory_service:s0
 pwm u:object_r:pwm_service:s0
+serial_port u:object_r:serial_port_service:s0
 spi u:object_r:spi_service:s0
 watchdog u:object_r:watchdog_service:s0
