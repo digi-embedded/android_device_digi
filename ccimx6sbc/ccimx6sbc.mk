@@ -10,15 +10,12 @@ PRODUCT_MANUFACTURER := digi
 KERNEL_IMX_PATH := vendor/digi
 UBOOT_IMX_PATH := vendor/digi
 
-# # Digi custom API
-# PRODUCT_PACKAGES += \
-# 	librxtxSerial
-
 PRODUCT_PACKAGES += \
 	com.digi.android \
 	com.digi.android.xml \
 	digiservices \
-	libdigiservices
+	libdigiservices \
+	librxtxSerial
 #
 # PRODUCT_PACKAGES += \
 # 	CloudConnectorAndroid \
