@@ -16,10 +16,6 @@ PRODUCT_PACKAGES += \
 	digiservices \
 	libdigiservices \
 	librxtxSerial
-#
-# PRODUCT_PACKAGES += \
-# 	CloudConnectorAndroid \
-# 	CloudConnectorFileSystem
 
 # fw_printenv/fw_setenv
 PRODUCT_PACKAGES += \
@@ -46,8 +42,8 @@ PRODUCT_PACKAGES += \
 	RamPatch
 
 # Jars boot order.
-# PRODUCT_BOOT_JARS += \
-# 	CloudConnectorAndroid
+PRODUCT_BOOT_JARS += \
+	CloudConnectorAndroid
 
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/init.rc:root/init.freescale.rc \
