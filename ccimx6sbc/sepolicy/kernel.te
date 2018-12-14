@@ -1,0 +1,1 @@
+allow kernel sysfs_mac_address:file { open read };
