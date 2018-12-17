@@ -58,8 +58,8 @@ IMX6_CONSUMER_IR_HAL := false
 BOARD_HAS_SENSOR := true
 
 BOARD_SEPOLICY_DIRS := \
-	device/fsl/imx6/sepolicy \
-	device/digi/ccimx6sbc/sepolicy
+	device/digi/ccimx6sbc/sepolicy \
+	device/fsl/imx6/sepolicy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 
