@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FWINSTALLER)),true)
+
 MKIMAGE := $(HOST_OUT_EXECUTABLES)/mkimage$(HOST_EXECUTABLE_SUFFIX)
 
 FWINSTALLER_ZIP := $(PRODUCT_OUT)/install_android_fw_sd.zip
@@ -39,3 +41,5 @@ $(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(TARGET_BOOTLOADER_IMAGE)
 	$(hide) rm -f README.txt
 
 droidcore: $(FWINSTALLER_ZIP)
+
+endif
