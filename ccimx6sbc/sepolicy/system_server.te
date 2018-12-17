@@ -3,6 +3,7 @@ allow system_server lock_path:dir { getattr search write add_name remove_name };
 allow system_server lock_path:file { getattr create write open read unlink };
 allow system_server self:socket { create_socket_perms };
 allow system_server spi_device:chr_file { getattr open read write ioctl };
+allow system_server untrusted_app_25:file write;
 allow system_server watchdog_device:chr_file { getattr open read write ioctl };
 
 # socket ioctls

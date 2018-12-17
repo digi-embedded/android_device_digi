@@ -1,0 +1,1 @@
+allow bootanim hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find;
