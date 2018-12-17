@@ -18,7 +18,6 @@ TARGET_RECOVERY_FSTAB = device/digi/ccimx6sbc/fstab.freescale
 PRODUCT_MODEL := ccimx6sbc
 
 # ATHEROS Wi-Fi device support
-BOARD_WLAN_VENDOR            := ATHEROS
 BOARD_WLAN_DEVICE            := qcwcn
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
@@ -28,14 +27,11 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
 
 BOARD_VENDOR_KERNEL_MODULES += \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_core.ko \
-                            $(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_sdio.ko
+	$(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_core.ko \
+	$(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_sdio.ko
 
 # for recovery service
 TARGET_SELECT_KEY := 28
-
-# we don't support sparse image.
-TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 # atheros 3k BT
 BOARD_HAVE_BLUETOOTH_AR3K := true
@@ -91,18 +87,6 @@ TARGET_BOARD_DTS_CONFIG := \
 	imx6q-wb:imx6q-ccimx6sbc-wb.dtb \
 	imx6q-w:imx6q-ccimx6sbc-w.dtb
 
-# Do not include key verification in the recovery app
-# neither verification keys in the recovery ramdisk
-NO_RECOVERY_KEY_VERIFICATION := true
-
-# Use raw images when generating OTA package
-OTA_USE_RAW_IMAGES := true
-
-# Omit prerequisite in OTA update
-# The prerequisite checks if the date of the build on the device is older than
-# (or the same as) the new build in the OTA to be installed.
-OTA_OMIT_PREREQUISITE := false
-
 # Build VFAT boot image
 TARGET_DEA_BOOTIMAGE := true
 
@@ -111,6 +95,9 @@ TARGET_DEA_FWINSTALLER := true
 
 # Build SDCARD image
 TARGET_DEA_SDCARDIMAGE := true
+
+# Use sparse images
+TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 
 #
 # Partition sizes
