@@ -3,7 +3,7 @@
 #
 #  sysinfo
 #
-#  Copyright (C) 2016 by Digi International Inc.
+#  Copyright (C) 2016-2018 by Digi International Inc.
 #  All rights reserved.
 #
 #  This program is free software; you can redistribute it and/or modify it
@@ -18,20 +18,6 @@
 spaces(){
 	echo ""
 	echo ""
-}
-
-# Return 1 if the applet is unavailable,return 0 otherwise
-busybox_applet_available(){
-	if [ "${BUSYBOX_AVAILABLE}" != "TRUE" ]; then
-		return 1
-	else
-		for i in $*; do
-			if ! busybox --list | grep -qs "${i}"; then
-				return 1
-			fi
-		done
-		return 0
-	fi
 }
 
 write_environment_table(){
@@ -54,7 +40,7 @@ banner() {
 --------------------------------------
 
 "
-	busybox printf "${format}" "${1}"
+	printf "${format}" "${1}"
 }
 
 make_report(){
@@ -95,7 +81,7 @@ make_report(){
 	spaces
 
 	banner "Linux kernel configuration"
-	busybox gzip -dc /proc/config.gz || echo "[FAILED] gzip"
+	gzip -dc /proc/config.gz || echo "[FAILED] gzip"
 	spaces
 
 	banner "Dumpsys meminfo"
@@ -131,11 +117,11 @@ make_report(){
 	spaces
 
 	banner "Memory consumption"
-	busybox free || echo "[FAILED] free"
+	free || echo "[FAILED] free"
 	spaces
 
 	banner "Running processes"
-	busybox ps -T || echo "[FAILED] ps"
+	ps -T || echo "[FAILED] ps"
 	spaces
 
 	banner "Mounts"
@@ -143,23 +129,23 @@ make_report(){
 	spaces
 
 	banner "Uptime"
-	busybox uptime || echo "[FAILED] uptime"
+	uptime || echo "[FAILED] uptime"
 	spaces
 
 	banner "Opened ports"
-	busybox netstat -n -l || echo "[FAILED] netstat"
+	netstat -n -l || echo "[FAILED] netstat"
 	spaces
 
 	banner "Routes"
-	busybox route -n -e || echo "[FAILED] route"
+	netstat -rne || echo "[FAILED] route"
 	spaces
 
 	banner "Network configuration"
-	busybox ifconfig -a || echo "[FAILED] ifconfig"
+	ifconfig -a || echo "[FAILED] ifconfig"
 	spaces
 
 	banner "Wireless configuration"
-	wpa_supplicant -v 2>/dev/null
+	/vendor/bin/hw/wpa_supplicant -v 2>/dev/null
 	for file in /etc/wifi/*.conf; do
 		echo ""
 		echo "$file:"
@@ -201,16 +187,11 @@ DEA_BUILD="dea_build_undefined"
 KERNEL_VERSION="kernel_version_undefined"
 DATE="00000000000000"
 
-BUSYBOX_AVAILABLE="FALSE"
-busybox >/dev/null 2>&1
-[ "$?" = 0 ] && BUSYBOX_AVAILABLE="TRUE"
-
 DEA_VERSION="$(getprop ro.build.id)" 2> /dev/null
 
 UBOOT_VERSION="$(cat /proc/device-tree/digi,uboot,version 2>/dev/null)"
 if [ -z "${UBOOT_VERSION}" ]; then
-	busybox_applet_available strings cut
-	[ "$?" = 0 -a -b /dev/block/mmcblk0boot0 ] && UBOOT_VERSION="$(busybox strings /dev/block/mmcblk0boot0 | grep dub -m1 | busybox cut -d' ' -f2)"
+	[ -b /dev/block/mmcblk0boot0 ] && UBOOT_VERSION="$(strings /dev/block/mmcblk0boot0 | grep dub -m1 | cut -d' ' -f2)"
 fi
 [ -f /proc/device-tree/digi,machine,name ] && MACHINE="$(cat /proc/device-tree/digi,machine,name)"
 [ -f /proc/device-tree/digi,hwid,variant ] && BOARD_VARIANT="$(cat /proc/device-tree/digi,hwid,variant)"
@@ -219,9 +200,7 @@ fi
 [ -f /proc/device-tree/digi,carrierboard,id ] && BOARD_ID="$(cat /proc/device-tree/digi,carrierboard,id)"
 [ -f /etc/build ] && DEA_BUILD="$(cat /etc/build)"
 
-if busybox_applet_available uname; then
-	KERNEL_VERSION="$(busybox uname -a)"
-fi
+KERNEL_VERSION="$(uname -a)"
 
 [ -f /system/bin/date ] && DATE="$(date "+%Y%m%d%H%M%S")"
 FILE="/sdcard/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}.txt"
