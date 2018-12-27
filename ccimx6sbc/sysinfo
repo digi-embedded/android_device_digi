@@ -26,8 +26,10 @@ write_environment_table(){
 	echo "||*Component*|*Version*"
 	echo "|| DUT | SN-${BOARD_SN}, ${MACHINE} ${BOARD_VARIANT} SBCv${BOARD_VERSION} board_ID=${BOARD_ID}."
 	echo "|| U-Boot | ${UBOOT_VERSION}"
-	echo "|| Firmware | ${DEA_VERSION}-$(cat /etc/build)"
+	echo "|| Firmware | ${DEA_VERSION}-${DEA_BUILD}"
 	echo "|| Kernel | ${KERNEL_VERSION}"
+	echo ""
+	cat /etc/build | grep -E "mtk|github-digi"
 	spaces
 }
 
@@ -46,6 +48,10 @@ banner() {
 make_report(){
 	banner "Kernel version"
 	echo "${KERNEL_VERSION}"
+	spaces
+
+	banner "Build info"
+	cat /etc/build
 	spaces
 
 	banner "U-boot saved environment"
@@ -198,7 +204,7 @@ fi
 [ -f /proc/device-tree/digi,hwid,sn ] && BOARD_SN="$(cat /proc/device-tree/digi,hwid,sn)"
 [ -f /proc/device-tree/digi,carrierboard,version ] && BOARD_VERSION="$(cat /proc/device-tree/digi,carrierboard,version)"
 [ -f /proc/device-tree/digi,carrierboard,id ] && BOARD_ID="$(cat /proc/device-tree/digi,carrierboard,id)"
-[ -f /etc/build ] && DEA_BUILD="$(cat /etc/build)"
+[ -f /etc/build ] && DEA_BUILD="$(cat /etc/build | sed -nr 's,^Date:([[:space:]])*([[:digit:]]*)$,\2,p'))"
 
 KERNEL_VERSION="$(uname -a)"
 
