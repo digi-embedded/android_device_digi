@@ -210,18 +210,19 @@ KERNEL_VERSION="$(uname -a)"
 
 [ -f /system/bin/date ] && DATE="$(date "+%Y%m%d%H%M%S")"
 FILE="/sdcard/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}.txt"
-spaces
 
 write_environment_table
-write_environment_table >> "${FILE}"
 
-sleep 1
+if [ -w ${FILE} ]; then
+	write_environment_table >> "${FILE}"
 
-make_report >> "${FILE}"
-if [ -f /system/bin/gzip ]; then
-	gzip "${FILE}"
-	echo "Report generated in ${FILE}.gz"
+	make_report >> "${FILE}"
+	if [ -f /system/bin/gzip ]; then
+		gzip "${FILE}"
+		echo "Report generated in ${FILE}.gz"
+	else
+		echo "Report generated in ${FILE}"
+	fi
 else
-	echo "Report generated in ${FILE}"
+	echo "$(dirname ${FILE}) is not writtable, skipping report generation"
 fi
-spaces
