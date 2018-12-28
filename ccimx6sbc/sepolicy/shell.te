@@ -1,3 +1,5 @@
 allow shell lock_path:dir { search write add_name };
 allow shell lock_path:file { create write open lock };
 allow shell ubootenv_path:blk_file { create setattr getattr };
+allow shell sysinfo:file { read open getattr execute execute_no_trans };
+allow shell sysfs:file { getattr open read };
