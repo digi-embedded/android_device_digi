@@ -87,13 +87,12 @@ TARGET_BOARD_DTS_CONFIG := \
 	imx6q-wb:imx6q-ccimx6sbc-wb.dtb \
 	imx6q-w:imx6q-ccimx6sbc-w.dtb
 
-# Build VFAT boot image
+#
+# DEA specific build time options
+#
 TARGET_DEA_BOOTIMAGE := true
-
-# Build firmware installer script
+TARGET_DEA_BUILDINFO := true
 TARGET_DEA_FWINSTALLER := true
-
-# Build SDCARD image
 TARGET_DEA_SDCARDIMAGE := true
 
 # Use sparse images

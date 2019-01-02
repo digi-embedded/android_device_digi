@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_BUILDINFO)),true)
+
 # DATETIME is expected to be set from the environment (Jenkins)
 ifndef DATETIME
 DATETIME = $(shell date +'%Y%m%d%H%M%S')
@@ -27,4 +29,15 @@ $(BUILDINFO_TARGET):
 		| sort -r -k1 \
 	) > $@
 
-ALL_DEFAULT_INSTALLED_MODULES += $(BUILDINFO_TARGET)
+REPO_MANIFEST_TARGET := $(TARGET_OUT_VENDOR_ETC)/repo-manifest.xml
+
+.PHONY: repomanifest
+repomanifest: $(REPO_MANIFEST_TARGET)
+
+$(REPO_MANIFEST_TARGET):
+	$(hide) mkdir -p $(dir $@)
+	$(hide) repo manifest -r --suppress-upstream-revision -o $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(BUILDINFO_TARGET) $(REPO_MANIFEST_TARGET)
+
+endif
