@@ -69,6 +69,12 @@ elif itest.s "x1" == "x${mmcbootdev}" ; then
 fi
 setenv bootargs_android $bootargs_android androidboot.bootdevice=$bootdev
 
+# Video
+if itest.s "x" == "x$video" ; then
+	video="video=mxcfb0:dev=hdmi video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off"
+fi
+setenv bootargs_android $bootargs_android $video
+
 # HWID cert
 setexpr ocotp_mac0 *0x021BC620
 setexpr ocotp_mac1 *0x021BC630
