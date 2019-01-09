@@ -1,5 +1,6 @@
 adc u:object_r:adc_service:s0
 can u:object_r:can_service:s0
+cloud_connector u:object_r:cloud_connector_service:s0
 cpu u:object_r:cpu_service:s0
 firmware_update u:object_r:firmware_update_service:s0
 gpio u:object_r:gpio_service:s0
