@@ -209,11 +209,11 @@ fi
 KERNEL_VERSION="$(uname -a)"
 
 [ -f /system/bin/date ] && DATE="$(date "+%Y%m%d%H%M%S")"
-FILE="/sdcard/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}.txt"
+FILE="/sdcard/Download/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}.txt"
 
 write_environment_table
 
-if [ -w ${FILE} ]; then
+if touch ${FILE} 2> /dev/null; then
 	write_environment_table >> "${FILE}"
 
 	make_report >> "${FILE}"
