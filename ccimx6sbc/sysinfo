@@ -28,8 +28,8 @@ write_environment_table(){
 	echo "|| U-Boot | ${UBOOT_VERSION}"
 	echo "|| Firmware | ${DEA_VERSION}-${DEA_BUILD}"
 	echo "|| Kernel | ${KERNEL_VERSION}"
-	echo ""
-	cat /etc/build | grep -E "mtk|github-digi"
+	# Show, for repositories that belong to the group 'sysinfo', name and version (in table format)
+	sed -ne '/groups=.*sysinfo/{s,.*name="\([^"]*\)".*revision="\([^"]*\)".*,|| \1 | \2,g;T;p}' /vendor/etc/repo-manifest.xml
 	spaces
 }
 
@@ -50,8 +50,8 @@ make_report(){
 	echo "${KERNEL_VERSION}"
 	spaces
 
-	banner "Build info"
-	cat /etc/build
+	banner "Repo manifest"
+	cat /vendor/etc/repo-manifest.xml
 	spaces
 
 	banner "U-boot saved environment"
@@ -193,7 +193,8 @@ DEA_BUILD="dea_build_undefined"
 KERNEL_VERSION="kernel_version_undefined"
 DATE="00000000000000"
 
-DEA_VERSION="$(getprop ro.build.id)" 2> /dev/null
+DEA_VERSION="$(getprop ro.build.id 2> /dev/null)"
+DEA_BUILD="$(getprop ro.build.version.incremental 2> /dev/null)"
 
 UBOOT_VERSION="$(cat /proc/device-tree/digi,uboot,version 2>/dev/null)"
 if [ -z "${UBOOT_VERSION}" ]; then
@@ -204,7 +205,6 @@ fi
 [ -f /proc/device-tree/digi,hwid,sn ] && BOARD_SN="$(cat /proc/device-tree/digi,hwid,sn)"
 [ -f /proc/device-tree/digi,carrierboard,version ] && BOARD_VERSION="$(cat /proc/device-tree/digi,carrierboard,version)"
 [ -f /proc/device-tree/digi,carrierboard,id ] && BOARD_ID="$(cat /proc/device-tree/digi,carrierboard,id)"
-[ -f /etc/build ] && DEA_BUILD="$(cat /etc/build | sed -nr 's,^Date:([[:space:]])*([[:digit:]]*)$,\2,p'))"
 
 KERNEL_VERSION="$(uname -a)"
 
