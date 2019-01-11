@@ -11,3 +11,7 @@ allow priv_app pwm_service:service_manager find;
 allow priv_app serial_port_service:service_manager find;
 allow priv_app spi_service:service_manager find;
 allow priv_app watchdog_service:service_manager find;
+
+# File system access
+allow untrusted_app device_tree_path:file { r_file_perms };
+allow untrusted_app device_tree_path:dir { r_dir_perms };

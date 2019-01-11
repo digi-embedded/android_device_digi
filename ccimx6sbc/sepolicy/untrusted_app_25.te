@@ -11,3 +11,7 @@ allow untrusted_app_25 pwm_service:service_manager find;
 allow untrusted_app_25 serial_port_service:service_manager find;
 allow untrusted_app_25 spi_service:service_manager find;
 allow untrusted_app_25 watchdog_service:service_manager find;
+
+# File system access
+allow untrusted_app device_tree_path:file { r_file_perms };
+allow untrusted_app device_tree_path:dir { r_dir_perms };
