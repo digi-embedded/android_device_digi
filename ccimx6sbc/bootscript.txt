@@ -65,7 +65,7 @@ setenv bootargs_android $bootargs_android androidboot.btaddr=$btaddr
 if itest.s "x0" == "x${mmcbootdev}" ; then
 	bootdev=2100000.aips-bus/219c000.usdhc
 elif itest.s "x1" == "x${mmcbootdev}" ; then
-	bootdev=2100000.aips-bus/2198000.usdhc
+	bootdev=2100000.aips-bus/2194000.usdhc
 fi
 setenv bootargs_android $bootargs_android androidboot.bootdevice=$bootdev
 
