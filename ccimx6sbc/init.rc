@@ -194,12 +194,18 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
+on early-fs
+    setprop boot.device.fstab /fstab.freescale
+
+on early-fs && property:ro.boot.bootdevice=2100000.aips-bus/2194000.usdhc
+    setprop boot.device.fstab /fstab.freescale.sd
+
 on fs
     wait /dev/block/platform/soc0/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc0/soc/${ro.boot.bootdevice}/by-name /dev/block/by-name
 
     # mount ext4 partitions
-    mount_all /fstab.freescale
+    mount_all ${boot.device.fstab}
 
     # Update dm-verity state and set partition.*.verified properties
     verity_update_state
@@ -209,7 +215,7 @@ on verity-logging
 
 on post-fs
     # Turn on swap
-    swapon_all /fstab.freescale
+    swapon_all ${boot.device.fstab}
 
     # Swap in only 1 page at a time
     write /proc/sys/vm/page-cluster 0

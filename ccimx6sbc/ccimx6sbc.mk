@@ -52,7 +52,8 @@ PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/init.imx6dl.rc:root/init.freescale.imx6dl.rc \
 	device/digi/ccimx6sbc/init.imx6qp.rc:root/init.freescale.imx6qp.rc \
 	device/digi/ccimx6sbc/ueventd.freescale.rc:root/ueventd.freescale.rc \
-	device/digi/ccimx6sbc/fstab.freescale:root/fstab.freescale
+	device/digi/ccimx6sbc/fstab.freescale:root/fstab.freescale \
+	device/digi/ccimx6sbc/fstab.freescale.sd:root/fstab.freescale.sd
 
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \
