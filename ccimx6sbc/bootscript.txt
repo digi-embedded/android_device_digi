@@ -57,7 +57,7 @@ fi
 #
 # Configure android bootargs
 #
-setenv bootargs_android vmalloc=128M consoleblank=0 rootwait androidboot.hardware=freescale
+setenv bootargs_android vmalloc=128M consoleblank=0 rootwait androidboot.hardware=digi
 setenv bootargs_android $bootargs_android androidboot.soc_type=$soc_family
 setenv bootargs_android $bootargs_android androidboot.btaddr=$btaddr
 

@@ -195,10 +195,10 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     keycodes 114 115 116
 
 on early-fs
-    setprop boot.device.fstab /fstab.freescale
+    setprop boot.device.fstab /fstab.digi
 
 on early-fs && property:ro.boot.bootdevice=2100000.aips-bus/2194000.usdhc
-    setprop boot.device.fstab /fstab.freescale.sd
+    setprop boot.device.fstab /fstab.digi.sd
 
 on fs
     wait /dev/block/platform/soc0/soc/${ro.boot.bootdevice}

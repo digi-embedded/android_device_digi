@@ -46,14 +46,14 @@ PRODUCT_BOOT_JARS += \
 	CloudConnectorAndroid
 
 PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/init.rc:root/init.freescale.rc \
-	device/digi/ccimx6sbc/init.recovery.freescale.rc:root/init.recovery.freescale.rc \
-	device/digi/ccimx6sbc/init.imx6q.rc:root/init.freescale.imx6q.rc \
-	device/digi/ccimx6sbc/init.imx6dl.rc:root/init.freescale.imx6dl.rc \
-	device/digi/ccimx6sbc/init.imx6qp.rc:root/init.freescale.imx6qp.rc \
-	device/digi/ccimx6sbc/ueventd.freescale.rc:root/ueventd.freescale.rc \
-	device/digi/ccimx6sbc/fstab.freescale:root/fstab.freescale \
-	device/digi/ccimx6sbc/fstab.freescale.sd:root/fstab.freescale.sd
+	device/digi/ccimx6sbc/init.rc:root/init.digi.rc \
+	device/digi/ccimx6sbc/init.recovery.digi.rc:root/init.recovery.digi.rc \
+	device/digi/ccimx6sbc/init.imx6q.rc:root/init.digi.imx6q.rc \
+	device/digi/ccimx6sbc/init.imx6dl.rc:root/init.digi.imx6dl.rc \
+	device/digi/ccimx6sbc/init.imx6qp.rc:root/init.digi.imx6qp.rc \
+	device/digi/ccimx6sbc/ueventd.digi.rc:root/ueventd.digi.rc \
+	device/digi/ccimx6sbc/fstab.digi:root/fstab.digi \
+	device/digi/ccimx6sbc/fstab.digi.sd:root/fstab.digi.sd
 
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \

@@ -13,7 +13,7 @@ endif
 BUILD_TARGET_FS ?= ext4
 include device/fsl/imx6/imx6_target_fs.mk
 
-TARGET_RECOVERY_FSTAB = device/digi/ccimx6sbc/fstab.freescale
+TARGET_RECOVERY_FSTAB = device/digi/ccimx6sbc/fstab.digi
 
 PRODUCT_MODEL := ccimx6sbc
 
