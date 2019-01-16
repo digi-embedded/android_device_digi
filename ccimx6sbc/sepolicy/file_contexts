@@ -41,4 +41,4 @@
 /sys/firmware/devicetree/base/wireless/mac-address      u:object_r:sysfs_mac_address:s0
 
 #device tree
-/sys/firmware/devicetree/base(/.*)?	u:object_r:device_tree_path:s0
+/sys/firmware/devicetree/base(/.*)?	u:object_r:sysfs_device_tree:s0
