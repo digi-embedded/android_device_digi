@@ -3,3 +3,5 @@ allow shell lock_path:file { create write open lock };
 allow shell ubootenv_path:blk_file { create setattr getattr };
 allow shell sysinfo:file { read open getattr execute execute_no_trans };
 allow shell sysfs:file { getattr open read };
+allow shell sysfs_device_tree:file { r_file_perms };
+allow shell sysfs_device_tree:dir { r_dir_perms };
