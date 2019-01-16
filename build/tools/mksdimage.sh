@@ -170,14 +170,14 @@ tmp_system="$(mktemp --tmpdir system.XXXXXX)"
 if file "${systemimg}" | grep -qs sparse; then
 	simg2img "${systemimg}" "${tmp_system}"
 else
-	cp -al "${systemimg}" "${tmp_system}"
+	cp -af "${systemimg}" "${tmp_system}"
 fi
 
 tmp_vendor="$(mktemp --tmpdir vendor.XXXXXX)"
 if file "${vendorimg}" | grep -qs sparse; then
 	simg2img "${vendorimg}" "${tmp_vendor}"
 else
-	cp -al "${systemimg}" "${tmp_vendor}"
+	cp -af "${systemimg}" "${tmp_vendor}"
 fi
 
 #
