@@ -73,6 +73,18 @@ Usage: ${SCRIPTNAME} [OPTIONS] <sdcard-disk-device>
 EOF
 }
 
+#
+# Check whether an image is sparse
+#
+# From: https://android.googlesource.com/platform/system/core/+/master/libsparse/sparse_format.h
+#
+#   Sparse magic: 0xed26ff3a
+#   Sparse magic MD5SUM: 0d02a97f49fbaa4a5815e4cb78628f1b (printf '\x3a\xff\x26\xed' | md5sum)
+#
+is_sparse_image() {
+	[ "$(dd if="${1}" bs=1 count=4 2>/dev/null | md5sum | cut -d' ' -f1)" = "0d02a97f49fbaa4a5815e4cb78628f1b" ]
+}
+
 ## Exit cleanly on signal reception
 trap_exit() {
 	rm -f "${tmp_data}" "${tmp_cache}" "${tmp_system}" "${tmp_vendor}"
@@ -167,14 +179,14 @@ dd if=/dev/zero of="${tmp_cache}" bs=1M count=${CACHE_PARTITION_SIZE} 2>/dev/nul
 mkfs.ext4 -q -F -Lcache "${tmp_cache}"
 
 tmp_system="$(mktemp --tmpdir system.XXXXXX)"
-if file "${systemimg}" | grep -qs sparse; then
+if is_sparse_image "${systemimg}"; then
 	simg2img "${systemimg}" "${tmp_system}"
 else
 	cp -af "${systemimg}" "${tmp_system}"
 fi
 
 tmp_vendor="$(mktemp --tmpdir vendor.XXXXXX)"
-if file "${vendorimg}" | grep -qs sparse; then
+if is_sparse_image "${vendorimg}"; then
 	simg2img "${vendorimg}" "${tmp_vendor}"
 else
 	cp -af "${systemimg}" "${tmp_vendor}"
