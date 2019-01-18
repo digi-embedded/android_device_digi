@@ -73,7 +73,8 @@ TARGET_BOOTLOADER_POSTFIX := imx
 TARGET_DTB_POSTFIX := -dtb
 TARGET_BOOTLOADER_CONFIG := \
 	ccimx6qsbc:ccimx6qsbc_defconfig \
-	ccimx6qsbc2GB:ccimx6qsbc2GB_defconfig
+	ccimx6qsbc2GB:ccimx6qsbc2GB_defconfig \
+	ccimx6dlsbc:ccimx6dlsbc_defconfig
 
 TARGET_KERNEL_DEFCONF := ccimx6sbc_android_defconfig
 TARGET_BOARD_DTS_CONFIG := \
