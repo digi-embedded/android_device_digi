@@ -85,10 +85,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/manifest.xml:vendor/manifest.xml
 
-# setup dm-verity configs.
-PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/by-name/system
-$(call inherit-product, build/target/product/verity.mk)
-
 
 # GPU files
 
