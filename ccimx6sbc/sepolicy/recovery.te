@@ -2,5 +2,6 @@ allow recovery fw_printenv_exec:file { execute };
 allow recovery lock_path:dir { search write add_name };
 allow recovery lock_path:file { write open create lock };
 allow recovery rootfs:file { execute execute_no_trans };
+allow recovery sysfs_device_tree:dir search;
 allow recovery sysfs:file { write };
 allow recovery ubootenv_path:blk_file { create setattr getattr read open write };
