@@ -12,3 +12,6 @@ allowxperm system_server self:socket ioctl { can_ioctls };
 # file system access
 allow system_server sysfs_device_tree:file { r_file_perms };
 allow system_server sysfs_device_tree:dir { r_dir_perms };
+
+# properties
+set_prop(system_server, ethernet_prop)
