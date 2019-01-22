@@ -82,10 +82,6 @@ on boot
     setprop alsa.mixer.playback.headset Headphone
     setprop alsa.mixer.capture.headset Capture
 
-    # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-    chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
-
     # Prepare for wifi
     setprop wifi.interface wlan0
     setprop wifi.ap.interface wlan0
@@ -144,10 +140,6 @@ on boot
     # PWM1 for API
     chown system system /sys/class/leds/pwm1/brightness
     chmod 0660 /sys/class/leds/pwm1/brightness
-
-    # Wifi firmware reload path
-    chown wifi wifi /sys/module/bcmdhd/parameters/firmware_path
-    chown wifi wifi /sys/module/bcmdhd/parameters/nvram_path
 
     # No bluetooth hardware present
     setprop wlan.interface wlan0
