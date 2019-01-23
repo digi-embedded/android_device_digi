@@ -54,7 +54,8 @@ IMX6_CONSUMER_IR_HAL := false
 # LVDS backlight support using the Dialog DA9063 PMIC
 BOARD_HAVE_DA9063_BACKLIGHT := true
 
-BOARD_HAS_SENSOR := true
+# NXP sensor support
+BOARD_HAS_SENSOR := false
 
 BOARD_SEPOLICY_DIRS := \
 	device/digi/ccimx6sbc/sepolicy \

@@ -142,15 +142,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.light@2.0-impl \
 	android.hardware.light@2.0-service
 
-# Sensor HAL
-PRODUCT_PACKAGES += \
-	android.hardware.sensors@1.0-impl \
-	android.hardware.sensors@1.0-service
-
-# imx6 sensor HAL libs.
-PRODUCT_PACKAGES += \
-	sensors.imx6
-
 # USB HAL
 PRODUCT_PACKAGES += \
 	android.hardware.usb@1.0-service
