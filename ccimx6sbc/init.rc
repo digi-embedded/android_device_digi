@@ -5,6 +5,9 @@ on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
 
+    # Set console loglevel
+    write /proc/sys/kernel/printk 6
+
 on init
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
