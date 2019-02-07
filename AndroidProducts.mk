@@ -27,4 +27,4 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/ccimx6sbc/ccimx6sbc.mk \
+	$(LOCAL_DIR)/imx6dq/ccimx6sbc/ccimx6sbc.mk \

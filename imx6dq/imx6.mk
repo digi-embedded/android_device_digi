@@ -302,7 +302,7 @@ PRODUCT_COPY_FILES +=	\
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.kl:system/usr/keylayout/Dell_Dell_USB_Keyboard.kl \
 	device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Keyboard.idc \
 	device/fsl/common/input/Dell_Dell_USB_Entry_Keyboard.idc:system/usr/idc/Dell_Dell_USB_Entry_Keyboard.idc \
-	device/fsl/imx6/etc/init.usb.rc:root/init.digi.usb.rc \
+	device/fsl/imx6dq/etc/init.usb.rc:root/init.digi.usb.rc \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
@@ -338,7 +338,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.FSL_MPG2_PARSER=1 \
 
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
-        device/fsl/common/security/testkey
+        device/digi/common/security/testkey
 
 # In userdebug, add minidebug info the the boot image and the system server to support
 # diagnosing native crashes.

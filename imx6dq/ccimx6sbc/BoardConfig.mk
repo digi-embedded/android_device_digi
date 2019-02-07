@@ -2,18 +2,18 @@
 # Product-specific compile-time definitions.
 #
 
-include device/fsl/imx6/soc/imx6dq.mk
+include device/fsl/imx6dq/soc/imx6dq.mk
 include device/digi/build_id.mk
-include device/fsl/imx6/BoardConfigCommon.mk
+include device/fsl/imx6dq/BoardConfigCommon.mk
 ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
 -include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
 endif
 
 # Build for EXT4
 BUILD_TARGET_FS ?= ext4
-include device/fsl/imx6/imx6_target_fs.mk
+include device/fsl/imx6dq/imx6_target_fs.mk
 
-TARGET_RECOVERY_FSTAB = device/digi/ccimx6sbc/fstab.digi
+TARGET_RECOVERY_FSTAB = device/digi/imx6dq/ccimx6sbc/fstab.digi
 
 PRODUCT_MODEL := ccimx6sbc
 
@@ -35,7 +35,7 @@ TARGET_SELECT_KEY := 28
 
 # atheros 3k BT
 BOARD_HAVE_BLUETOOTH_AR3K := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/digi/ccimx6sbc/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/digi/imx6dq/ccimx6sbc/bluetooth
 
 # GPU configuration
 USE_ION_ALLOCATOR := true
@@ -58,8 +58,8 @@ BOARD_HAVE_DA9063_BACKLIGHT := true
 BOARD_HAS_SENSOR := false
 
 BOARD_SEPOLICY_DIRS := \
-	device/digi/ccimx6sbc/sepolicy \
-	device/fsl/imx6/sepolicy
+	device/digi/imx6dq/ccimx6sbc/sepolicy \
+	device/fsl/imx6dq/sepolicy
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 

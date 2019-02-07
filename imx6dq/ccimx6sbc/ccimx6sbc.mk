@@ -1,5 +1,5 @@
 -include device/fsl/common/imx_path/ImxPathConfig.mk
-$(call inherit-product, device/digi/imx6/imx6.mk)
+$(call inherit-product, device/digi/imx6dq/imx6.mk)
 $(call inherit-product-if-exists,vendor/google/products/gms.mk)
 
 # Overrides
@@ -46,25 +46,25 @@ PRODUCT_BOOT_JARS += \
 	CloudConnectorAndroid
 
 PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/init.rc:root/init.digi.rc \
-	device/digi/ccimx6sbc/init.recovery.digi.rc:root/init.recovery.digi.rc \
-	device/digi/ccimx6sbc/init.imx6q.rc:root/init.digi.imx6q.rc \
-	device/digi/ccimx6sbc/init.imx6dl.rc:root/init.digi.imx6dl.rc \
-	device/digi/ccimx6sbc/init.imx6qp.rc:root/init.digi.imx6qp.rc \
-	device/digi/ccimx6sbc/ueventd.digi.rc:root/ueventd.digi.rc \
-	device/digi/ccimx6sbc/fstab.digi:root/fstab.digi \
-	device/digi/ccimx6sbc/fstab.digi.sd:root/fstab.digi.sd
+	device/digi/imx6dq/ccimx6sbc/init.rc:root/init.digi.rc \
+	device/digi/imx6dq/ccimx6sbc/init.recovery.digi.rc:root/init.recovery.digi.rc \
+	device/digi/imx6dq/ccimx6sbc/init.imx6q.rc:root/init.digi.imx6q.rc \
+	device/digi/imx6dq/ccimx6sbc/init.imx6dl.rc:root/init.digi.imx6dl.rc \
+	device/digi/imx6dq/ccimx6sbc/init.imx6qp.rc:root/init.digi.imx6qp.rc \
+	device/digi/imx6dq/ccimx6sbc/ueventd.digi.rc:root/ueventd.digi.rc \
+	device/digi/imx6dq/ccimx6sbc/fstab.digi:root/fstab.digi \
+	device/digi/imx6dq/ccimx6sbc/fstab.digi.sd:root/fstab.digi.sd
 
 PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \
-	device/digi/ccimx6sbc/sysinfo:system/bin/sysinfo \
-	device/digi/ccimx6sbc/binaries/bootanimation.zip:system/media/bootanimation.zip
+	device/digi/imx6dq/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \
+	device/digi/imx6dq/ccimx6sbc/sysinfo:system/bin/sysinfo \
+	device/digi/imx6dq/ccimx6sbc/binaries/bootanimation.zip:system/media/bootanimation.zip
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/audio_effects.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.conf \
-	device/digi/ccimx6sbc/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+	device/digi/imx6dq/ccimx6sbc/audio_effects.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.conf \
+	device/digi/imx6dq/ccimx6sbc/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
 	frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
@@ -73,8 +73,8 @@ PRODUCT_COPY_FILES += \
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
-	device/digi/ccimx6sbc/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
+	device/digi/imx6dq/ccimx6sbc/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
+	device/digi/imx6dq/ccimx6sbc/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
 
 # VPU firmware
 PRODUCT_COPY_FILES += \
@@ -83,12 +83,12 @@ PRODUCT_COPY_FILES += \
 
 # Vendor Interface Manifest
 PRODUCT_COPY_FILES += \
-	device/digi/ccimx6sbc/manifest.xml:vendor/manifest.xml
+	device/digi/imx6dq/ccimx6sbc/manifest.xml:vendor/manifest.xml
 
 
 # GPU files
 
-DEVICE_PACKAGE_OVERLAYS := device/digi/ccimx6sbc/overlay
+DEVICE_PACKAGE_OVERLAYS := device/digi/imx6dq/ccimx6sbc/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
@@ -107,7 +107,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
 	frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
-	device/digi/ccimx6sbc/required_hardware.xml:system/etc/permissions/required_hardware.xml
+	device/digi/imx6dq/ccimx6sbc/required_hardware.xml:system/etc/permissions/required_hardware.xml
 
 PRODUCT_COPY_FILES += \
 	$(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:system/lib/egl/egl.cfg
