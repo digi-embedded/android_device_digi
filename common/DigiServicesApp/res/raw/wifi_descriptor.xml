@@ -1,0 +1,44 @@
+<!-- Copyright 2019, Digi International Inc.
+
+     Permission to use, copy, modify, and/or distribute this software for any
+     purpose with or without fee is hereby granted, provided that the above
+     copyright notice and this permission notice appear in all copies.
+
+     THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+     WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+     MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+     ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+     WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+     ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+     OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+-->
+<?xml version="1.0" encoding="utf-8"?>
+<query_descriptor>
+	<!--Descriptor for <query_setting /> -->
+	<descriptor element="query_setting" desc="Retrieve device configuration">
+		<descriptor element="wifi" desc="Wi-Fi" format="wifi_format"/>
+		<format_define name="wifi_format">
+			<element name="enable_wifi" desc="Enable Wi-Fi" type="on_off" default="off"/>
+			<element name="ssid" desc="SSID" type="string" default="" access="read_only"/>
+			<element name="status" desc="Status" type="string" default="Disconnected" access="read_only"/>
+			<element name="connection_type" desc="Connection Type" type="enum" default="dhcp">
+				<value value="dhcp" desc="DHCP"/>
+				<value value="static" desc="Static"/>
+			</element>
+			<element name="ip_address" desc="IP Address : Applicable only if Connection Type is Static" type="ipv4" default="0.0.0.0"/>
+			<element name="dns1_address" desc="DNS1 address : Applicable only if Connection Type is Static" type="ipv4" default="0.0.0.0"/>
+			<element name="dns2_address" desc="DNS2 address : Applicable only if Connection Type is Static" type="ipv4" default="0.0.0.0"/>
+			<element name="gateway_address" desc="Gateway address : Applicable only if Connection Type is Static" type="ipv4" default="0.0.0.0"/>
+			<element name="mac_address" desc="MAC address" type="mac_addr" default="00:00:00:00:00:00" access="read_only"/>
+		</format_define>
+	</descriptor>
+
+	<!-- Descriptor for <set_setting /> -->
+	<descriptor element="set_setting" desc="Set device configuration">
+		<descriptor element="wifi" desc="Wi-Fi" format="wifi_format"/>
+	</descriptor>
+
+	<!-- Descriptor for <query_state /> -->
+	<descriptor element="query_state" desc="Request device current state">
+	</descriptor>
+</query_descriptor>
