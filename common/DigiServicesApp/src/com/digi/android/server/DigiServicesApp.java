@@ -18,6 +18,8 @@ package com.digi.android.server;
 import android.app.Application;
 
 import android.os.ServiceManager;
+import com.android.server.firmwareupdate.FirmwareUpdateServiceImpl;
+import com.android.server.firmwareupdate.IFirmwareUpdateService;
 import com.android.server.gpio.GPIOServiceImpl;
 import com.android.server.gpio.IGPIOService;
 import com.android.server.i2c.I2CServiceImpl;
@@ -34,6 +36,9 @@ public class DigiServicesApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ServiceManager.addService(IFirmwareUpdateService.class.getName(),
+                                  new FirmwareUpdateServiceImpl(this));
 
         ServiceManager.addService(IGPIOService.class.getName(),
                                   new GPIOServiceImpl(this));

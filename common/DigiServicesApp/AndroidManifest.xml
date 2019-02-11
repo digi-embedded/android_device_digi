@@ -5,6 +5,12 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+    <permission android:name="com.digi.android.permission.FIRMWARE_UPDATE"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_firmware_update"
+        android:description="@string/permdesc_firmware_update" />
+
     <permission android:name="com.digi.android.permission.GPIO"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"
@@ -23,11 +29,16 @@
         android:label="@string/permlab_spi"
         android:description="@string/permdesc_spi" />
 
+    <!-- Permissions for installing applications -->
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES"/>
+
     <!-- Location related permissions -->
     <uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <protected-broadcast android:name="com.android.server.firmwareupdate.FirmwareUpdateAppInstaller.DONE" />
 
     <application android:name=".DigiServicesApp" android:persistent="true">
         <uses-library android:name="com.android.location.provider"/>
