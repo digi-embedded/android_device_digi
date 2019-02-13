@@ -28,3 +28,4 @@
 
 PRODUCT_MAKEFILES := \
 	$(LOCAL_DIR)/imx6dq/ccimx6sbc/ccimx6sbc.mk \
+	$(LOCAL_DIR)/imx8q/ccimx8xsbcpro/ccimx8xsbcpro.mk
