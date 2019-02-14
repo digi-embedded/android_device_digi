@@ -30,6 +30,10 @@ PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
 	$(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi \
 
+PRODUCT_COPY_FILES += \
+	device/digi/common/runtime/sysinfo:system/bin/sysinfo \
+	device/digi/common/runtime/bootanimation.zip:system/media/bootanimation.zip
+
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
 	$(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg \

@@ -57,8 +57,8 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
 	device/digi/imx6dq/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \
-	device/digi/imx6dq/ccimx6sbc/sysinfo:system/bin/sysinfo \
-	device/digi/imx6dq/ccimx6sbc/binaries/bootanimation.zip:system/media/bootanimation.zip
+	device/digi/common/runtime/sysinfo:system/bin/sysinfo \
+	device/digi/common/runtime/bootanimation.zip:system/media/bootanimation.zip
 
 # Audio
 USE_XML_AUDIO_POLICY_CONF := 1
