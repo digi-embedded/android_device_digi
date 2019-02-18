@@ -207,6 +207,7 @@ PRODUCT_PACKAGES += \
 
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
+	CloudConnectorAndroid \
 	digiservices \
 	RXTXcomm
 
