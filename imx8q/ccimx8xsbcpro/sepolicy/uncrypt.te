@@ -4,6 +4,8 @@ allow uncrypt lock_path:file { write open create lock };
 allow uncrypt rootfs:file { execute execute_no_trans };
 allow uncrypt sysfs_block_devices:dir { search };
 allow uncrypt sysfs_block_devices:file { open write };
+allow uncrypt sysfs_device_tree:dir { open read search };
+allow uncrypt sysfs_device_tree:file { getattr open read };
 allow uncrypt sysfs:file { write };
 allow uncrypt ubootenv_path:blk_file { create setattr getattr read open write };
 allow uncrypt var_path:dir search;
