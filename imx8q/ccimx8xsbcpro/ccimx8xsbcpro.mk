@@ -180,14 +180,16 @@ PRODUCT_PACKAGES += \
 	wifilogd \
 	wificond
 
-# # Qcom WiFi Firmware
-# PRODUCT_COPY_FILES += \
-# 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/bdwlan30.bin:vendor/firmware/bdwlan30.bin \
-# 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/otp30.bin:vendor/firmware/otp30.bin \
-# 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/qwlan30.bin:vendor/firmware/qwlan30.bin \
-# 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/qca6174/utf30.bin:vendor/firmware/utf30.bin \
-# 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/wlan/qca6174/qcom_cfg.ini:vendor/firmware/wlan/qcom_cfg.ini
-#
+# QCA6574
+PRODUCT_PACKAGES += \
+	qca6574_wlan.ko \
+	qwlan30 \
+	fakeboar \
+	otp \
+	utf \
+	WCNSS_cfg \
+	WCNSS_qcom_cfg
+
 # # Qcom Bluetooth Firmware
 # PRODUCT_COPY_FILES += \
 # 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/nvm_tlv_3.2.bin:vendor/firmware/nvm_tlv_3.2.bin \
