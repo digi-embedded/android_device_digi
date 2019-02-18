@@ -1,4 +1,5 @@
 com.android.server.can.ICANService u:object_r:digiservices:s0
+com.android.server.cloudconnector.ICloudConnectorService u:object_r:digiservices:s0
 com.android.server.firmwareupdate.IFirmwareUpdateService u:object_r:digiservices:s0
 com.android.server.gpio.IGPIOService u:object_r:digiservices:s0
 com.android.server.i2c.II2CService u:object_r:digiservices:s0
