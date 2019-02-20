@@ -2,6 +2,7 @@
 # It will inherit from FSL core product which in turn inherit from Google generic
 
 IMX_DEVICE_PATH := device/digi/imx8q/ccimx8xsbcpro
+DIGI_PROPRIETARY_PATH := vendor/digi/proprietary
 
 -include device/fsl/common/imx_path/ImxPathConfig.mk
 $(call inherit-product, device/digi/imx8q/ProductConfigCommon.mk)
