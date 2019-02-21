@@ -7,4 +7,4 @@ uramdisk: $(INSTALLED_URAMDISK_TARGET)
 
 $(INSTALLED_URAMDISK_TARGET): $(INSTALLED_RAMDISK_TARGET) | $(MKIMAGE)
 	$(hide) mkdir -p $(dir $@)
-	$(hide) $(MKIMAGE) -A arm -O linux -T ramdisk -n "Android U-Boot ramdisk" -d $< $@
+	$(hide) $(MKIMAGE) -A $(TARGET_ARCH) -O linux -T ramdisk -n "Android U-Boot ramdisk" -d $< $@

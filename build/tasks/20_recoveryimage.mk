@@ -18,7 +18,7 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): $(INSTALLED_BOOTSCRIPT_TARGET)
 	$(call build-recoveryimage-target, $@)
 	# Remove android type recovery images
 	rm -f $(patsubst %.img,%*.img,$@)
-	$(MKIMAGE) -A arm -O linux -T ramdisk -n "Android U-Boot recovery ramdisk" -d $(recovery_ramdisk) $(INSTALLED_URAMDISK_RECOVERY_TARGET)
+	$(MKIMAGE) -A $(TARGET_ARCH) -O linux -T ramdisk -n "Android U-Boot recovery ramdisk" -d $(recovery_ramdisk) $(INSTALLED_URAMDISK_RECOVERY_TARGET)
 	rm -f $@ && mkfs.vfat -s 1 -n "RECOVERY" -S 512 -C $@ $(RECOVERYIMAGE_BLOCKS)
 	$(FAT16COPY) $@ $(RECOVERYIMAGE_FILES)
 	#

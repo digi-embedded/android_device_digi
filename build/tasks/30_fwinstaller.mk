@@ -24,7 +24,7 @@ fwinstaller: $(FWINSTALLER_ZIP)
 
 $(FWINSTALLER_TARGET): $(FWINSTALLER_SRC) | $(MKIMAGE)
 	$(hide) mkdir -p $(dir $@)
-	$(hide) $(MKIMAGE) -A arm -O linux -T script -C none -n "Install script" -d $< $@
+	$(hide) $(MKIMAGE) -A $(TARGET_ARCH) -O linux -T script -C none -n "Install script" -d $< $@
 
 $(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(TARGET_BOOTLOADER_IMAGE)
 	$(hide) rm -f $@

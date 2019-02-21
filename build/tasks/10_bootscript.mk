@@ -8,4 +8,4 @@ bootscript: $(INSTALLED_BOOTSCRIPT_TARGET)
 
 $(INSTALLED_BOOTSCRIPT_TARGET): $(BOOTSCRIPT_SRC) | $(MKIMAGE)
 	$(hide) mkdir -p $(dir $@)
-	$(hide) $(MKIMAGE) -A arm -O linux -T script -C none -n "Boot script" -d $< $@
+	$(hide) $(MKIMAGE) -A $(TARGET_ARCH) -O linux -T script -C none -n "Boot script" -d $< $@
