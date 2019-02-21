@@ -122,7 +122,13 @@ BOARD_SEPOLICY_DIRS := \
 	$(IMX_DEVICE_PATH)/sepolicy \
 	device/fsl/imx8q/sepolicy
 
-BOARD_AVB_ENABLE := true
+# Disable A/B system updates and AVB (android verified boot)
+AB_OTA_UPDATER := false
+BOARD_AVB_ENABLE := false
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
+BOARD_USES_RECOVERY_AS_BOOT := false
+TARGET_NO_RECOVERY := false
+
 TARGET_USES_MKE2FS := true
 
 TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers

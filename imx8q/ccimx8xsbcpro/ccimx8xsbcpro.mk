@@ -15,8 +15,6 @@ PRODUCT_MANUFACTURER := digi
 KERNEL_IMX_PATH := vendor/digi
 UBOOT_IMX_PATH := vendor/digi
 
-PRODUCT_FULL_TREBLE_OVERRIDE := true
-
 PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
 	$(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
