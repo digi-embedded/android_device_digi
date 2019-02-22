@@ -33,6 +33,8 @@ BOARD_VENDOR_KERNEL_MODULES += \
 # for recovery service
 TARGET_SELECT_KEY := 28
 
+KERNEL_NAME := zImage
+
 # atheros 3k BT
 BOARD_HAVE_BLUETOOTH_AR3K := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/digi/imx6dq/ccimx6sbc/bluetooth

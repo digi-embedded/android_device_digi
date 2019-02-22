@@ -8,18 +8,18 @@ INSTALLED_URAMDISK_RECOVERY_TARGET := $(PRODUCT_OUT)/uramdisk-recovery.img
 RECOVERYIMAGE_BLOCKS := $(shell expr $(BOARD_RECOVERYIMAGE_PARTITION_SIZE) / 1024)
 
 # Recovery image included files
-RECOVERYIMAGE_FILES := $(KERNEL_IMAGE_NAME)
-RECOVERYIMAGE_FILES += $(shell echo $(TARGET_BOARD_DTS_CONFIG) | sed -e "s,[^: ]\+:,$(KERNEL_OUT)/,g")
+RECOVERYIMAGE_FILES := $(KERNEL_BIN)
+RECOVERYIMAGE_FILES += $(KERNEL_DTBS)
 RECOVERYIMAGE_FILES += $(INSTALLED_BOOTSCRIPT_TARGET)
 RECOVERYIMAGE_FILES += $(INSTALLED_URAMDISK_RECOVERY_TARGET)
 
-$(INSTALLED_RECOVERYIMAGE_TARGET): $(INSTALLED_BOOTSCRIPT_TARGET)
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(KERNEL_DTBS_MAKETARGET) $(INSTALLED_BOOTSCRIPT_TARGET)
 	$(call pretty,"Target DEA recovery image: $@")
 	$(call build-recoveryimage-target, $@)
 	# Remove android type recovery images
-	rm -f $(patsubst %.img,%*.img,$@)
+	rm -f $@
 	$(MKIMAGE) -A $(TARGET_ARCH) -O linux -T ramdisk -n "Android U-Boot recovery ramdisk" -d $(recovery_ramdisk) $(INSTALLED_URAMDISK_RECOVERY_TARGET)
-	rm -f $@ && mkfs.vfat -s 1 -n "RECOVERY" -S 512 -C $@ $(RECOVERYIMAGE_BLOCKS)
+	rm -f $@ && mkfs.vfat -n "RECOVERY" -S 512 -C $@ $(RECOVERYIMAGE_BLOCKS)
 	$(FAT16COPY) $@ $(RECOVERYIMAGE_FILES)
 	#
 	# Truncate VFAT recovery image:
