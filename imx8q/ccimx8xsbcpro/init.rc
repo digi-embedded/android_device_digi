@@ -1,6 +1,5 @@
 import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
 import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.soc_type}.rc
-import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.storage_type}.rc
 
 on early-init
     # mount the debugfs
@@ -34,6 +33,13 @@ on init
     write /dev/stune/top-app/schedtune.prefer_idle 1
     write /dev/stune/rt/schedtune.boost 50
     write /dev/stune/rt/schedtune.prefer_idle 1
+
+    # Symlink for bootdevice
+    wait /dev/block/platform/${ro.boot.bootdevice}
+    symlink /dev/block/platform/${ro.boot.bootdevice} /dev/block/bootdevice
+
+    # Load persistent dm-verity state
+    verity_load_state
 
 on late-fs
     # Start keymaster service
@@ -208,7 +214,7 @@ service hci_filter_root /vendor/bin/wcnss_filter
     disabled
 
 on fs
-# mount ext4 partitions
+    # mount ext4 partitions
     mount_all /vendor/etc/fstab.digi
 
     # Adjust parameters for dm-verity device

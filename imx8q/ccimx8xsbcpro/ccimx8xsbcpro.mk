@@ -18,10 +18,6 @@ UBOOT_IMX_PATH := vendor/digi
 PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
 	$(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
-	$(IMX_DEVICE_PATH)/init.digi.emmc.rc:root/init.recovery.digi.emmc.rc \
-	$(IMX_DEVICE_PATH)/init.digi.emmc.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.emmc.rc \
-	$(IMX_DEVICE_PATH)/init.digi.sd.rc:root/init.recovery.digi.sd.rc \
-	$(IMX_DEVICE_PATH)/init.digi.sd.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.sd.rc \
 	$(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qm.rc \
 	$(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qxp.rc \
 	$(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.usb.rc \
