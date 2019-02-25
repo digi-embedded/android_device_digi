@@ -211,8 +211,7 @@ PRODUCT_PACKAGES += \
 	android.hardware.gatekeeper@1.0-service
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.internel.storage_size=/sys/block/mmcblk0/size \
-	ro.frp.pst=/dev/block/by-name/presistdata
+	ro.internel.storage_size=/sys/block/mmcblk0/size
 
 # ro.product.first_api_level indicates the first api level the device has commercially launched on.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -225,7 +224,7 @@ PRODUCT_PACKAGES += \
 	lib_omx_v4l2_enc_arm11_elinux
 
 # Add oem unlocking option in settings.
-PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
+PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/frp
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 BOARD_VNDK_VERSION := current
