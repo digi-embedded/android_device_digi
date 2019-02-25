@@ -1,0 +1,101 @@
+#
+# U-Boot bootscript for EMMC images created by Android.
+#
+
+#
+# Set device tree filename depending on the board ID (if defined)
+#
+if test -n "${board_id}"; then
+	setenv fdt_file ccimx8x-sbc-pro-id${board_id}.dtb
+else
+	#
+	# Set device tree filename depending on the hardware variant
+	#
+	if test "${module_variant}" = "0x01"; then
+		setenv fdt_file ccimx8x-sbc-pro-wb.dtb
+	elif test "${module_variant}" = "0x02"; then
+		setenv fdt_file ccimx8x-sbc-pro-wb.dtb
+	elif test "${module_variant}" = "0x03"; then
+		setenv fdt_file ccimx8x-sbc-pro.dtb
+	elif test "${module_variant}" = "0x04"; then
+		setenv fdt_file ccimx8x-sbc-pro-wb.dtb
+	elif test "${module_variant}" = "0x05"; then
+		setenv fdt_file ccimx8x-sbc-pro.dtb
+	else
+		setenv fdt_file ccimx8x-sbc-pro-wb.dtb
+	fi
+fi
+
+#
+# Configure filename for the rest of the artifacts
+#
+setenv image Image
+setenv dboot_kernel_var image
+if itest.s "x1" == "x${mmcpart}" ; then
+	setenv initrd_file uramdisk.img
+elif itest.s "x2" == "x${mmcpart}" ; then
+	setenv initrd_file uramdisk-recovery.img
+fi
+
+#
+# Configure android bootargs
+#
+# NOT YET IMPLEMENTED (BOOTLOADER??)
+#   androidboot.serialno=2010080b57ac1a17
+#   androidboot.boottime=1BLL:0,1BLE:20874,KL:0,KD:0,AVB:2690,ODT:0,SW:0
+#   androidboot.bootreason=reboot
+#
+# Initialize with MEK hardcoded bootargs
+setenv bootargs_android init=/init androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm
+setenv bootargs_android $bootargs_android firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152
+# Complete bootargs
+setenv bootargs_android $bootargs_android androidboot.console=$console rootwait androidboot.hardware=digi
+setenv bootargs_android $bootargs_android androidboot.soc_type=imx8qxp
+setenv bootargs_android $bootargs_android androidboot.btmacaddr=$btaddr
+
+# Trusty OS (https://source.android.com/security/trusty)
+if itest.s "xtrusty" != "x$keystore"; then
+	keystore="software"
+else
+	keystore="trusty"
+fi
+setenv bootargs_android $bootargs_android androidboot.keystore=$keystore
+
+# Bootdevice (emmc, sd) and storage_type (needed by the "first stage mount" init)
+if itest.s "x0" == "x${mmcbootdev}" ; then
+	bootdev="5b010000.usdhc"
+	storage_type="emmc"
+elif itest.s "x1" == "x${mmcbootdev}" ; then
+	bootdev="5b020000.usdhc"
+	storage_type="sd"
+fi
+setenv bootargs_android $bootargs_android androidboot.bootdevice=$bootdev androidboot.storage_type=$storage_type
+
+# Country code
+if itest.s "x" == "x$wificountrycode" ; then
+	wificountrycode="US"
+fi
+setenv bootargs_android $bootargs_android androidboot.wificountrycode=$wificountrycode
+
+# Video
+if itest.s "x" == "x$video" ; then
+	video="video=mxcfb0:dev=hdmi video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off"
+fi
+setenv bootargs_android $bootargs_android $video
+
+# HWID cert
+# setexpr ocotp_mac0 *0x021BC620
+# setexpr ocotp_mac1 *0x021BC630
+# setexpr cert sub ".*(.)" "\\1" ${ocotp_mac1}
+# setenv bootargs_android $bootargs_android androidboot.hwid-cert="$cert"
+
+# Serial Number
+# setexpr yw sub "(...).*" "\\1" ${ocotp_mac1}
+# setexpr sn sub ".*(.....)" "\\1" ${ocotp_mac0}
+# setenv bootargs_android $bootargs_android androidboot.serialno="$yw$sn"
+
+#
+# Boot
+#
+setenv boot_initrd true
+dboot android mmc ${mmcbootdev}:${mmcpart}

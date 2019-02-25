@@ -136,3 +136,21 @@ TARGET_BOARD_KERNEL_HEADERS := device/fsl/common/kernel-headers
 # Use sparse EXT4 images
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
+
+#
+# DEA specific build time options
+#
+TARGET_DEA_BOOTIMAGE := true
+
+#
+# Partition sizes
+# ---------------
+# boot:     64 MiB
+# recovery: 64 MiB
+# system: 2048 MiB
+# vendor: 1024 MiB
+#
+BOARD_BOOTIMAGE_PARTITION_SIZE   := 67108864
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
+BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824
