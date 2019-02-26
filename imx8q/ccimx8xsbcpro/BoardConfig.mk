@@ -80,7 +80,7 @@ USE_GPU_ALLOCATOR := false
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
-KERNEL_NAME := Image
+KERNEL_NAME := Image.gz
 
 # BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152 androidboot.console=ttyLP0
 
@@ -146,12 +146,12 @@ TARGET_DEA_BOOTIMAGE := true
 #
 # Partition sizes
 # ---------------
-# boot:     64 MiB
-# recovery: 64 MiB
+# boot:     32 MiB
+# recovery: 32 MiB
 # system: 2048 MiB
 # vendor: 1024 MiB
 #
-BOARD_BOOTIMAGE_PARTITION_SIZE   := 67108864
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 67108864
+BOARD_BOOTIMAGE_PARTITION_SIZE   := 33554432
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
 BOARD_VENDORIMAGE_PARTITION_SIZE := 1073741824

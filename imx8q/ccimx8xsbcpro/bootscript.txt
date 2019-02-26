@@ -29,8 +29,8 @@ fi
 #
 # Configure filename for the rest of the artifacts
 #
-setenv image Image
-setenv dboot_kernel_var image
+setenv imagegz Image.gz
+setenv dboot_kernel_var imagegz
 if itest.s "x1" == "x${mmcpart}" ; then
 	setenv initrd_file uramdisk.img
 elif itest.s "x2" == "x${mmcpart}" ; then
