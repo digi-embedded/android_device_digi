@@ -142,6 +142,7 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 # DEA specific build time options
 #
 TARGET_DEA_BOOTIMAGE := true
+TARGET_DEA_SPARSE_VFAT_IMAGES := true
 
 #
 # Partition sizes

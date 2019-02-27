@@ -13,16 +13,17 @@ BOOTIMAGE_FILES += $(KERNEL_DTBS)
 BOOTIMAGE_FILES += $(INSTALLED_BOOTSCRIPT_TARGET)
 BOOTIMAGE_FILES += $(INSTALLED_URAMDISK_TARGET)
 
-$(INSTALLED_BOOTIMAGE_TARGET): $(INTERNAL_BOOTIMAGE_FILES) $(KERNEL_DTBS_MAKETARGET) $(INSTALLED_BOOTSCRIPT_TARGET) $(INSTALLED_URAMDISK_TARGET)
+# Temporary file to create the boot image
+BOOTIMAGE_TMPFILE := $(shell mktemp -u $(INSTALLED_BOOTIMAGE_TARGET).XXXXXX)
+
+$(INSTALLED_BOOTIMAGE_TARGET): $(INTERNAL_BOOTIMAGE_FILES) $(KERNEL_DTBS_MAKETARGET) $(INSTALLED_BOOTSCRIPT_TARGET) $(INSTALLED_URAMDISK_TARGET) | $(IMG2SIMG)
 	$(call pretty,"Target DEA boot image: $@")
-	rm -f $@ && mkfs.vfat -n "BOOTIMAGE" -S 512 -C $@ $(BOOTIMAGE_BLOCKS)
-	$(FAT16COPY) $@ $(BOOTIMAGE_FILES)
-	#
-	# Truncate VFAT boot image:
-	#   - size of files + 10% extra space (in bytes)
-	#   - u-boot writes 512 bytes sectors so truncate at a sector boundary
-	#
-	BOOTIMAGE_FILES_SIZE="$$(($$(du -bc $(BOOTIMAGE_FILES) | tail -n1 | cut -f1) * (100 + 10) / 100))"; \
-	truncate -s $$((((BOOTIMAGE_FILES_SIZE + 511) / 512) * 512)) $@
+	rm -f $@ && mkfs.vfat -a -n "BOOTIMAGE" -S 512 -C $(BOOTIMAGE_TMPFILE) $(BOOTIMAGE_BLOCKS)
+	$(FAT16COPY) $(BOOTIMAGE_TMPFILE) $(BOOTIMAGE_FILES)
+ifeq ($(strip $(TARGET_DEA_SPARSE_VFAT_IMAGES)),true)
+	$(IMG2SIMG) $(BOOTIMAGE_TMPFILE) $@ && rm -f $(BOOTIMAGE_TMPFILE)
+else
+	mv $(BOOTIMAGE_TMPFILE) $@
+endif
 
 endif

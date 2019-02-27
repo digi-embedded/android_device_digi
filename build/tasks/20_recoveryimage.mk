@@ -13,20 +13,19 @@ RECOVERYIMAGE_FILES += $(KERNEL_DTBS)
 RECOVERYIMAGE_FILES += $(INSTALLED_BOOTSCRIPT_TARGET)
 RECOVERYIMAGE_FILES += $(INSTALLED_URAMDISK_RECOVERY_TARGET)
 
-$(INSTALLED_RECOVERYIMAGE_TARGET): $(KERNEL_DTBS_MAKETARGET) $(INSTALLED_BOOTSCRIPT_TARGET)
+# Temporary file to create the recovery image
+RECOVERYIMAGE_TMPFILE := $(shell mktemp -u $(INSTALLED_RECOVERYIMAGE_TARGET).XXXXXX)
+
+$(INSTALLED_RECOVERYIMAGE_TARGET): $(KERNEL_DTBS_MAKETARGET) $(INSTALLED_BOOTSCRIPT_TARGET) | $(IMG2SIMG)
 	$(call pretty,"Target DEA recovery image: $@")
 	$(call build-recoveryimage-target, $@)
-	# Remove android type recovery images
-	rm -f $@
 	$(MKIMAGE) -A $(TARGET_ARCH) -O linux -T ramdisk -n "Android U-Boot recovery ramdisk" -d $(recovery_ramdisk) $(INSTALLED_URAMDISK_RECOVERY_TARGET)
-	rm -f $@ && mkfs.vfat -n "RECOVERY" -S 512 -C $@ $(RECOVERYIMAGE_BLOCKS)
-	$(FAT16COPY) $@ $(RECOVERYIMAGE_FILES)
-	#
-	# Truncate VFAT recovery image:
-	#   - size of files + 10% extra space (in bytes)
-	#   - u-boot writes 512 bytes sectors so truncate at a sector boundary
-	#
-	RECOVERYIMAGE_FILES_SIZE="$$(($$(du -bc $(RECOVERYIMAGE_FILES) | tail -n1 | cut -f1) * (100 + 10) / 100))"; \
-	truncate -s $$((((RECOVERYIMAGE_FILES_SIZE + 511) / 512) * 512)) $@
+	rm -f $@ && mkfs.vfat -a -n "RECOVERY" -S 512 -C $(RECOVERYIMAGE_TMPFILE) $(RECOVERYIMAGE_BLOCKS)
+	$(FAT16COPY) $(RECOVERYIMAGE_TMPFILE) $(RECOVERYIMAGE_FILES)
+ifeq ($(strip $(TARGET_DEA_SPARSE_VFAT_IMAGES)),true)
+	$(IMG2SIMG) $(RECOVERYIMAGE_TMPFILE) $@ && rm -f $(RECOVERYIMAGE_TMPFILE)
+else
+	mv $(RECOVERYIMAGE_TMPFILE) $@
+endif
 
 endif
