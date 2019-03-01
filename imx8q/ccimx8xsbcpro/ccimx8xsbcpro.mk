@@ -190,6 +190,11 @@ PRODUCT_PACKAGES += \
 	WCNSS_cfg \
 	WCNSS_qcom_cfg
 
+# Custom Digi packages
+PRODUCT_PACKAGES += \
+	com.digi.android \
+	com.digi.android.xml
+
 # # Qcom Bluetooth Firmware
 # PRODUCT_COPY_FILES += \
 # 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/nvm_tlv_3.2.bin:vendor/firmware/nvm_tlv_3.2.bin \
