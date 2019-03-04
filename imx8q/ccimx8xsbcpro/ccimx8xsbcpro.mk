@@ -193,7 +193,15 @@ PRODUCT_PACKAGES += \
 # Custom Digi packages
 PRODUCT_PACKAGES += \
 	com.digi.android \
-	com.digi.android.xml
+	com.digi.android.xml \
+	DigiServicesApp \
+	digiservices \
+	digiservices.xml \
+	libdigiservices
+
+# Jars boot order.
+PRODUCT_BOOT_JARS += \
+	digiservices
 
 # # Qcom Bluetooth Firmware
 # PRODUCT_COPY_FILES += \
