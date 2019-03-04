@@ -1,0 +1,6 @@
+<resources>
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_gpio">access system GPIOs</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_gpio">Allows the app to access system GPIO service.</string>
+</resources>

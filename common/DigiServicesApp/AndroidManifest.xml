@@ -5,6 +5,12 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+    <permission android:name="com.digi.android.permission.GPIO"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_gpio"
+        android:description="@string/permdesc_gpio" />
+
     <application android:name=".DigiServicesApp" android:persistent="true">
     </application>
 </manifest>

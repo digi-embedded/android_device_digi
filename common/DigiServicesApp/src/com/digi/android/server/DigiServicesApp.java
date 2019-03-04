@@ -17,6 +17,10 @@ package com.digi.android.server;
 
 import android.app.Application;
 
+import android.os.ServiceManager;
+import com.android.server.gpio.GPIOServiceImpl;
+import com.android.server.gpio.IGPIOService;
+
 public class DigiServicesApp extends Application {
 
     static {
@@ -26,6 +30,9 @@ public class DigiServicesApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ServiceManager.addService(IGPIOService.class.getName(),
+                                  new GPIOServiceImpl(this));
     }
 
     @Override
