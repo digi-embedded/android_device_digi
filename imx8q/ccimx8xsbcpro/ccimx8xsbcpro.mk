@@ -190,6 +190,11 @@ PRODUCT_PACKAGES += \
 	WCNSS_cfg \
 	WCNSS_qcom_cfg
 
+# QCA6574 Bluetooth Firmware
+PRODUCT_PACKAGES += \
+	nvm_tlv \
+	rampatch_tlv
+
 # Custom Digi packages
 PRODUCT_PACKAGES += \
 	com.digi.android \
@@ -202,12 +207,6 @@ PRODUCT_PACKAGES += \
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
 	digiservices
-
-# # Qcom Bluetooth Firmware
-# PRODUCT_COPY_FILES += \
-# 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/nvm_tlv_3.2.bin:vendor/firmware/nvm_tlv_3.2.bin \
-# 	vendor/nxp/qca-wifi-bt/1CQ_QCA6174A_LEA_2.0/lib/firmware/rampatch_tlv_3.2.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-# 	vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_mek_8q:vendor/bin/wcnss_filter
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
