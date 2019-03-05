@@ -35,3 +35,16 @@
 #Neural Network HAL service
 /vendor/bin/hw/android\.hardware\.neuralnetworks@1\.0-service-imx-nn          u:object_r:hal_neuralnetworks_imx_exec:s0
 
+#gpio
+/sys/class/gpio/export                                               u:object_r:sysfs_gpio:s0
+/sys/class/gpio/unexport                                             u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5a800000.i2c/i2c-0/0-0063/mca-cc8x-gpio(/.*)?  u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d080000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d090000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d0a0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d0b0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d0c0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d0d0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d0e0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/5d0f0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/58222000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
