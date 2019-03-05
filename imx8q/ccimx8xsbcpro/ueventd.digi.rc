@@ -58,3 +58,8 @@
 /sys/devices/virtual/thermal/thermal_zone* trip_point_0_temp 0660 system system
 /sys/devices/virtual/thermal/thermal_zone* trip_point_1_temp 0660 system system
 /sys/devices/virtual/thermal/thermal_zone* trip_point_2_temp 0660 system system
+
+# GPIO
+/sys/class/gpio/gpio*  direction  0644  system  system
+/sys/class/gpio/gpio*  edge       0644  system  system
+/sys/class/gpio/gpio*  value      0644  system  system
