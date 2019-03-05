@@ -14,3 +14,6 @@ genfscon sysfs /devices/platform/5d0d0000.gpio u:object_r:sysfs_gpio:s0
 genfscon sysfs /devices/platform/5d0e0000.gpio u:object_r:sysfs_gpio:s0
 genfscon sysfs /devices/platform/5d0f0000.gpio u:object_r:sysfs_gpio:s0
 genfscon sysfs /devices/platform/58222000.gpio u:object_r:sysfs_gpio:s0
+
+# Device Tree
+genfscon sysfs /firmware/devicetree u:object_r:sysfs_device_tree:s0
