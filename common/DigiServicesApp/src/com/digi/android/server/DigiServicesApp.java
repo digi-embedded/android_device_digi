@@ -20,6 +20,8 @@ import android.app.Application;
 import android.os.ServiceManager;
 import com.android.server.gpio.GPIOServiceImpl;
 import com.android.server.gpio.IGPIOService;
+import com.android.server.i2c.I2CServiceImpl;
+import com.android.server.i2c.II2CService;
 
 public class DigiServicesApp extends Application {
 
@@ -33,6 +35,9 @@ public class DigiServicesApp extends Application {
 
         ServiceManager.addService(IGPIOService.class.getName(),
                                   new GPIOServiceImpl(this));
+
+        ServiceManager.addService(II2CService.class.getName(),
+                                  new I2CServiceImpl(this));
     }
 
     @Override

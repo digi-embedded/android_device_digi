@@ -11,6 +11,12 @@
         android:label="@string/permlab_gpio"
         android:description="@string/permdesc_gpio" />
 
+    <permission android:name="com.digi.android.permission.I2C"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_i2c"
+        android:description="@string/permdesc_i2c" />
+
     <application android:name=".DigiServicesApp" android:persistent="true">
     </application>
 </manifest>
