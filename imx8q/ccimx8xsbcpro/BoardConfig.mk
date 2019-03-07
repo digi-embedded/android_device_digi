@@ -15,12 +15,6 @@ endif
 
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.digi
 
-# Support gpt
-BOARD_BPT_INPUT_FILES += device/fsl/common/partition/device-partitions-13GB-ab.bpt
-ADDITION_BPT_PARTITION = \
-	partition-table-7GB:device/fsl/common/partition/device-partitions-7GB-ab.bpt \
-	partition-table-28GB:device/fsl/common/partition/device-partitions-28GB-ab.bpt
-
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
@@ -78,10 +72,6 @@ USE_GPU_ALLOCATOR := false
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
 
 KERNEL_NAME := Image.gz
-
-# BOARD_KERNEL_CMDLINE := init=/init androidboot.hardware=freescale androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152 androidboot.console=ttyLP0
-
-BOARD_PREBUILT_DTBOIMAGE := out/target/product/ccimx8xsbcpro/dtbo-ccimx8x-sbc-pro-id135.img
 
 #
 # U-Boot configurations
