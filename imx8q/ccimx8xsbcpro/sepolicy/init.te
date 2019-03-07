@@ -1,1 +1,3 @@
 allow init proc:file setattr;
+allow init var_path:dir { write open create lock };
+allow init var_path:file { write open create lock };

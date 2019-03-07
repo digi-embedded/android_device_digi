@@ -41,6 +41,11 @@ on init
     # Load persistent dm-verity state
     verity_load_state
 
+    # Create /var/lock dir required for "fw_printenv"
+    mkdir /dev/lock 0775 system shell
+    mkdir /var 0775 root shell
+    symlink /dev/lock /var/lock
+
 on late-fs
     # Start keymaster service
     start vendor.keymaster-3-0-${ro.boot.keystore}

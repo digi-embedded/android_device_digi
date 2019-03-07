@@ -1,2 +1,5 @@
-type sysfs_gpio, sysfs_type, fs_type;
+type lock_path, file_type;
 type sysfs_device_tree, fs_type, sysfs_type;
+type sysfs_gpio, sysfs_type, fs_type;
+type ubootenv_path, file_type;
+type var_path, file_type;

@@ -24,6 +24,11 @@ on init
     # Load persistent dm-verity state
     verity_load_state
 
+    # Create /var/lock dir required for "fw_printenv"
+    mkdir /dev/lock 0775 system shell
+    mkdir /var 0775 root shell
+    symlink /dev/lock /var/lock
+
 on property:sys.usb.ffs.ready=1
     rm /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1

@@ -237,6 +237,10 @@ PRODUCT_PACKAGES += \
 	lib_omx_v4l2_dec_arm11_elinux \
 	lib_omx_v4l2_enc_arm11_elinux
 
+PRODUCT_PACKAGES += \
+	fw_printenv \
+	fw_env.config
+
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/frp
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true

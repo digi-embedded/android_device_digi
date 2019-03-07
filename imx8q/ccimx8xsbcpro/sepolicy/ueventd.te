@@ -1,0 +1,1 @@
+allow ueventd ubootenv_path:blk_file { create setattr getattr };
