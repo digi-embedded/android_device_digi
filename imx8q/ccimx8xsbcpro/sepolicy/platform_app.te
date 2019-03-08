@@ -1,1 +1,2 @@
+allow platform_app bluetooth_data_file:dir getattr;
 allow platform_app ethernet_prop:file { read open getattr map };
