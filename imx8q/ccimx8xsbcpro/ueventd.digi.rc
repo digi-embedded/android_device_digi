@@ -17,6 +17,7 @@
 /dev/trusty-ipc-dev0      0660   system     drmrpc
 /dev/block/mmcblk0rpmb    0600   system     system
 /dev/i2c*                 0660   system     system
+/dev/spidev*              0660   system     system
 
 # sensors sysfs
 /dev/FreescaleAccelerometer                     0660  system   system
