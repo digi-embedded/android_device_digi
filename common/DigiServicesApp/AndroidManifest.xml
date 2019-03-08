@@ -17,6 +17,12 @@
         android:label="@string/permlab_i2c"
         android:description="@string/permdesc_i2c" />
 
+    <permission android:name="com.digi.android.permission.SPI"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_spi"
+        android:description="@string/permdesc_spi" />
+
     <!-- Location related permissions -->
     <uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>

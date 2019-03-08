@@ -8,4 +8,9 @@
     <string name="permlab_i2c">access system I2C</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_i2c">Allows the app to access system I2C service.</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_spi">access system SPI</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_spi">Allows the app to access system SPI service.</string>
 </resources>
