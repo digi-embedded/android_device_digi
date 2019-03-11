@@ -22,7 +22,9 @@ LOCAL_PACKAGE_NAME := DigiServicesApp
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := $(call all-java-files-under,src)
 LOCAL_PRIVATE_PLATFORM_APIS := current
-LOCAL_JAVA_LIBRARIES := digiservices
+LOCAL_JAVA_LIBRARIES := \
+    digiservices \
+    com.android.location.provider
 LOCAL_PROGUARD_ENABLED := disabled
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
