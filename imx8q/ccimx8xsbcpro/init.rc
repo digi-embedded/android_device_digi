@@ -248,6 +248,9 @@ on post-fs
     # This may have been created by the recovery system with the wrong context.
     restorecon /cache/recovery
 
+    # Create Firmware Update directory in cache.
+    mkdir /cache/fw_update 0771 system system
+
 on post-fs-data
     setprop vold.post_fs_data_done 1
 
