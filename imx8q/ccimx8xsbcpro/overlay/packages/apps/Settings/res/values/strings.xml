@@ -19,4 +19,8 @@
     <!-- Help URL, WiFi [DO NOT TRANSLATE] -->
     <string name="help_url_wifi" translatable="false">http://support.google.com/wifi</string>
     <string name="help_url_accounts" translatable="false">http://support.google.com/accounts</string>
+    <!-- A menu item in "About phone" that allows the user to update the phone with settings
+    from their cell phone carrier. The use of the string is similar to the string
+    "system_update_settings_list_item_title" in this project. [CHAR LIMIT=25] -->
+    <string name="additional_system_update_settings_list_item_title">System update</string>
 </resources>

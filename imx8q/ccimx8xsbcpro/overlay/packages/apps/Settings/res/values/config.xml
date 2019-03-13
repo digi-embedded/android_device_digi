@@ -15,7 +15,7 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="additional_system_update" translatable="false">com.fsl.android.ota</string>
-    <string name="additional_system_update_menu" translatable="false">com.fsl.android.ota.OtaAppActivity</string>
+    <string name="additional_system_update" translatable="false">com.android.settings</string>
+    <string name="additional_system_update_menu" translatable="false">com.android.settings.deviceinfo.FirmwareUpdate</string>
 
 </resources>
