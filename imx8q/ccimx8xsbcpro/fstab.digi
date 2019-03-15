@@ -4,6 +4,7 @@
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
 /devices/platform/5b0d0000.usb/ci_hdrc.0/* auto auto defaults voldmanaged=usb:auto
+/devices/platform/5b110000.usb3/xhci-cdns3/* auto auto defaults voldmanaged=usb:auto
 
 /dev/block/by-name/system      /system  ext4    ro,barrier=1                                                                     wait
 /dev/block/by-name/cache       /cache   ext4    noatime,nosuid,nodev,nomblk_io_submit                                            wait
