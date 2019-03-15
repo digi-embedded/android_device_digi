@@ -41,7 +41,6 @@ fi
 # Configure android bootargs
 #
 # NOT YET IMPLEMENTED (BOOTLOADER??)
-#   androidboot.serialno=2010080b57ac1a17
 #   androidboot.boottime=1BLL:0,1BLE:20874,KL:0,KD:0,AVB:2690,ODT:0,SW:0
 #   androidboot.bootreason=reboot
 #
@@ -89,10 +88,17 @@ setenv bootargs_android $bootargs_android $video
 # setexpr cert sub ".*(.)" "\\1" ${ocotp_mac1}
 # setenv bootargs_android $bootargs_android androidboot.hwid-cert="$cert"
 
-# Serial Number
-# setexpr yw sub "(...).*" "\\1" ${ocotp_mac1}
-# setexpr sn sub ".*(.....)" "\\1" ${ocotp_mac0}
-# setenv bootargs_android $bootargs_android androidboot.serialno="$yw$sn"
+# Serial Number (Year-Month-Serial: MAC1_ADDR[29:0])
+if itest.s "x" != "x${hwid_0}"; then
+	setexpr serialno ${hwid_0} \& 0x3FFFFFFF
+	setenv bootargs_android ${bootargs_android} androidboot.serialno=${serialno}
+else
+	echo ""
+	echo "*********************************************************************"
+	echo "* Warning: OTP data not found. Android serial number not configured *"
+	echo "*********************************************************************"
+	echo ""
+fi
 
 #
 # Boot
