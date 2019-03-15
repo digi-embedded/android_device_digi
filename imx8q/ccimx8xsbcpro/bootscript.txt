@@ -46,47 +46,40 @@ fi
 #
 # Initialize with MEK hardcoded bootargs
 setenv bootargs_android init=/init androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm
-setenv bootargs_android $bootargs_android firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152
+setenv bootargs_android ${bootargs_android} firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152
 # Complete bootargs
-setenv bootargs_android $bootargs_android androidboot.console=$console rootwait androidboot.hardware=digi
-setenv bootargs_android $bootargs_android androidboot.soc_type=imx8qxp
-setenv bootargs_android $bootargs_android androidboot.btmacaddr=$btaddr
+setenv bootargs_android ${bootargs_android} androidboot.console=${console} rootwait androidboot.hardware=digi
+setenv bootargs_android ${bootargs_android} androidboot.soc_type=imx8qxp androidboot.btmacaddr=${btaddr}
 
 # Trusty OS (https://source.android.com/security/trusty)
-if itest.s "xtrusty" != "x$keystore"; then
+if itest.s "xtrusty" != "x${keystore}"; then
 	keystore="software"
 else
 	keystore="trusty"
 fi
-setenv bootargs_android $bootargs_android androidboot.keystore=$keystore
+setenv bootargs_android ${bootargs_android} androidboot.keystore=${keystore}
 
 # Bootdevice (emmc, sd) and storage_type (needed by the "first stage mount" init)
-if itest.s "x0" == "x${mmcbootdev}" ; then
+if itest.s "x0" == "x${mmcbootdev}"; then
 	bootdev="5b010000.usdhc"
 	storage_type="emmc"
-elif itest.s "x1" == "x${mmcbootdev}" ; then
+elif itest.s "x1" == "x${mmcbootdev}"; then
 	bootdev="5b020000.usdhc"
 	storage_type="sd"
 fi
-setenv bootargs_android $bootargs_android androidboot.bootdevice=$bootdev androidboot.storage_type=$storage_type
+setenv bootargs_android ${bootargs_android} androidboot.bootdevice=${bootdev} androidboot.storage_type=${storage_type}
 
 # Country code
-if itest.s "x" == "x$wificountrycode" ; then
+if itest.s "x" == "x${wificountrycode}"; then
 	wificountrycode="US"
 fi
-setenv bootargs_android $bootargs_android androidboot.wificountrycode=$wificountrycode
+setenv bootargs_android ${bootargs_android} androidboot.wificountrycode=${wificountrycode}
 
 # Video
-if itest.s "x" == "x$video" ; then
+if itest.s "x" == "x${video}"; then
 	video="video=mxcfb0:dev=hdmi video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off"
 fi
-setenv bootargs_android $bootargs_android $video
-
-# HWID cert
-# setexpr ocotp_mac0 *0x021BC620
-# setexpr ocotp_mac1 *0x021BC630
-# setexpr cert sub ".*(.)" "\\1" ${ocotp_mac1}
-# setenv bootargs_android $bootargs_android androidboot.hwid-cert="$cert"
+setenv bootargs_android ${bootargs_android} ${video}
 
 # Serial Number (Year-Month-Serial: MAC1_ADDR[29:0])
 if itest.s "x" != "x${hwid_0}"; then
