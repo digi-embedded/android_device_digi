@@ -202,11 +202,13 @@ PRODUCT_PACKAGES += \
 	DigiServicesApp \
 	digiservices \
 	digiservices.xml \
-	libdigiservices
+	libdigiservices \
+	librxtxSerial
 
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
-	digiservices
+	digiservices \
+	RXTXcomm
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
