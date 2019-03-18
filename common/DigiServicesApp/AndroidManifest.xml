@@ -23,6 +23,12 @@
         android:label="@string/permlab_i2c"
         android:description="@string/permdesc_i2c" />
 
+    <permission android:name="com.digi.android.permission.SERIAL"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_serial"
+        android:description="@string/permdesc_serial" />
+
     <permission android:name="com.digi.android.permission.SPI"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"
