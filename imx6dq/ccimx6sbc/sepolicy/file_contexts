@@ -44,7 +44,7 @@
 /sbin/fw_printenv               u:object_r:fw_printenv_exec:s0
 
 #sysinfo script
-/system/bin/sysinfo		u:object_r:sysinfo:s0
+/vendor/bin/sysinfo		u:object_r:sysinfo:s0
 
 # wifi mac address (/proc/device-tree/wireless/mac-address)
 /sys/firmware/devicetree/base/wireless/mac-address      u:object_r:sysfs_mac_address:s0
