@@ -209,20 +209,17 @@ fi
 KERNEL_VERSION="$(uname -a)"
 
 [ -f /system/bin/date ] && DATE="$(date "+%Y%m%d%H%M%S")"
-FILE="/sdcard/Download/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}.txt"
+REPORT_PATH="/sdcard/Download/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}"
 
 write_environment_table
 
-if touch ${FILE} 2> /dev/null; then
-	write_environment_table >> "${FILE}"
+if touch "${REPORT_PATH}.txt" 2> /dev/null; then
+	write_environment_table >> "${REPORT_PATH}.txt"
 
-	make_report >> "${FILE}"
-	if [ -f /system/bin/gzip ]; then
-		gzip "${FILE}"
-		echo "Report generated in ${FILE}.gz"
-	else
-		echo "Report generated in ${FILE}"
-	fi
+	make_report >> "${REPORT_PATH}.txt"
+	tar -zhcf "${REPORT_PATH}.tar.gz" -C $(dirname ${REPORT_PATH}) $(basename "${REPORT_PATH}.txt") /proc/device-tree 2> /dev/null
+	echo "Report generated in ${REPORT_PATH}.tar.gz"
+	rm -rf "${REPORT_PATH}.txt"
 else
 	echo "$(dirname ${FILE}) is not writtable, skipping report generation"
 fi
