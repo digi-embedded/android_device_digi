@@ -581,6 +581,8 @@ public class RXTXCommDriver implements CommDriver
 						"rfcomm",       // bluetooth serial device
 						"ttyircomm", // linux IrCommdevices (IrDA serial emu)
 						"ttySP", // imx28
+						"ttyLP", // imx8
+						"ttyMCA", // imx8-mca
 						};
 						CandidatePortPrefixes=Temp;
 					}
