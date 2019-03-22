@@ -47,7 +47,12 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/lib
 
 LOCAL_CFLAGS += \
-	 -fPIC -D_GNU_SOURCE
+	-fPIC \
+	-D_GNU_SOURCE \
+	-Wno-unused-variable \
+	-Wno-unused-parameter \
+	-Wno-unused-function \
+	-Wno-incompatible-pointer-types
 
 LOCAL_PRELINK_MODULE := false
 LOCAL_SHARED_LIBRARIES := libdl liblog
