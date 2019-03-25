@@ -155,7 +155,7 @@ enable_file_system=True
 # Storage Directory: Determines the file system sandbox root directory to use for the
 # file system service. This setting has effect only if the 'enable_file_system' setting
 # is set to 'True'.
-storage_dir=/cache
+storage_dir=/
 
 # Firmware File Notify: Establishes the notification method in the firmware update
 # process.
