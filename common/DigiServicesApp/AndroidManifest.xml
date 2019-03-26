@@ -5,6 +5,12 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+    <permission android:name="com.digi.android.permission.CPU"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_cpu"
+        android:description="@string/permdesc_cpu" />
+
     <permission android:name="com.digi.android.permission.FIRMWARE_UPDATE"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"

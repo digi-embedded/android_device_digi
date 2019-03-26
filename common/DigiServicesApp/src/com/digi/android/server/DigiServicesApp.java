@@ -28,6 +28,8 @@ import com.android.server.serial.SerialPortServiceImpl;
 import com.android.server.serial.ISerialPortService;
 import com.android.server.spi.SPIServiceImpl;
 import com.android.server.spi.ISPIService;
+import com.android.server.system.cpu.CPUServiceImpl;
+import com.android.server.system.cpu.ICPUService;
 
 public class DigiServicesApp extends Application {
 
@@ -38,6 +40,9 @@ public class DigiServicesApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ServiceManager.addService(ICPUService.class.getName(),
+                                  new CPUServiceImpl(this));
 
         ServiceManager.addService(IFirmwareUpdateService.class.getName(),
                                   new FirmwareUpdateServiceImpl(this));
