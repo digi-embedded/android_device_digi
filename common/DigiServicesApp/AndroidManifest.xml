@@ -11,6 +11,13 @@
         android:label="@string/permlab_cpu"
         android:description="@string/permdesc_cpu" />
 
+    <!-- @deprecated The API that used this permission has been deprecated. -->
+    <permission android:name="com.digi.android.permission.CPU_TEMPERATURE"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_cpu_temperature"
+        android:description="@string/permdesc_cpu_temperature" />
+
     <permission android:name="com.digi.android.permission.FIRMWARE_UPDATE"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"

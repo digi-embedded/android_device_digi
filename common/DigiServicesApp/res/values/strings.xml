@@ -5,6 +5,11 @@
     <string name="permdesc_cpu">Allows the app to access system CPU.</string>
 
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_cpu_temperature">access CPU temperature</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_cpu_temperature">Allows the app to access system CPU temperature and receive updates.</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_firmware_update">access system Firmware Update</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_firmware_update">Allows the app to access system Firmware Update service.</string>
