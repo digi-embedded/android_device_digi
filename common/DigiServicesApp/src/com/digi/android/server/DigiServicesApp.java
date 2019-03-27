@@ -30,6 +30,8 @@ import com.android.server.spi.SPIServiceImpl;
 import com.android.server.spi.ISPIService;
 import com.android.server.system.cpu.CPUServiceImpl;
 import com.android.server.system.cpu.ICPUService;
+import com.android.server.system.memory.MemoryServiceImpl;
+import com.android.server.system.memory.IMemoryService;
 
 public class DigiServicesApp extends Application {
 
@@ -52,6 +54,9 @@ public class DigiServicesApp extends Application {
 
         ServiceManager.addService(II2CService.class.getName(),
                                   new I2CServiceImpl(this));
+
+        ServiceManager.addService(IMemoryService.class.getName(),
+                                  new MemoryServiceImpl(this));
 
         ServiceManager.addService(ISerialPortService.class.getName(),
                                   new SerialPortServiceImpl(this));
