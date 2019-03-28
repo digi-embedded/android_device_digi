@@ -60,5 +60,9 @@
 /sys/devices/platform/5d0f0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
 /sys/devices/platform/58222000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
 
+#gpu
+/sys/devices/platform/80000000.imx8_gpu_ss/gpu_mult                  u:object_r:sysfs_gpu:s0
+/sys/bus/platform/drivers/galcore/gpu3DMinClock                      u:object_r:sysfs_gpu:s0
+
 #device-tree
 /sys/firmware/devicetree/base(/.*)?	u:object_r:sysfs_device_tree:s0
