@@ -30,8 +30,10 @@ import com.android.server.spi.SPIServiceImpl;
 import com.android.server.spi.ISPIService;
 import com.android.server.system.cpu.CPUServiceImpl;
 import com.android.server.system.cpu.ICPUService;
-import com.android.server.system.memory.MemoryServiceImpl;
+import com.android.server.system.gpu.GPUServiceImpl;
+import com.android.server.system.gpu.IGPUService;
 import com.android.server.system.memory.IMemoryService;
+import com.android.server.system.memory.MemoryServiceImpl;
 
 public class DigiServicesApp extends Application {
 
@@ -51,6 +53,9 @@ public class DigiServicesApp extends Application {
 
         ServiceManager.addService(IGPIOService.class.getName(),
                                   new GPIOServiceImpl(this));
+
+        ServiceManager.addService(IGPUService.class.getName(),
+                                  new GPUServiceImpl(this));
 
         ServiceManager.addService(II2CService.class.getName(),
                                   new I2CServiceImpl(this));
