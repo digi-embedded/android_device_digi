@@ -75,12 +75,6 @@ if itest.s "x" == "x${wificountrycode}"; then
 fi
 setenv bootargs_android ${bootargs_android} androidboot.wificountrycode=${wificountrycode}
 
-# Video
-if itest.s "x" == "x${video}"; then
-	video="video=mxcfb0:dev=hdmi video=mxcfb1:off video=mxcfb2:off video=mxcfb3:off"
-fi
-setenv bootargs_android ${bootargs_android} ${video}
-
 # Serial Number (Year-Month-Serial: MAC1_ADDR[29:0])
 if itest.s "x" != "x${hwid_0}"; then
 	setexpr serialno ${hwid_0} \& 0x3FFFFFFF
