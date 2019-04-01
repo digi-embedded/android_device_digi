@@ -18,6 +18,8 @@ package com.digi.android.server;
 import android.app.Application;
 
 import android.os.ServiceManager;
+import com.android.server.can.CANServiceImpl;
+import com.android.server.can.ICANService;
 import com.android.server.firmwareupdate.FirmwareUpdateServiceImpl;
 import com.android.server.firmwareupdate.IFirmwareUpdateService;
 import com.android.server.gpio.GPIOServiceImpl;
@@ -44,6 +46,9 @@ public class DigiServicesApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ServiceManager.addService(ICANService.class.getName(),
+                                  new CANServiceImpl(this));
 
         ServiceManager.addService(ICPUService.class.getName(),
                                   new CPUServiceImpl(this));

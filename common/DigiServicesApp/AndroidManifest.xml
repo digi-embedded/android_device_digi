@@ -5,6 +5,12 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+<permission android:name="com.digi.android.permission.CAN"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_can"
+        android:description="@string/permdesc_can" />
+
     <permission android:name="com.digi.android.permission.CPU"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"
@@ -68,6 +74,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- android.permission.NET_ADMIN permission is required to manage CAN interfaces -->
+    <uses-permission android:name="android.permission.NET_ADMIN"/>
 
     <protected-broadcast android:name="com.android.server.firmwareupdate.FirmwareUpdateAppInstaller.DONE" />
 
