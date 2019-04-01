@@ -3,6 +3,8 @@ allow system_app i2c_device:chr_file { getattr open read write ioctl };
 allow system_app lock_path:dir { getattr search write add_name remove_name };
 allow system_app lock_path:file { getattr create write open read unlink };
 allow system_app proc_stat:file { getattr open read };
+allow system_app self:can_socket { bind create read write setopt };
+allow system_app self:netlink_route_socket nlmsg_write;
 allow system_app serial_device:chr_file { open read write ioctl };
 allow system_app spi_device:chr_file { getattr open read write ioctl };
 allow system_app sysfs:file { getattr open read };
@@ -16,6 +18,9 @@ allow system_app sysfs_gpio:dir { r_dir_perms };
 allow system_app sysfs_gpu:file { rw_file_perms };
 allow system_app sysfs_gpu:dir { r_dir_perms };
 allow system_app var_path:lnk_file { read };
+
+# Socket IOCTLs
+allowxperm system_app self:can_socket ioctl { can_ioctls };
 
 ### Permissions to explore the file system (Settings - System updates)
 # Access to /
