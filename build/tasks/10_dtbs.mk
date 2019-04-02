@@ -1,16 +1,16 @@
 #
 # This makefile requires on "device/fsl/common/build/kernel.mk" (which should be already included by the build system)
 #
-ifeq ($(TARGET_ARCH), arm)
+ifeq ($(TARGET_KERNEL_ARCH), arm)
 DTS_ADDITIONAL_PATH :=
-else ifeq ($(TARGET_ARCH), arm64)
+else ifeq ($(TARGET_KERNEL_ARCH), arm64)
 DTS_ADDITIONAL_PATH := digi/
 endif
 
-KERNEL_DTBS := $(shell echo $(TARGET_BOARD_DTS_CONFIG) | sed -e "s,[^: ]\+:,$(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH),g")
+KERNEL_DTBS := $(shell echo $(TARGET_BOARD_DTS_CONFIG) | sed -e "s,[^: ]\+:,$(KERNEL_OUT)/arch/$(TARGET_KERNEL_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH),g")
 KERNEL_DTBS_MAKETARGET := $(firstword $(KERNEL_DTBS))
 
-$(KERNEL_DTBS_MAKETARGET): $(KERNEL_CONFIG)
+$(KERNEL_DTBS_MAKETARGET): $(KERNEL_BIN)
 	$(hide) echo "Building $(KERNEL_ARCH) dtbs ..."
 	$(call build_kernel,dtbs)
 
