@@ -105,6 +105,12 @@ on early-boot
     # Set the density to 213 tvdpi to match CDD.
     setprop ro.sf.lcd_density 213
 
+    # Change owner, group and permissions for GPU multiplier and gpu3DMinClock
+    chown system system /sys/devices/platform/80000000.imx8_gpu_ss/gpu_mult
+    chmod 0660 /sys/devices/platform/80000000.imx8_gpu_ss/gpu_mult
+    chown system system /sys/bus/platform/drivers/galcore/gpu3DMinClock
+    chmod 0660 /sys/bus/platform/drivers/galcore/gpu3DMinClock
+
     # Set cpufreq permissions
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chmod 0664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
