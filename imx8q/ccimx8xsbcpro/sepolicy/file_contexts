@@ -43,6 +43,9 @@
 #Neural Network HAL service
 /vendor/bin/hw/android\.hardware\.neuralnetworks@1\.0-service-imx-nn          u:object_r:hal_neuralnetworks_imx_exec:s0
 
+#cpu
+/sys/devices/virtual/thermal/thermal_zone0/trip_point_[01]_temp      u:object_r:sysfs_cpu:s0
+
 #gpio
 /sys/class/gpio/export                                               u:object_r:sysfs_gpio:s0
 /sys/class/gpio/unexport                                             u:object_r:sysfs_gpio:s0
