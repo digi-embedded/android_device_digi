@@ -26,6 +26,8 @@ import com.android.server.gpio.GPIOServiceImpl;
 import com.android.server.gpio.IGPIOService;
 import com.android.server.i2c.I2CServiceImpl;
 import com.android.server.i2c.II2CService;
+import com.android.server.pwm.PWMServiceImpl;
+import com.android.server.pwm.IPWMService;
 import com.android.server.serial.SerialPortServiceImpl;
 import com.android.server.serial.ISerialPortService;
 import com.android.server.spi.SPIServiceImpl;
@@ -67,6 +69,9 @@ public class DigiServicesApp extends Application {
 
         ServiceManager.addService(IMemoryService.class.getName(),
                                   new MemoryServiceImpl(this));
+
+        ServiceManager.addService(IPWMService.class.getName(),
+                                  new PWMServiceImpl(this));
 
         ServiceManager.addService(ISerialPortService.class.getName(),
                                   new SerialPortServiceImpl(this));

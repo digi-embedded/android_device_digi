@@ -54,6 +54,12 @@
         android:label="@string/permlab_memory"
         android:description="@string/permdesc_memory" />
 
+    <permission android:name="com.digi.android.permission.PWM"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_pwm"
+        android:description="@string/permdesc_pwm" />
+
     <permission android:name="com.digi.android.permission.SERIAL"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"

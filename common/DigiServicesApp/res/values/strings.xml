@@ -40,6 +40,11 @@
     <string name="permdesc_memory">Allows the app to access system Memory.</string>
 
     <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_pwm">access system PWM</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_pwm">Allows the app to access system PWM service.</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permlab_serial">access system Serial</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_serial">Allows the app to access system Serial service.</string>
