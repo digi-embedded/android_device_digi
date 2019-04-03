@@ -42,7 +42,6 @@ fi
 #
 # NOT YET IMPLEMENTED (BOOTLOADER??)
 #   androidboot.boottime=1BLL:0,1BLE:20874,KL:0,KD:0,AVB:2690,ODT:0,SW:0
-#   androidboot.bootreason=reboot
 #
 # Initialize with MEK hardcoded bootargs
 setenv bootargs_android init=/init androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm
@@ -50,6 +49,7 @@ setenv bootargs_android ${bootargs_android} firmware_class.path=/vendor/firmware
 # Complete bootargs
 setenv bootargs_android ${bootargs_android} androidboot.console=${console} rootwait androidboot.hardware=digi
 setenv bootargs_android ${bootargs_android} androidboot.soc_type=imx8qxp androidboot.btmacaddr=${btaddr}
+setenv bootargs_android ${bootargs_android} androidboot.bootreason=reboot
 
 # Trusty OS (https://source.android.com/security/trusty)
 if itest.s "xtrusty" != "x${keystore}"; then
