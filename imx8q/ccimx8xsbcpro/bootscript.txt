@@ -45,7 +45,7 @@ fi
 #   androidboot.bootreason=reboot
 #
 # Initialize with MEK hardcoded bootargs
-setenv bootargs_android init=/init androidboot.fbTileSupport=enable cma=800M@0x960M-0xe00M androidboot.primary_display=imx-drm
+setenv bootargs_android init=/init androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm
 setenv bootargs_android ${bootargs_android} firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152
 # Complete bootargs
 setenv bootargs_android ${bootargs_android} androidboot.console=${console} rootwait androidboot.hardware=digi
@@ -86,6 +86,12 @@ else
 	echo "*********************************************************************"
 	echo ""
 fi
+
+# Contiguous memory allocation
+if itest.s "x" == "x$cma" ; then
+	cma=800M@0x960M-0xe00M
+fi
+setenv bootargs_android $bootargs_android cma=$cma
 
 #
 # Boot
