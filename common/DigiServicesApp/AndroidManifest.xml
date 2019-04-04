@@ -5,7 +5,13 @@
     android:versionCode="1"
     android:versionName="1.0">
 
-<permission android:name="com.digi.android.permission.CAN"
+    <permission android:name="com.digi.android.permission.ADC"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_adc"
+        android:description="@string/permdesc_adc" />
+
+    <permission android:name="com.digi.android.permission.CAN"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"
         android:label="@string/permlab_can"

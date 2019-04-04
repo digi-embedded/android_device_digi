@@ -18,6 +18,8 @@ package com.digi.android.server;
 import android.app.Application;
 
 import android.os.ServiceManager;
+import com.android.server.adc.ADCServiceImpl;
+import com.android.server.adc.IADCService;
 import com.android.server.can.CANServiceImpl;
 import com.android.server.can.ICANService;
 import com.android.server.cloudconnector.CloudConnectorServiceImpl;
@@ -50,6 +52,9 @@ public class DigiServicesApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        ServiceManager.addService(IADCService.class.getName(),
+                                  new ADCServiceImpl(this));
 
         ServiceManager.addService(ICANService.class.getName(),
                                   new CANServiceImpl(this));
