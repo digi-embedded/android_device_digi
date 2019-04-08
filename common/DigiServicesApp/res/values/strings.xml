@@ -64,4 +64,9 @@
     <string name="permlab_spi">access system SPI</string>
     <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
     <string name="permdesc_spi">Allows the app to access system SPI service.</string>
+
+    <!-- Title of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permlab_watchdog">access system Watchdog</string>
+    <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
+    <string name="permdesc_watchdog">Allows the app to access system Watchdog.</string>
 </resources>

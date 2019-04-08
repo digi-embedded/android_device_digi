@@ -84,6 +84,12 @@
         android:label="@string/permlab_spi"
         android:description="@string/permdesc_spi" />
 
+    <permission android:name="com.digi.android.permission.WATCHDOG"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="normal"
+        android:label="@string/permlab_watchdog"
+        android:description="@string/permdesc_watchdog" />
+
     <!-- Permissions for Cloud Connector access -->
     <uses-permission android:name="android.permission.WRITE_MEDIA_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -112,6 +118,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <!-- android.permission.NET_ADMIN permission is required to manage CAN interfaces -->
     <uses-permission android:name="android.permission.NET_ADMIN"/>
 
