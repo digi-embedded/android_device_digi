@@ -9,8 +9,6 @@ on early-init
     start early_init_sh
 
 on init
-    start watchdogd
-
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
@@ -164,11 +162,6 @@ service sensor_fusion /vendor/bin/fsl_sensor_fusion
     user system
     group input
     oneshot
-
-# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
-service watchdogd /sbin/watchdogd 10 20
-    class core
-    seclabel u:r:watchdogd:s0
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     class main
