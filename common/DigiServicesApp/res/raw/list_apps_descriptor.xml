@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2019, Digi International Inc.
 
      Permission to use, copy, modify, and/or distribute this software for any
@@ -12,7 +13,6 @@
      ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
      OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 -->
-<?xml version="1.0" encoding="utf-8"?>
 <query_descriptor>
 	<!--Descriptor for <query_setting /> -->
 	<descriptor element="query_setting" desc="Retrieve device configuration">
