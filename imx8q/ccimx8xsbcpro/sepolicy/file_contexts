@@ -38,6 +38,12 @@
 #Neural Network HAL service
 /vendor/bin/hw/android\.hardware\.neuralnetworks@1\.0-service-imx-nn          u:object_r:hal_neuralnetworks_imx_exec:s0
 
+#adc
+/sys/bus/iio/devices(/.*)?                                           u:object_r:sysfs_adc:s0
+/sys/devices/platform/5a880000.adc(/.*)?                             u:object_r:sysfs_adc:s0
+/sys/devices/platform/5a890000.adc(/.*)?                             u:object_r:sysfs_adc:s0
+/sys/devices/platform/5a800000.i2c/i2c-0/0-0063/mca-cc8x-adc(/.*)?   u:object_r:sysfs_adc:s0
+
 #cpu
 /sys/devices/virtual/thermal/thermal_zone0/trip_point_[01]_temp      u:object_r:sysfs_cpu:s0
 
