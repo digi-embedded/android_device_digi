@@ -88,13 +88,16 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# bluetooth
+PRODUCT_PACKAGES += \
+    libbt-vendor
+
 PRODUCT_PACKAGES += \
     netutils-wrapper-1.0
 
 # sensor
 PRODUCT_PACKAGES += \
-    fsl_sensor_fusion \
-    libbt-vendor
+    fsl_sensor_fusion
 
 # memtrack
 PRODUCT_PACKAGES += \

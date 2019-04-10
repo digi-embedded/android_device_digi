@@ -46,9 +46,6 @@ on early-boot
     # Set NN reject model by weights md5
     setprop WEIGHT_MD5_CHECK 1
 
-    # Set light sensor sysfs path
-    setprop ro.hardware.lightsensor "/sys/class/i2c-dev/i2c-15/device/15-0044/"
-
 on property:sys.boot_completed=1
     # Set default CPU frequency governor
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "schedutil"
