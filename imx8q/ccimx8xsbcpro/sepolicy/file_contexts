@@ -22,15 +22,10 @@
 /dev/block/platform/5b010000\.usdhc/by-name/datafooter  u:object_r:metadata_block_device:s0
 
 #peripheral
-/vendor/bin/magd                u:object_r:sensors_exec:s0
 /vendor/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
-/dev/mma8x5x                    u:object_r:sensors_device:s0
 /dev/ttyLP[0-9]*                u:object_r:tty_device:s0
 /dev/ttyMCA[0-9]*               u:object_r:tty_device:s0
 /dev/hvc[0-9]*                  u:object_r:tty_device:s0
-/dev/FreescaleAccelerometer     u:object_r:sensors_device:s0
-/dev/FreescaleMagnetometer      u:object_r:sensors_device:s0
-/dev/FreescaleGyroscope         u:object_r:sensors_device:s0
 /dev/sda[0-8]*                  u:object_r:fuse:s0
 /dev/spidev[0-9.]*              u:object_r:spi_device:s0
 

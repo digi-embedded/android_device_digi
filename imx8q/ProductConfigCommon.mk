@@ -80,11 +80,13 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf
 
+# bluetooth
+PRODUCT_PACKAGES += \
+    libbt-vendor
+
 # sensor
 PRODUCT_PACKAGES += \
-    fsl_sensor_fusion \
-    libbt-vendor \
-    magd
+    fsl_sensor_fusion
 
 # memtrack
 PRODUCT_PACKAGES += \

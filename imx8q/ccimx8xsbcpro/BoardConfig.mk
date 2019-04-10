@@ -48,7 +48,7 @@ QCOM_BT_USE_SIBS := false
 # sensor configs
 BOARD_USE_SENSOR_FUSION := true
 BOARD_USE_SENSOR_PEDOMETER := false
-BOARD_USE_LEGACY_SENSOR :=true
+BOARD_USE_LEGACY_SENSOR := false
 
 # for recovery service
 TARGET_SELECT_KEY := 28
