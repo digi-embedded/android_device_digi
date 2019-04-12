@@ -18,7 +18,6 @@ UBOOT_IMX_PATH := vendor/digi
 PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
 	$(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
-	$(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qm.rc \
 	$(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qxp.rc \
 	$(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.usb.rc \
 	$(IMX_DEVICE_PATH)/ueventd.digi.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
@@ -31,8 +30,6 @@ PRODUCT_COPY_FILES += \
 
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
-	$(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib/egl/egl.cfg \
-	$(FSL_PROPRIETARY_PATH)/fsl-proprietary/gpu-viv/lib64/egl/egl.cfg:$(TARGET_COPY_OUT_VENDOR)/lib64/egl/egl.cfg \
 	$(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
 	$(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
 	$(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
@@ -87,18 +84,6 @@ USE_XML_AUDIO_POLICY_CONF := 1
 PRODUCT_COPY_FILES += \
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin:vendor/firmware/vpu/vpu_fw_imx8_dec.bin \
 	$(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_enc.bin:vendor/firmware/vpu/vpu_fw_imx8_enc.bin
-
-# # uuu scripts, fastboot_imx_flashall scripts, fsl-sdcard-partition and uuu_imx_android_flash scripts
-# PRODUCT_COPY_FILES += \
-# 	device/fsl/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-# 	device/fsl/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-# 	device/fsl/common/tools/fsl-sdcard-partition.sh:fsl-sdcard-partition.sh \
-# 	device/fsl/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-# 	device/fsl/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh \
-# 	device/fsl/common/tools/uuu/uuu-android-mx8qm-mek-emmc.lst:uuu-android-mx8qm-mek-emmc.lst \
-# 	device/fsl/common/tools/uuu/uuu-android-mx8qm-mek-sd.lst:uuu-android-mx8qm-mek-sd.lst \
-# 	device/fsl/common/tools/uuu/uuu-android-mx8qxp-mek-emmc.lst:uuu-android-mx8qxp-mek-emmc.lst \
-# 	device/fsl/common/tools/uuu/uuu-android-mx8qxp-mek-sd.lst:uuu-android-mx8qxp-mek-sd.lst
 
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 
