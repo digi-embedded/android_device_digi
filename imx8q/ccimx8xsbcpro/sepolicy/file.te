@@ -4,5 +4,6 @@ type sysfs_cpu, sysfs_type, fs_type;
 type sysfs_device_tree, fs_type, sysfs_type;
 type sysfs_gpio, sysfs_type, fs_type;
 type sysfs_gpu, sysfs_type, fs_type;
+type sysfs_pwm, sysfs_type, fs_type;
 type ubootenv_path, file_type;
 type var_path, file_type;
