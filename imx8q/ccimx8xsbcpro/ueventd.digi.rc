@@ -67,3 +67,34 @@
 /sys/devices/system/cpu/cpufreq  ondemand/up_threshold              0664  system  system
 /sys/devices/system/cpu/cpufreq  schedutil/down_rate_limit_us       0664  system  system
 /sys/devices/system/cpu/cpufreq  schedutil/up_rate_limit_us         0664  system  system
+
+# PWM
+/sys/class/pwm/pwmchip*     export      0644  system  system
+/sys/class/pwm/pwmchip*     npwm        0644  system  system
+/sys/class/pwm/pwmchip*     unexport    0644  system  system
+# The second argument does not allow wildcards so it is necessary
+# to add an entry per file for each possible pwmchip child (0-5)
+/sys/class/pwm/pwmchip*     pwm0/duty_cycle      0644  system  system
+/sys/class/pwm/pwmchip*     pwm0/enable          0644  system  system
+/sys/class/pwm/pwmchip*     pwm0/period          0644  system  system
+/sys/class/pwm/pwmchip*     pwm0/polarity        0644  system  system
+/sys/class/pwm/pwmchip*     pwm1/duty_cycle      0644  system  system
+/sys/class/pwm/pwmchip*     pwm1/enable          0644  system  system
+/sys/class/pwm/pwmchip*     pwm1/period          0644  system  system
+/sys/class/pwm/pwmchip*     pwm1/polarity        0644  system  system
+/sys/class/pwm/pwmchip*     pwm2/duty_cycle      0644  system  system
+/sys/class/pwm/pwmchip*     pwm2/enable          0644  system  system
+/sys/class/pwm/pwmchip*     pwm2/period          0644  system  system
+/sys/class/pwm/pwmchip*     pwm2/polarity        0644  system  system
+/sys/class/pwm/pwmchip*     pwm3/duty_cycle      0644  system  system
+/sys/class/pwm/pwmchip*     pwm3/enable          0644  system  system
+/sys/class/pwm/pwmchip*     pwm3/period          0644  system  system
+/sys/class/pwm/pwmchip*     pwm3/polarity        0644  system  system
+/sys/class/pwm/pwmchip*     pwm4/duty_cycle      0644  system  system
+/sys/class/pwm/pwmchip*     pwm4/enable          0644  system  system
+/sys/class/pwm/pwmchip*     pwm4/period          0644  system  system
+/sys/class/pwm/pwmchip*     pwm4/polarity        0644  system  system
+/sys/class/pwm/pwmchip*     pwm5/duty_cycle      0644  system  system
+/sys/class/pwm/pwmchip*     pwm5/enable          0644  system  system
+/sys/class/pwm/pwmchip*     pwm5/period          0644  system  system
+/sys/class/pwm/pwmchip*     pwm5/polarity        0644  system  system
