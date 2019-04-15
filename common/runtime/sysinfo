@@ -221,5 +221,5 @@ if touch "${REPORT_PATH}.txt" 2> /dev/null; then
 	echo "Report generated in ${REPORT_PATH}.tar.gz"
 	rm -rf "${REPORT_PATH}.txt"
 else
-	echo "$(dirname ${FILE}) is not writtable, skipping report generation"
+	echo "$(dirname ${REPORT_PATH}) is not writtable, skipping report generation"
 fi
