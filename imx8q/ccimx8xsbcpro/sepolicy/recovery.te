@@ -1,8 +1,10 @@
-allow recovery bluetooth_a2dp_offload_prop:file { getattr open };
+allow recovery bluetooth_a2dp_offload_prop:file { getattr map open };
+allow recovery bluetooth_prop:file { getattr map open };
 allow recovery fw_printenv_exec:file { execute };
 allow recovery kmsg_device:chr_file write;
 allow recovery lock_path:dir { add_name open search write };
 allow recovery lock_path:file { write open create lock };
+allow recovery recovery:capability { fsetid };
 allow recovery rootfs:file { execute execute_no_trans };
 allow recovery sysfs_block_devices:dir { search };
 allow recovery sysfs_block_devices:file { open write };
