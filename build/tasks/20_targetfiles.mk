@@ -1,3 +1,32 @@
+# Copy dtb files from kernel output dir to the provided destination.
+# $(1) - Destination directory
+define copy-dtb-files
+$(foreach dtb,$(KERNEL_DTBS), \
+  cp -fp $(dtb) $(1)/$(notdir $(dtb));)
+endef
+
+# $(1) - Image to copy
+# $(2) - List of files that includes the image to copy
+define copy-vfat-image
+  $(if $(filter true,$(strip $(TARGET_DEA_SPARSE_VFAT_IMAGES))), \
+      $(hide) $(SIMG2IMG) $(1) $(zip_root)/IMAGES/$(notdir $(1)),
+      $(hide) cp -fp $(1) $(zip_root)/IMAGES/$(notdir $(1)))
+  #
+  # Truncate VFAT boot/recovery image for OTA
+  #
+  # The OTA package generation script has some checks to error out if the size
+  # of the image is >= 99% of the partition size of warn if the image is >=95%
+  # (see build/make/tools/releasetools/common.py)
+  #
+  # BOOTIMAGE_FILES is defined in '20_bootimage.mk'
+  # RECOVERYIMAGE_FILES is defined in '20_recoveryimage.mk'
+  #   - size of files + 10% extra space (in bytes)
+  #   - u-boot writes 512 bytes sectors so truncate at a sector boundary
+  #
+  IMAGE_FILES_SIZE="$$(($$(du -bc $(2) | tail -n1 | cut -f1) * (100 + 10) / 100))"; \
+  truncate -s $$((((IMAGE_FILES_SIZE + 511) / 512) * 512)) $(zip_root)/IMAGES/$(notdir $(1))
+endef
+
 # Depending on the various images guarantees that the underlying
 # directories are up-to-date.
 $(BUILT_TARGET_FILES_PACKAGE): \
@@ -40,6 +69,13 @@ ifneq (,$(INSTALLED_RECOVERYIMAGE_TARGET)$(filter true,$(BOARD_USES_RECOVERY_AS_
 		$(TARGET_RECOVERY_ROOT_OUT),$(zip_root)/$(PRIVATE_RECOVERY_OUT)/RAMDISK)
 ifdef INSTALLED_KERNEL_TARGET
 	$(hide) cp $(INSTALLED_KERNEL_TARGET) $(zip_root)/$(PRIVATE_RECOVERY_OUT)/kernel
+######### Copy device trees and boot script as components of the recovery image #############
+ifeq ($(strip $(TARGET_DEA_BOOTIMAGE)),true)
+	@# Copy device trees and boot script to RECOVERY
+	$(hide) $(call copy-dtb-files, $(zip_root)/$(PRIVATE_RECOVERY_OUT))
+	$(hide) cp $(PRODUCT_OUT)/boot.scr $(zip_root)/$(PRIVATE_RECOVERY_OUT)/boot.scr
+endif
+######################
 endif
 ifdef INSTALLED_2NDBOOTLOADER_TARGET
 	$(hide) cp $(INSTALLED_2NDBOOTLOADER_TARGET) $(zip_root)/$(PRIVATE_RECOVERY_OUT)/second
@@ -71,6 +107,13 @@ endif
 ifneq ($(BOARD_USES_RECOVERY_AS_BOOT),true)
 ifdef INSTALLED_KERNEL_TARGET
 	$(hide) cp $(INSTALLED_KERNEL_TARGET) $(zip_root)/BOOT/kernel
+######### Copy device trees and boot scripts as components of the boot image #############
+ifeq ($(strip $(TARGET_DEA_BOOTIMAGE)),true)
+	@# Copy device trees and boot script to BOOT
+	$(hide) $(call copy-dtb-files, $(zip_root)/BOOT)
+	$(hide) cp $(PRODUCT_OUT)/boot.scr $(zip_root)/BOOT/boot.scr
+endif
+######################
 endif
 ifdef INSTALLED_2NDBOOTLOADER_TARGET
 	$(hide) cp $(INSTALLED_2NDBOOTLOADER_TARGET) $(zip_root)/BOOT/second
@@ -209,6 +252,16 @@ ifdef BOARD_BPT_DISK_SIZE
 	$(hide) echo "board_bpt_disk_size=$(BOARD_BPT_DISK_SIZE)" >> $(zip_root)/META/misc_info.txt
 endif
 	$(call generate-userimage-prop-dictionary, $(zip_root)/META/misc_info.txt)
+######### Copy already built boot and recovery images #############
+	@# Add already compiled images
+	$(hide) mkdir -p $(zip_root)/IMAGES
+ifneq ($(strip $(TARGET_NO_KERNEL)),true)
+	$(call copy-vfat-image,$(INSTALLED_BOOTIMAGE_TARGET),$(BOOTIMAGE_FILES))
+endif
+ifeq (,$(filter true, $(TARGET_NO_KERNEL) $(TARGET_NO_RECOVERY)))
+	$(call copy-vfat-image,$(INSTALLED_RECOVERYIMAGE_TARGET),$(RECOVERYIMAGE_FILES))
+endif
+######################
 ifneq ($(INSTALLED_RECOVERYIMAGE_TARGET),)
 	$(hide) PATH=$(foreach p,$(INTERNAL_USERIMAGES_BINARY_PATHS),$(p):)$$PATH MKBOOTIMG=$(MKBOOTIMG) \
 	    build/make/tools/releasetools/make_recovery_patch $(zip_root) $(zip_root)
