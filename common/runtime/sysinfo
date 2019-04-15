@@ -107,19 +107,19 @@ make_report(){
 	spaces
 
 	banner "Dumpsys adc"
-	dumpsys adc || echo "[FAILED] dumpsys adc"
+	dumpsys com.android.server.adc.IADCService || echo "[FAILED] dumpsys adc"
 	spaces
 
 	banner "Dumpsys can"
-	dumpsys can || echo "[FAILED] dumpsys can"
+	dumpsys com.android.server.can.ICANService || echo "[FAILED] dumpsys can"
 	spaces
 
 	banner "Dumpsys gpio"
-	dumpsys gpio || echo "[FAILED] dumpsys gpio"
+	dumpsys com.android.server.gpio.IGPIOService || echo "[FAILED] dumpsys gpio"
 	spaces
 
 	banner "Dumpsys i2c"
-	dumpsys i2c || echo "[FAILED] dumpsys i2c"
+	dumpsys com.android.server.i2c.II2CService || echo "[FAILED] dumpsys i2c"
 	spaces
 
 	banner "Memory consumption"
@@ -152,14 +152,15 @@ make_report(){
 
 	banner "Wireless configuration"
 	/vendor/bin/hw/wpa_supplicant -v 2>/dev/null
-	for file in /etc/wifi/*.conf; do
+	for file in /etc/wifi/*.conf /vendor/etc/wifi/*.conf; do
+		[ -d $(dirname "${file}") ] && [ $(ls -A "${file}") ] || continue
 		echo ""
 		echo "$file:"
 		cat "$file"
 	done
 
 	echo ""
-	hostapd -v 2>&1
+	hostapd_cli -v 2>&1
 	spaces
 
 	banner "TrustFence"
