@@ -1,1 +1,1 @@
-allow kernel device:blk_file { create getattr setattr };
+allow kernel device:blk_file { create getattr setattr unlink };
