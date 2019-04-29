@@ -188,7 +188,9 @@ PRODUCT_PACKAGES += \
 	digiservices \
 	digiservices.xml \
 	libdigiservices \
-	librxtxSerial
+	librxtxSerial \
+	libdiginativeservice \
+	diginativeservice
 
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
