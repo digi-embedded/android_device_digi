@@ -45,7 +45,7 @@ fi
 #
 # Initialize with MEK hardcoded bootargs
 setenv bootargs_android init=/init androidboot.fbTileSupport=enable androidboot.primary_display=imx-drm
-setenv bootargs_android ${bootargs_android} firmware_class.path=/vendor/firmware transparent_hugepage=never swiotlb=49152
+setenv bootargs_android ${bootargs_android} firmware_class.path=/vendor/firmware transparent_hugepage=never
 # Complete bootargs
 setenv bootargs_android ${bootargs_android} androidboot.console=${console} rootwait androidboot.hardware=digi
 setenv bootargs_android ${bootargs_android} androidboot.soc_type=imx8qxp androidboot.btmacaddr=${btaddr}
