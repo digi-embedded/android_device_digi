@@ -72,3 +72,8 @@
 /sys/class/pwm(/.*)?                                                 u:object_r:sysfs_pwm:s0
 /sys/devices/platform/56224000.pwm/pwm(/.*)?                         u:object_r:sysfs_pwm:s0
 /sys/devices/platform/5a800000.i2c/i2c-0/0-0063/mca-pwm/pwm(/.*)?    u:object_r:sysfs_pwm:s0
+
+#services
+/system/bin/diginativeservice  -l  u:object_r:diginative_exec:s0
+/system/bin/diginativeservice32    u:object_r:diginative_exec:s0
+/system/bin/diginativeservice64    u:object_r:diginative_exec:s0

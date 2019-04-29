@@ -1,4 +1,5 @@
 allow system_app device:dir { read open };
+allow system_app diginative:binder call;
 allow system_app i2c_device:chr_file { getattr open read write ioctl };
 allow system_app lock_path:dir { getattr search write add_name remove_name };
 allow system_app lock_path:file { getattr create write open read unlink };

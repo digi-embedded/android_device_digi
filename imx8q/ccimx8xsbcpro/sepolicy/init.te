@@ -1,3 +1,4 @@
+allow init diginative_exec:lnk_file read;
 allow init proc:file setattr;
 allow init sysfs_device_tree:file { read open };
 allow init var_path:dir { write open create lock };

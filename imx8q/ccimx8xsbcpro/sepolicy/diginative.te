@@ -1,0 +1,18 @@
+# diginative -- Native Digi domain to execute privileged actions
+type diginative, domain;
+type diginative_exec, exec_type, file_type;
+
+typeattribute diginative coredomain;
+
+init_daemon_domain(diginative)
+
+binder_use(diginative)
+binder_call(diginative, system_server)
+
+add_service(diginative, diginative_service)
+
+allow diginative permission_service:service_manager find;
+allow diginative diginative_service:service_manager add;
+allow diginative self:global_capability_class_set { net_admin net_raw };
+allow diginative self:netlink_route_socket { bind create getattr nlmsg_write read setopt write };
+allow diginative self:udp_socket create_socket_perms;
