@@ -119,9 +119,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
-    <!-- android.permission.NET_ADMIN permission is required to manage CAN interfaces -->
-    <uses-permission android:name="android.permission.NET_ADMIN"/>
-
     <protected-broadcast android:name="com.android.server.firmwareupdate.FirmwareUpdateAppInstaller.DONE" />
 
     <application android:name=".DigiServicesApp" android:persistent="true">
