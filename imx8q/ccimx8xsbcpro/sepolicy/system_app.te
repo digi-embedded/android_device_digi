@@ -54,6 +54,7 @@ allow system_app mnt_media_rw_file:dir { getattr open read };
 # Access to /cache/
 allow system_app cache_backup_file:dir { open read };
 allow system_app cache_file:dir rmdir;
+allow system_app cache_file:file setattr;
 allow system_app cache_private_backup_file:dir { getattr open read search };
 allow system_app cache_recovery_file:dir { getattr open read };
 allow system_app cache_recovery_file:file { getattr read };
