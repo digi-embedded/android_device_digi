@@ -27,6 +27,9 @@ define copy-vfat-image
   truncate -s $$((((IMAGE_FILES_SIZE + 511) / 512) * 512)) $(zip_root)/IMAGES/$(notdir $(1))
 endef
 
+OTATOOLS += build/tools/fat16copy.py
+OTATOOLS += $(HOST_OUT_EXECUTABLES)/mkimage
+
 # Depending on the various images guarantees that the underlying
 # directories are up-to-date.
 $(BUILT_TARGET_FILES_PACKAGE): \
@@ -172,6 +175,7 @@ endif
 	$(hide) cp $(SELINUX_FC) $(zip_root)/META/file_contexts.bin
 	$(hide) echo "recovery_api_version=$(PRIVATE_RECOVERY_API_VERSION)" > $(zip_root)/META/misc_info.txt
 	$(hide) echo "fstab_version=$(PRIVATE_RECOVERY_FSTAB_VERSION)" >> $(zip_root)/META/misc_info.txt
+	$(hide) echo "arch=$(TARGET_ARCH)" >> $(zip_root)/META/misc_info.txt
 ifdef BOARD_FLASH_BLOCK_SIZE
 	$(hide) echo "blocksize=$(BOARD_FLASH_BLOCK_SIZE)" >> $(zip_root)/META/misc_info.txt
 endif
