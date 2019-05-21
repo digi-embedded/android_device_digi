@@ -1,0 +1,4 @@
+<resources>
+    <string name="license_title">Digi Legal</string>
+    <string name="license_error">There was a problem loading the license.</string>
+</resources>

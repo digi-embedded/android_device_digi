@@ -188,6 +188,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	com.digi.android \
 	com.digi.android.xml \
+	DigiLicenseApp \
 	DigiServicesApp \
 	digiservices \
 	digiservices.xml \
