@@ -79,9 +79,10 @@ KERNEL_NAME := Image.gz
 #
 TARGET_BOOTLOADER_BOARD_NAME := ccimx8xsbcpro
 TARGET_BOOTLOADER_POSTFIX := bin
+# First one is used for the bootable SD card image
 TARGET_BOOTLOADER_CONFIG := \
-	ccimx8xsbcpro1GB:ccimx8x_sbc_pro1GB_defconfig \
-	ccimx8xsbcpro2GB:ccimx8x_sbc_pro2GB_defconfig
+	ccimx8xsbcpro2GB:ccimx8x_sbc_pro2GB_defconfig \
+	ccimx8xsbcpro1GB:ccimx8x_sbc_pro1GB_defconfig
 
 # The U-Boot mkimage targets define the final U-Boot artifacts to generate:
 #  - flash    :   Generate final U-Boot artifact that will include:
@@ -132,7 +133,11 @@ TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 TARGET_DEA_BOOTIMAGE := true
 TARGET_DEA_BUILDINFO := true
 TARGET_DEA_FWINSTALLER := true
+TARGET_DEA_SDIMAGE := true
 TARGET_DEA_SPARSE_VFAT_IMAGES := true
+
+# U-Boot programming offset
+BOOTLOADER_OFFSET := 32
 
 #
 # Partition sizes

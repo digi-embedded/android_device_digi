@@ -23,14 +23,14 @@
 #   Part    Start LBA       End LBA         Name
 #     1     0x00001000      0x00010fff      "boot"
 #     2     0x00011000      0x00020fff      "recovery"
-#     3     0x00021000      0x00220fff      "system"
-#     4     0x00221000      0x00420fff      "cache"
-#     5     0x00421000      0x00458fff      "vendor"
-#     6     0x00459000      0x00460fff      "datafooter"
-#     7     0x00461000      0x00468fff      "safe"
-#     8     0x00469000      0x004697ff      "frp"
-#     9     0x00469800      0x004717ff      "metadata"
-#    10     0x00471800      0x0075ffde      "userdata"
+#     3     0x00021000      0x00420fff      "system"
+#     4     0x00421000      0x00820fff      "cache"
+#     5     0x00821000      0x00858fff      "vendor"
+#     6     0x00859000      0x00860fff      "datafooter"
+#     7     0x00861000      0x00868fff      "safe"
+#     8     0x00869000      0x008697ff      "frp"
+#     9     0x00869800      0x008717ff      "metadata"
+#    10     0x00871800      0x01d5bfde      "userdata"
 #
 # Known-issues:
 #
@@ -42,13 +42,16 @@
 BOOTLOADER_RESERVED="8"
 BOOT_PARTITION_SIZE="32"
 RECOVERY_PARTITION_SIZE="32"
-SYSTEM_PARTITION_SIZE="1024"
-CACHE_PARTITION_SIZE="1024"
+SYSTEM_PARTITION_SIZE="2048"
+CACHE_PARTITION_SIZE="2048"
 VENDOR_PARTITION_SIZE="112"
 DATAFOOTER_PARTITION_SIZE="16"
 FRP_PARTITION_SIZE="1"
 METADATA_PARTITION_SIZE="16"
 USERDATA_PARTITION_SIZE="1024"
+
+# Default U-Boot programming offset if not provided in BoardConfig
+BOOTLOADER_OFFSET="${BOOTLOADER_OFFSET:=1}"
 
 # ====================================
 # NOTHING TO CUSTOMIZE BELOW THIS LINE
@@ -178,6 +181,13 @@ tmp_cache="$(mktemp --tmpdir cache.XXXXXX)"
 dd if=/dev/zero of="${tmp_cache}" bs=1M count=${CACHE_PARTITION_SIZE} 2>/dev/null
 mkfs.ext4 -q -F -Lcache "${tmp_cache}"
 
+tmp_boot="$(mktemp --tmpdir boot.XXXXXX)"
+if is_sparse_image "${bootimg}"; then
+	simg2img "${bootimg}" "${tmp_boot}"
+else
+	cp -af "${bootimg}" "${tmp_boot}"
+fi
+
 tmp_system="$(mktemp --tmpdir system.XXXXXX)"
 if is_sparse_image "${systemimg}"; then
 	simg2img "${systemimg}" "${tmp_system}"
@@ -197,20 +207,20 @@ fi
 #
 # $ sfdisk -uS -l sdcard.img
 #
-# Disk sdcard.img: 3,6 GiB, 3830448128 bytes, 7481344 sectors
+# Disk sdcard.img: 5,8 GiB, 6191841280 bytes, 12093440 sectors
 # Sector size (logical/physical): 512 bytes / 512 bytes
 #
-# Device              Start     End Sectors  Size Id Type
-# sdcard.img1         16384   81919   65536   32M  c W95 FAT32 (LBA)    boot
-# sdcard.img2         83968  149503   65536   32M  c W95 FAT32 (LBA)    recovery
-# sdcard.img3        149504 4706303 4556800  2,2G  5 Extended
-# sdcard.img4       4706304 7481343 2775040  1,3G 83 Linux              data
-# sdcard.img5        151552 2248703 2097152    1G 83 Linux              system
-# sdcard.img6       2250752 4347903 2097152    1G 83 Linux              cache
-# sdcard.img7       4349952 4579327  229376  112M 83 Linux              vendor
-# sdcard.img8       4581376 4614143   32768   16M 83 Linux              datafooter
-# sdcard.img9       4616192 4618239    2048    1M 83 Linux              frp
-# sdcard.img10      4620288 4653055   32768   16M 83 Linux              metadata
+# Device              Start      End Sectors  Size Id Type
+# sdcard.img1         16384    81919   65536   32M  c W95 FAT32 (LBA)   boot
+# sdcard.img2         83968   149503   65536   32M  c W95 FAT32 (LBA)   recovery
+# sdcard.img3        149504  8900607 8751104  4,2G  5 Extended
+# sdcard.img4       8900608 12093439 3192832  1,5G 83 Linux             data
+# sdcard.img5        151552  4345855 4194304    2G 83 Linux             system
+# sdcard.img6       4347904  8542207 4194304    2G 83 Linux             cache
+# sdcard.img7       8544256  8773631  229376  112M 83 Linux             vendor
+# sdcard.img8       8775680  8808447   32768   16M 83 Linux             datafooter
+# sdcard.img9       8810496  8812543    2048    1M 83 Linux             frp
+# sdcard.img10      8814592  8847359   32768   16M 83 Linux             metadata
 #
 BOOT_START_SECTOR="$(sfdisk -uS -l "${SDIMG}" 2>/dev/null | awk -v PART="${SDIMG}1" '$1 == PART {print $2}')"
 # RECOVERY_START_SECTOR="$(sfdisk -uS -l "${SDIMG}" 2>/dev/null | awk -v PART="${SDIMG}2" '$1 == PART {print $2}')"
@@ -222,8 +232,8 @@ VENDOR_START_SECTOR="$(sfdisk -uS -l "${SDIMG}" 2>/dev/null | awk -v PART="${SDI
 #
 # Flash images
 #
-dd if="${ubootbin}" of="${SDIMG}" bs=512 seek=2 conv=notrunc,fsync 2>/dev/null
-dd if="${bootimg}" of="${SDIMG}" bs=512 seek="${BOOT_START_SECTOR}" conv=notrunc,fsync 2>/dev/null
+dd if="${ubootbin}" of="${SDIMG}" bs=1K seek="${BOOTLOADER_OFFSET}" conv=notrunc,fsync 2>/dev/null
+dd if="${tmp_boot}" of="${SDIMG}" bs=512 seek="${BOOT_START_SECTOR}" conv=notrunc,fsync 2>/dev/null
 # dd if="${recoveryimg}" of="${SDIMG}" bs=512 seek="${RECOVERY_START_SECTOR}" conv=notrunc,fsync 2>/dev/null
 dd if="${tmp_data}" of="${SDIMG}" bs=512 seek="${DATA_START_SECTOR}" conv=notrunc,fsync 2>/dev/null
 dd if="${tmp_system}" of="${SDIMG}" bs=512 seek="${SYSTEM_START_SECTOR}" conv=notrunc,fsync 2>/dev/null
@@ -233,4 +243,4 @@ dd if="${tmp_vendor}" of="${SDIMG}" bs=512 seek="${VENDOR_START_SECTOR}" conv=no
 #
 # Clean-up: remove temporary filesystem images
 #
-rm -f "${tmp_data}" "${tmp_cache}" "${tmp_system}" "${tmp_vendor}"
+rm -f "${tmp_data}" "${tmp_cache}" "${tmp_boot}" "${tmp_system}" "${tmp_vendor}"

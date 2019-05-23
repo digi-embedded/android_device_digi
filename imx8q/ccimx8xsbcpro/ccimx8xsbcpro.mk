@@ -23,6 +23,7 @@ PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/ueventd.digi.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
 	$(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
 	$(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi \
+	$(IMX_DEVICE_PATH)/fstab.digi.sd:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi.sd
 
 PRODUCT_COPY_FILES += \
 	device/digi/common/runtime/sysinfo:$(TARGET_COPY_OUT_VENDOR)/bin/sysinfo \
