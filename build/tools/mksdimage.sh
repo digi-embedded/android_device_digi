@@ -59,7 +59,7 @@ BOOTLOADER_OFFSET="${BOOTLOADER_OFFSET:=1}"
 SCRIPTNAME="$(basename "${0}")"
 
 # The extended partition contains SYSTEM, CACHE, VENDOR, DATAFOOTER, FRP, METADATA and some extra space for EBRs
-EXTENDED_PARTITION_SIZE="$((SYSTEM_PARTITION_SIZE + CACHE_PARTITION_SIZE + VENDOR_PARTITION_SIZE + DATAFOOTER_PARTITION_SIZE + FRP_PARTITION_SIZE + METADATA_PARTITION_SIZE + 32))"
+EXTENDED_PARTITION_SIZE="$((SYSTEM_PARTITION_SIZE + CACHE_PARTITION_SIZE + VENDOR_PARTITION_SIZE + DATAFOOTER_PARTITION_SIZE + FRP_PARTITION_SIZE + METADATA_PARTITION_SIZE + 64))"
 
 # Total size + 10% extra space
 SDIMG_SIZE="$(((BOOTLOADER_RESERVED + BOOT_PARTITION_SIZE + RECOVERY_PARTITION_SIZE + EXTENDED_PARTITION_SIZE + USERDATA_PARTITION_SIZE) * 110 / 100))"
@@ -207,14 +207,14 @@ fi
 #
 # $ sfdisk -uS -l sdcard.img
 #
-# Disk sdcard.img: 5,8 GiB, 6191841280 bytes, 12093440 sectors
+# Disk sdcard.img: 5,8 GiB, 6229590016 bytes, 12167168 sectors
 # Sector size (logical/physical): 512 bytes / 512 bytes
 #
 # Device              Start      End Sectors  Size Id Type
 # sdcard.img1         16384    81919   65536   32M  c W95 FAT32 (LBA)   boot
 # sdcard.img2         83968   149503   65536   32M  c W95 FAT32 (LBA)   recovery
-# sdcard.img3        149504  8900607 8751104  4,2G  5 Extended
-# sdcard.img4       8900608 12093439 3192832  1,5G 83 Linux             data
+# sdcard.img3        149504  8966143 8816640  4,2G  5 Extended
+# sdcard.img4       8966144 12167167 3201024  1,5G 83 Linux             data
 # sdcard.img5        151552  4345855 4194304    2G 83 Linux             system
 # sdcard.img6       4347904  8542207 4194304    2G 83 Linux             cache
 # sdcard.img7       8544256  8773631  229376  112M 83 Linux             vendor
