@@ -26,6 +26,7 @@ PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/fstab.digi.sd:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi.sd
 
 PRODUCT_COPY_FILES += \
+	$(IMX_DEVICE_PATH)/input/fusion-touch.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/fusion-touch.idc \
 	device/digi/common/runtime/sysinfo:$(TARGET_COPY_OUT_VENDOR)/bin/sysinfo \
 	device/digi/common/runtime/bootanimation.zip:system/media/bootanimation.zip
 
