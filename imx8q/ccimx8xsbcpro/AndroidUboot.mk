@@ -7,7 +7,7 @@ ATF_CROSS_COMPILE := $(ATF_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 define build_imx_uboot
 	MKIMAGE_PLATFORM="iMX8QX"; \
 	SCFW_PLATFORM="8qx"; \
-	ATF_PLATFORM="imx8qxp"; \
+	ATF_PLATFORM="imx8qx"; \
 	UBOOT_PLATFORM=$2; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$${ATF_PLATFORM} clean; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$${ATF_PLATFORM} bl31 -B; \
