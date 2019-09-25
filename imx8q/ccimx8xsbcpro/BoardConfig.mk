@@ -106,9 +106,9 @@ TARGET_BOOTLOADER_PREBUILT_CM4 := vendor/nxp/fsl-proprietary/mcu-sdk/imx8q/imx8q
 #
 TARGET_KERNEL_DEFCONFIG := ccimx8x_android_defconfig
 TARGET_BOARD_DTS_CONFIG := \
-	ccimx8x-sbc-pro:ccimx8x-sbc-pro.dtb \
-	ccimx8x-sbc-pro-id135:ccimx8x-sbc-pro-id135.dtb \
-	ccimx8x-sbc-pro-wb:ccimx8x-sbc-pro-wb.dtb
+	ccimx8qxp-sbc-pro:ccimx8qxp-sbc-pro.dtb \
+	ccimx8qxp-sbc-pro-id135:ccimx8qxp-sbc-pro-id135.dtb \
+	ccimx8qxp-sbc-pro-wb:ccimx8qxp-sbc-pro-wb.dtb
 
 BOARD_SEPOLICY_DIRS := \
 	$(IMX_DEVICE_PATH)/sepolicy \
