@@ -15,6 +15,9 @@ PRODUCT_MANUFACTURER := digi
 KERNEL_IMX_PATH := vendor/digi
 UBOOT_IMX_PATH := vendor/digi
 
+#Enable this to choose 32 bit user space build
+#IMX8_BUILD_32BIT_ROOTFS := true
+
 PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
 	$(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
@@ -23,7 +26,8 @@ PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/ueventd.digi.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
 	$(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
 	$(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi \
-	$(IMX_DEVICE_PATH)/fstab.digi.sd:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi.sd
+	$(IMX_DEVICE_PATH)/fstab.digi.sd:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi.sd \
+	$(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml
 
 PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/input/fusion-touch.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/fusion-touch.idc \
@@ -77,7 +81,8 @@ PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.software.sip.voip.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.sip.voip.xml \
 	frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml \
 	frameworks/native/data/etc/android.software.voice_recognizers.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.voice_recognizers.xml \
-	$(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml
+	frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.activities_on_secondary_displays.xml \
+	frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
@@ -246,3 +251,6 @@ PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/frp
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 BOARD_VNDK_VERSION := current
+
+# Included GMS package
+$(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)

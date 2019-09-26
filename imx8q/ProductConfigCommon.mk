@@ -1,4 +1,6 @@
+ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+endif
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_no_telephony.mk)
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
@@ -9,6 +11,7 @@ PRODUCT_MANUFACTURER := freescale
 # Android infrastructures
 PRODUCT_PACKAGES += \
     CactusPlayer \
+    ExtractorPkg \
     FSLOta \
     charger_res_images \
     libGLES_android \
@@ -108,7 +111,8 @@ PRODUCT_PACKAGES += \
 # display
 PRODUCT_PACKAGES += \
     libdrm_android \
-    libfsldisplay
+    libfsldisplay \
+    nxp.hardware.display@1.0
 
 # drm
 PRODUCT_PACKAGES += \
@@ -140,10 +144,23 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
+# gpu debug tool
+PRODUCT_PACKAGES += \
+    gmem_info \
+    gpu-top
+
 # Omx related libs, please align to device/fsl/proprietary/omx/fsl-omx.mk
 PRODUCT_PACKAGES += \
     ComponentRegistry.txt \
     component_register \
+    component_register_ac3 \
+    component_register_ddp \
+    component_register_ra \
+    component_register_rv \
+    component_register_ms \
+    component_register_wmv9 \
+    component_register_dsp \
+    component_register_dsp_aacp \
     contentpipe_register \
     core_register \
     fslomx.cfg \
@@ -174,7 +191,6 @@ PRODUCT_PACKAGES += \
     lib_nb_amr_dec_v2_arm9_elinux \
     lib_nb_amr_enc_v2_arm11_elinux \
     lib_ogg_parser_arm11_elinux.3.0 \
-    lib_oggvorbis_dec_v2_arm11_elinux \
     lib_omx_aac_dec_v2_arm11_elinux \
     lib_omx_aac_enc_v2_arm11_elinux \
     lib_omx_aac_parser_v2_arm11_elinux \
@@ -215,7 +231,6 @@ PRODUCT_PACKAGES += \
     lib_omx_res_mgr_v2_arm11_elinux \
     lib_omx_rtps_pipe_arm11_elinux \
     lib_omx_shared_fd_pipe_arm11_elinux \
-    lib_omx_soft_hevc_dec_arm11_elinux \
     lib_omx_sorenson_dec_v2_arm11_elinux \
     lib_omx_streaming_parser_arm11_elinux \
     lib_omx_surface_render_arm11_elinux \
@@ -223,13 +238,11 @@ PRODUCT_PACKAGES += \
     lib_omx_tunneled_decoder_arm11_elinux \
     lib_omx_udps_pipe_arm11_elinux \
     lib_omx_utils_v2_arm11_elinux \
-    lib_omx_vorbis_dec_v2_arm11_elinux \
     lib_omx_vpu_dec_v2_arm11_elinux \
     lib_omx_vpu_enc_v2_arm11_elinux \
     lib_omx_vpu_v2_arm11_elinux \
     lib_omx_wav_parser_v2_arm11_elinux \
     lib_peq_v2_arm11_elinux \
-    lib_vorbisd_wrap_arm11_elinux_android \
     lib_vpu_wrapper \
     lib_wav_parser_arm11_elinux \
     lib_wav_parser_arm11_elinux.3.0 \
@@ -244,8 +257,19 @@ PRODUCT_PACKAGES += \
     libswresample \
     libxec \
     media_codecs.xml \
+    media_codecs_8qm.xml \
+    media_codecs_8qxp.xml \
+    media_codecs_ac3.xml \
+    media_codecs_ddp.xml \
+    media_codecs_ms.xml \
+    media_codecs_wmv9.xml \
+    media_codecs_ra.xml \
+    media_codecs_rv.xml \
+    media_codecs_dsp.xml \
+    media_codecs_dsp_aacp.xml \
     media_codecs_performance.xml \
-    media_profiles_V1_0.xml
+    media_profiles_V1_0.xml \
+    media_codecs_google_video.xml
 
 # Omx excluded libs
 PRODUCT_PACKAGES += \
@@ -261,7 +285,11 @@ PRODUCT_PACKAGES += \
     lib_dsp_bsac_dec \
     lib_dsp_codec_wrap \
     lib_dsp_mp3_dec \
+    lib_dsp_mp3_dec_ext \
+    lib_dsp_codec_wrap_ext \
     lib_dsp_wrap_arm12_android \
+    lib_aacd_wrap_dsp \
+    lib_mp3d_wrap_dsp \
     lib_omx_ac3_dec_v2_arm11_elinux \
     lib_omx_ra_dec_v2_arm11_elinux \
     lib_omx_wma_dec_v2_arm11_elinux \
@@ -276,7 +304,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media_profiles_720p.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_720p.xml \
     device/fsl/common/input/Dell_Dell_USB_Entry_Keyboard.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Dell_Dell_USB_Entry_Keyboard.idc \
     device/fsl/common/input/Dell_Dell_USB_Keyboard.idc:$(TARGET_COPY_OUT_VENDOR)/usr/idc/Dell_Dell_USB_Keyboard.idc \
@@ -293,7 +320,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.radio.noril=yes
+    ro.radio.noril=yes
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.mediacomponents.package=com.nxp.extractorpkg
 
 # Freescale multimedia parser related prop setting
 # Define fsl avi/aac/asf/mkv/flv/flac format support

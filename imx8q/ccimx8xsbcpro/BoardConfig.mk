@@ -17,6 +17,8 @@ TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.digi
 
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
+
+# Vendor compatibility matrix
 DEVICE_MATRIX_FILE := $(IMX_DEVICE_PATH)/compatibility_matrix.xml
 
 PRODUCT_MODEL := ccimx8xsbcpro
@@ -70,7 +72,7 @@ USE_ION_ALLOCATOR := true
 USE_GPU_ALLOCATOR := false
 
 # define frame buffer count
-NUM_FRAMEBUFFER_SURFACE_BUFFERS := 5
+NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 KERNEL_NAME := Image.gz
 
