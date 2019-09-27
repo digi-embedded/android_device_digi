@@ -86,20 +86,21 @@ TARGET_BOOTLOADER_CONFIG := \
 	ccimx8xsbcpro2GB:ccimx8x_sbc_pro2GB_defconfig \
 	ccimx8xsbcpro1GB:ccimx8x_sbc_pro1GB_defconfig
 
-# The U-Boot mkimage targets define the final U-Boot artifacts to generate:
-#  - flash    :   Generate final U-Boot artifact that will include:
-#                     - Standard U-Boot binary (u-boot.bin)
-#                     - The firmware that runs in the SCU (scfw-tcm.bin)
-#                     - The ARM Trusted Firmware that runs in the security controller (bl31.bin)
-#                     - A container used by NXP to verify signed images (ahab-container.img)
-#  - flash_all:   Like 'flash' but including the Cortex M4 firmware (CM4.bin)
+#
+# The U-Boot imx-mkimage target define the final bootable artifact to generate:
+#
+#   - flash: final bootable artifact includes:
+#       * Standard U-Boot binary (u-boot.bin)
+#       * The firmware that runs in the SCU (scfw-tcm.bin)
+#       * The ARM Trusted Firmware that runs in the security controller (bl31.bin)
+#       * A container used by NXP to verify signed images (ahab-container.img)
+#
+#   - flash_all: like 'flash' target and:
+#       * Cortex M4 firmware (vendor/nxp/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_default.bin)
+#
 TARGET_BOOTLOADER_IMXMKIMAGE_TARGETS := \
 	flash \
 	flash_all
-
-# Location of the prebuilt Cortex M4 firmware to program on chip at boot.
-# This firmware will be bundled with U-Boot final image using the 'flash_all' target.
-TARGET_BOOTLOADER_PREBUILT_CM4 := vendor/nxp/fsl-proprietary/mcu-sdk/imx8q/imx8qx_m4_default.bin
 
 #
 # Kernel configurations and device trees
