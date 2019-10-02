@@ -30,7 +30,7 @@ $(FWINSTALLER_TARGET): $(FWINSTALLER_SRC) | $(MKIMAGE)
 	$(hide) mkdir -p $(dir $@)
 	$(hide) $(MKIMAGE) -A $(TARGET_UBOOT_ARCH) -O linux -T script -C none -n "Install script" -d $< $@
 
-$(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(TARGET_BOOTLOADER_IMAGE)
+$(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(UBOOT_BIN)
 	$(hide) rm -f $@
 	$(hide) ( \
 		echo "Digi Embedded for Android kit upgrader"; \
@@ -41,7 +41,7 @@ $(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(TARGET_BOOTLOADER_IMAGE)
 		echo ""; \
 		md5sum $(FWINSTALLER_FILELIST) | sed -e 's,^\([[:xdigit:]]\{32\}\).*/\([^/]\+\)$$,\1  \2,g'; \
 	) > README.txt
-	$(hide) zip -qXj $@ $(FWINSTALLER_FILELIST) README.txt
+	$(hide) zip -qXj --must-match $@ $(FWINSTALLER_FILELIST) README.txt
 	$(hide) rm -f README.txt
 
 droidcore: $(FWINSTALLER_ZIP)
