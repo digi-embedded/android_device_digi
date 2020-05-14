@@ -58,6 +58,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     update_engine_sideload
 
+PRODUCT_STATIC_BOOT_CONTROL_HAL:= \
+    bootctrl-static.avb \
+    libcutils
+
 # audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
@@ -161,6 +165,7 @@ PRODUCT_PACKAGES += \
     component_register_wmv9 \
     component_register_dsp \
     component_register_dsp_aacp \
+    component_register_divx \
     contentpipe_register \
     core_register \
     fslomx.cfg \
@@ -267,6 +272,7 @@ PRODUCT_PACKAGES += \
     media_codecs_rv.xml \
     media_codecs_dsp.xml \
     media_codecs_dsp_aacp.xml \
+    media_codecs_divx.xml \
     media_codecs_performance.xml \
     media_profiles_V1_0.xml \
     media_codecs_google_video.xml
@@ -359,3 +365,4 @@ include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
 
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_real_dec/fsl_real_dec.mk
 -include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_ms_codec/fsl_ms_codec.mk
+-include $(FSL_RESTRICTED_CODEC_PATH)/fsl-restricted-codec/fsl_divx_dec/fsl_divx_codec.mk

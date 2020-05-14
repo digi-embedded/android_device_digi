@@ -18,6 +18,9 @@ UBOOT_IMX_PATH := vendor/digi
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
+# Include keystore attestation keys and certificates.
+-include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
+
 PRODUCT_COPY_FILES += \
 	$(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
 	$(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
@@ -47,6 +50,11 @@ PRODUCT_COPY_FILES += \
 	device/fsl/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
 	device/fsl/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
 	device/fsl/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+
+# Copy rpmb test key and AVB test public key
+PRODUCT_COPY_FILES += \
+	device/fsl/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
+	device/fsl/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -144,8 +152,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.audio@4.0-impl:32 \
 	android.hardware.audio@2.0-service \
 	android.hardware.audio.effect@4.0-impl:32 \
-	android.hardware.sensors@1.0-impl \
-	android.hardware.sensors@1.0-service \
 	android.hardware.power@1.0-impl \
 	android.hardware.power@1.0-service \
 	android.hardware.light@2.0-impl \
@@ -153,13 +159,15 @@ PRODUCT_PACKAGES += \
 	android.hardware.configstore@1.1-service \
 	configstore@1.1.policy
 
+# imx8 sensor HAL
+PRODUCT_PACKAGES += \
+    sensors.imx8 \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service
+
 # Neural Network HAL
 PRODUCT_PACKAGES += \
 	android.hardware.neuralnetworks@1.0-service-imx-nn
-
-# imx8 sensor HAL libs.
-PRODUCT_PACKAGES += \
-	sensors.imx8
 
 # Usb HAL
 PRODUCT_PACKAGES += \
@@ -210,6 +218,10 @@ PRODUCT_BOOT_JARS += \
 	digiservices \
 	RXTXcomm
 
+# hardware backed keymaster service
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-service.trusty
+
 # Keymaster HAL
 PRODUCT_PACKAGES += \
 	android.hardware.keymaster@3.0-impl \
@@ -225,6 +237,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	android.hardware.gatekeeper@1.0-impl \
 	android.hardware.gatekeeper@1.0-service
+
+# Add Trusty OS backed gatekeeper and secure storage proxy
+PRODUCT_PACKAGES += \
+    gatekeeper.trusty \
+    storageproxyd
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.internel.storage_size=/sys/block/mmcblk0/size
