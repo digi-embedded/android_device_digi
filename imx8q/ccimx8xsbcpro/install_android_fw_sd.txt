@@ -20,9 +20,7 @@ fi
 
 # Determine U-Boot file to program basing on module variant
 if test -n "${module_variant}"; then
-	if test "${module_variant}" = "0x01" || test "${module_variant}" = "0x04" || test "${module_variant}" = "0x05"; then
-		setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro1GB-flash.imx;
-	elif test "${module_variant}" = "0x02" || test "${module_variant}" = "0x03"; then
+	if test "${module_variant}" = "0x02" || test "${module_variant}" = "0x03"; then
 		setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro2GB-flash.imx;
 	fi
 fi
@@ -31,8 +29,6 @@ if test -z "${INSTALL_UBOOT_FILENAME}"; then
 	echo "[ERROR] Cannot determine U-Boot file for this module!";
 	echo "";
 	echo "1. Set variable 'INSTALL_UBOOT_FILENAME' depending on your ConnectCore 8X variant:";
-	echo "   - For a CPU with 1GB DDR3, run:";
-	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro1GB-flash.imx";
 	echo "   - For a CPU with 2GB DDR3, run:";
 	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro2GB-flash.imx";
 	echo "";
