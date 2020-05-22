@@ -6,6 +6,9 @@ INSTALLED_SDIMAGE_TARGET := $(PRODUCT_OUT)/sdcard.img
 INSTALLED_SDIMAGE_TARGET_GZ := $(INSTALLED_SDIMAGE_TARGET).gz
 
 TARGET_UBOOT_IMAGES := $(foreach config, $(TARGET_BOOTLOADER_CONFIG), $(PRODUCT_OUT)/u-boot-$(firstword $(subst :, ,$(config))).imx)
+ifneq ($(strip $(TARGET_BOOTLOADER_IMXMKIMAGE_TARGETS)),)
+TARGET_UBOOT_IMAGES := $(foreach imxtgt, $(TARGET_BOOTLOADER_IMXMKIMAGE_TARGETS), $(addsuffix -$(imxtgt).imx,$(basename $(TARGET_UBOOT_IMAGES))))
+endif
 SDIMG_UBOOT := $(firstword $(TARGET_UBOOT_IMAGES))
 
 .PHONY: sdimage

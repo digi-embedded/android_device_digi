@@ -28,3 +28,13 @@ define build_imx_uboot
 		cp --remove-destination $(PRODUCT_OUT)/u-boot-$${UBOOT_PLATFORM}-$${target}.imx $(PRODUCT_OUT)/u-boot-$${UBOOT_PLATFORM}.imx; \
 	done;
 endef
+
+# Remove duplicated u-boot images
+.PHONY: ubootimg_clean
+ubootimg_clean: $(UBOOT_BIN)
+	for ubootplat in $(TARGET_BOOTLOADER_CONFIG); do \
+		UBOOT_PLATFORM=`echo $$ubootplat | cut -d':' -f1`; \
+		rm -f $(PRODUCT_OUT)/u-boot-$${UBOOT_PLATFORM}.imx; \
+	done
+
+ALL_DEFAULT_INSTALLED_MODULES += ubootimg_clean
