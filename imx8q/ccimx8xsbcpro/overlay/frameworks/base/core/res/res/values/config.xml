@@ -202,4 +202,7 @@
         <item>com.digi.android.server.location</item>
     </string-array>
 
+    <!-- The maximum duration (in milliseconds) we expect a network transition to take -->
+    <integer name="config_networkTransitionTimeout">1000</integer>
+
 </resources>
