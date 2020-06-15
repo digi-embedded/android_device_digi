@@ -583,6 +583,7 @@ public class RXTXCommDriver implements CommDriver
 						"ttySP", // imx28
 						"ttyLP", // imx8
 						"ttyMCA", // imx8-mca
+						"ttyACM" // linux CDC ACM devices
 						};
 						CandidatePortPrefixes=Temp;
 					}
