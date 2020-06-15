@@ -1,5 +1,6 @@
 /dev/block/platform/5b020000\.usdhc/mmcblk1p9   0600   system     system
 /dev/block/platform/5b010000\.usdhc/by-name/frp 0600   system     system
+/dev/ttyACM*              0660   system     system
 /dev/ttyLP*               0660   system     system
 /dev/ttyLP1               0660   bluetooth  bluetooth
 /dev/ttyMCA*              0660   system     system
