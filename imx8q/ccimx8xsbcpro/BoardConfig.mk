@@ -82,8 +82,8 @@ KERNEL_NAME := Image.gz
 TARGET_BOOTLOADER_BOARD_NAME := ccimx8xsbcpro
 TARGET_BOOTLOADER_POSTFIX := bin
 TARGET_BOOTLOADER_CONFIG := \
-	ccimx8xsbcpro2GB-c0:ccimx8x_sbc_pro2GB_defconfig \
-	ccimx8xsbcpro2GB:ccimx8x_sbc_pro2GB_defconfig
+	ccimx8xsbcpro2GB-C0:ccimx8x_sbc_pro2GB_defconfig \
+	ccimx8xsbcpro2GB-B0:ccimx8x_sbc_pro2GB_defconfig
 
 #
 # The U-Boot imx-mkimage target define the final bootable artifact to generate:

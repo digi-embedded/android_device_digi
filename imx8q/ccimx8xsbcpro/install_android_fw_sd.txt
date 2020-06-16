@@ -18,10 +18,16 @@ if test $? -eq 1; then
 	exit;
 fi
 
+# Since SOMs with the B0 SOC might have an older U-Boot that doesn't export the
+# SOC revision to the environment, use B0 by default
+if test -z "${soc_rev}"; then
+	setenv soc_rev B0
+fi
+
 # Determine U-Boot file to program basing on module variant
 if test -n "${module_variant}"; then
 	if test "${module_variant}" = "0x02" || test "${module_variant}" = "0x03"; then
-		setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro2GB-flash.imx;
+		setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro2GB-${soc_rev}-flash.imx;
 	fi
 fi
 if test -z "${INSTALL_UBOOT_FILENAME}"; then
@@ -29,8 +35,8 @@ if test -z "${INSTALL_UBOOT_FILENAME}"; then
 	echo "[ERROR] Cannot determine U-Boot file for this module!";
 	echo "";
 	echo "1. Set variable 'INSTALL_UBOOT_FILENAME' depending on your ConnectCore 8X variant:";
-	echo "   - For a CPU with 2GB DDR3, run:";
-	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro2GB-flash.imx";
+	echo "   - For a QuadXPlus CPU with 2GB LPDDR4, run:";
+	echo "     => setenv INSTALL_UBOOT_FILENAME u-boot-ccimx8xsbcpro2GB-${soc_rev}-flash.imx";
 	echo "";
 	echo "2. Run the install script again.";
 	echo "";
