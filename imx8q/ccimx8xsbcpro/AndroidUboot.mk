@@ -10,7 +10,7 @@ define build_imx_uboot
 	MKIMAGE_PLATFORM="iMX8QX"; \
 	ATF_PLATFORM="imx8qx"; \
 	REV="B0"; \
-	if [ "$$(echo $${UBOOT_PLATFORM} | cut -d'-' -f2)" == "c0" ]; then \
+	if [ "$$(echo $${UBOOT_PLATFORM} | cut -d'-' -f2)" == "C0" ]; then \
 		REV="C0";  \
 	fi; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$${ATF_PLATFORM} clean; \
