@@ -18,5 +18,5 @@
 # (like "CRB01").  It must be a single word, and is
 # capitalized by convention.
 
-export BUILD_ID=dea-9.0-r3.1
+export BUILD_ID=dea-9.0-r3.2
 export BUILD_NUMBER=$(shell date +%Y%m%d)
