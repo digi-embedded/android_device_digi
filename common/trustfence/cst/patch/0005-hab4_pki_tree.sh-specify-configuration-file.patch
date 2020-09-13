@@ -1,0 +1,59 @@
+From: "Diaz de Grenu, Jose" <Jose.DiazdeGrenu@digi.com>
+Date: Mon, 17 Oct 2016 15:57:47 +0200
+Subject: [PATCH] hab4_pki_tree.sh: specify configuration file
+
+When using the Android build system, OpenSSL 1.0.1j is used. That version
+requires explicity passing a configuration template when requesting certificate
+sign request.
+
+https://jira.digi.com/browse/ADK4A-1095
+
+Signed-off-by: Diaz de Grenu, Jose <Jose.DiazdeGrenu@digi.com>
+---
+ keys/hab4_pki_tree.sh | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/keys/hab4_pki_tree.sh b/keys/hab4_pki_tree.sh
+index 5226502ee9e3..031f6b38bab1 100755
+--- a/keys/hab4_pki_tree.sh
++++ b/keys/hab4_pki_tree.sh
+@@ -172,7 +172,8 @@ then
+         openssl req -new -batch -passin file:./key_pass.txt \
+                     -subj /CN=SRK${i}_sha256_${kl}_65537_v3_usr/ \
+                     -key ./temp_srk.pem \
+-                    -out ./temp_srk_req.pem
++                    -out ./temp_srk_req.pem \
++                    -config "${SCRIPT_BASEDIR}/openssl.cnf"
+ 
+         # Generate SRK certificate (this is a CA cert)
+         openssl ca -batch -passin file:./key_pass.txt \
+@@ -229,7 +230,8 @@ do
+     openssl req -new -batch -passin file:./key_pass.txt \
+                 -subj /CN=SRK${i}_sha256_${kl}_65537_v3_ca/ \
+                 -key ./temp_srk.pem \
+-                -out ./temp_srk_req.pem
++                -out ./temp_srk_req.pem \
++                -config "${SCRIPT_BASEDIR}/openssl.cnf"
+ 
+     # Generate SRK certificate (this is a CA cert)
+     openssl ca -batch -passin file:./key_pass.txt \
+@@ -276,7 +278,8 @@ do
+     openssl req -new -batch -passin file:./key_pass.txt \
+                 -subj /CN=CSF${i}_1_sha256_${kl}_65537_v3_usr/ \
+                 -key ./temp_csf.pem \
+-                -out ./temp_csf_req.pem
++                -out ./temp_csf_req.pem \
++                -config "${SCRIPT_BASEDIR}/openssl.cnf"
+ 
+     # Generate CSF certificate (this is a user cert)
+     openssl ca -batch -md sha256 -outdir ./ \
+@@ -322,7 +325,8 @@ do
+     openssl req -new -batch -passin file:./key_pass.txt \
+                 -subj /CN=IMG${i}_1_sha256_${kl}_65537_v3_usr/ \
+                 -key ./temp_img.pem \
+-                -out ./temp_img_req.pem
++                -out ./temp_img_req.pem \
++                -config "${SCRIPT_BASEDIR}/openssl.cnf"
+ 
+     openssl ca -batch -md sha256 -outdir ./ \
+                -passin file:./key_pass.txt \
