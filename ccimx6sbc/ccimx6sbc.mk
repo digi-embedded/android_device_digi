@@ -22,6 +22,10 @@ PRODUCT_PACKAGES += \
 	fw_printenv \
 	fw_env.config
 
+# Install TF tool in the recovery ramdisk
+PRODUCT_PACKAGES += \
+	trustfence-tool
+
 # Digi Atheros wifi firmware file.
 PRODUCT_PACKAGES += \
         athwlan \
