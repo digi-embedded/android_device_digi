@@ -1,0 +1,29 @@
+##################################
+## Local configuration makefile ##
+##################################
+
+##
+## TRUSTFENCE
+##
+# General TrustFence ON/OFF switch (enable it for any TF option)
+TRUSTFENCE_ENABLE := "0"
+
+# Default secure console configuration
+TRUSTFENCE_CONSOLE_DISABLE := "0"
+# Uncomment to enable the console with the specified passphrase
+#TRUSTFENCE_CONSOLE_PASSPHRASE_ENABLE := "my_secure_passphrase"
+# Alternatively, uncommment to enable the console with the specified GPIO
+#TRUSTFENCE_CONSOLE_GPIO_ENABLE := "4"
+
+# Default secure boot configuration
+TRUSTFENCE_SIGN := "1"
+# PWD is set in 'build/core/main.mk' to the absolute path of
+# the android build top directory
+TRUSTFENCE_SIGN_KEYS_PATH := "$(PWD)/trustfence"
+TRUSTFENCE_DEK_PATH := "$(TRUSTFENCE_SIGN_KEYS_PATH:"%"=%)/dek.bin"
+
+# Environment encryption. This is only supported in closed devices.
+TRUSTFENCE_ENCRYPT_ENVIRONMENT := "1"
+
+# data partition encryption.
+TRUSTFENCE_ENCRYPT_USERDATA := "1"
