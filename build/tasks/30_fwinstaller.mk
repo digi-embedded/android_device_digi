@@ -26,7 +26,7 @@ $(FWINSTALLER_TARGET): $(FWINSTALLER_SRC) | $(MKIMAGE)
 	$(hide) mkdir -p $(dir $@)
 	$(hide) $(MKIMAGE) -A arm -O linux -T script -C none -n "Install script" -d $< $@
 
-$(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(TARGET_BOOTLOADER_IMAGE)
+$(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(TARGET_UBOOT_IMAGES)
 	$(hide) rm -f $@
 	$(hide) ( \
 		echo "Digi Embedded for Android kit upgrader"; \
