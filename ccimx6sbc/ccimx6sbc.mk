@@ -55,9 +55,7 @@ PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/init.imx6q.rc:root/init.digi.imx6q.rc \
 	device/digi/ccimx6sbc/init.imx6dl.rc:root/init.digi.imx6dl.rc \
 	device/digi/ccimx6sbc/init.imx6qp.rc:root/init.digi.imx6qp.rc \
-	device/digi/ccimx6sbc/ueventd.digi.rc:root/ueventd.digi.rc \
-	device/digi/ccimx6sbc/fstab.digi:root/fstab.digi \
-	device/digi/ccimx6sbc/fstab.digi.sd:root/fstab.digi.sd
+	device/digi/ccimx6sbc/ueventd.digi.rc:root/ueventd.digi.rc
 
 PRODUCT_COPY_FILES += \
 	device/digi/ccimx6sbc/input/fusion-touch.idc:system/usr/idc/fusion-touch.idc \
