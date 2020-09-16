@@ -1,3 +1,4 @@
+allow uncrypt caam_device:chr_file  rw_file_perms;
 allow uncrypt fw_printenv_exec:file { execute };
 allow uncrypt lock_path:dir { search write add_name };
 allow uncrypt lock_path:file { write open create lock };
