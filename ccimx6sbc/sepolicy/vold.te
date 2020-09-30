@@ -1,0 +1,2 @@
+allow vold caam_device:chr_file { ioctl open read write };
+allow vold ubootenv_path:blk_file { open read };

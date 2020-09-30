@@ -16,6 +16,11 @@ ifeq ($(strip $(TF_ENCRYPT_ENABLED)),1)
 export CONFIG_DEK_PATH := $(TRUSTFENCE_DEK_PATH:"%"=%)
 endif
 
+# CAAM based full disk encryption
+ifeq ($(strip $(TF_FS_ENCRYPT_ENABLED)),1)
+export TARGET_USES_CAAM_BASED_FDE := $(TARGET_CAAM_ENCRYPTION_SUPPORT)
+endif
+
 # Path definition of some tools used in other makefiles and scripts
 export TF_SIGN_ARTIFACT := $(HOST_OUT_EXECUTABLES)/trustfence-sign-artifact.sh
 export TF_SIGN_UBOOT := $(HOST_OUT_EXECUTABLES)/trustfence-sign-uboot.sh
