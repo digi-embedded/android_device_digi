@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 INSTALLED_FSTABS_TARGET := \
 	$(TARGET_ROOT_OUT)/fstab.digi \
 	$(TARGET_ROOT_OUT)/fstab.digi.sd
@@ -13,3 +15,5 @@ $(INSTALLED_FSTABS_TARGET): $(wildcard $(LOCALCONF_MK))
 	sed -e '$(TF_ENCRYPT_SEDFILTER)' device/digi/$(TARGET_PRODUCT)/$(notdir $@) > $@
 
 $(INSTALLED_RAMDISK_TARGET): $(INSTALLED_FSTABS_TARGET)
+
+endif

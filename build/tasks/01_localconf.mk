@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 LOCALCONF_MK := localconf.mk
 
 -include $(LOCALCONF_MK)
@@ -28,3 +30,5 @@ export TF_SIGN_UBOOT := $(HOST_OUT_EXECUTABLES)/trustfence-sign-uboot.sh
 # Rule to build and deploy TF tools regardless on TF configuration in the config makefile
 .PHONY: trustfence-sign-tools
 trustfence-sign-tools: $(TF_SIGN_ARTIFACT) $(TF_SIGN_UBOOT)
+
+endif

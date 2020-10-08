@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 ifneq ($(strip $(TARGET_NO_KERNEL)),true)
 
 TARGET_PREBUILT_KERNEL_ZIMAGE := $(call append-path,$(dir $(TARGET_PREBUILT_KERNEL)),zImage)
@@ -26,5 +28,7 @@ $(TARGET_PREBUILT_KERNEL): $(wildcard $(LOCALCONF_MK)) | $(if $(TF_SIGN_ENABLED)
 			install -D $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/dts/$(DTS_ADDITIONAL_PATH)/$$DTS_BOARD $(KERNEL_OUT)/$$DTS_BOARD; \
 		fi \
 	done
+
+endif
 
 endif

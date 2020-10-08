@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 ifeq ($(strip $(TARGET_DEA_FWINSTALLER)),true)
 
 MKIMAGE := $(HOST_OUT_EXECUTABLES)/mkimage$(HOST_EXECUTABLE_SUFFIX)
@@ -41,5 +43,7 @@ $(FWINSTALLER_ZIP): $(FWINSTALLER_DEPENDENCIES) $(TARGET_UBOOT_IMAGES)
 	$(hide) rm -f README.txt
 
 droidcore: $(FWINSTALLER_ZIP)
+
+endif
 
 endif

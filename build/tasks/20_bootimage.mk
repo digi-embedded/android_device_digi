@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 ifeq ($(strip $(TARGET_DEA_BOOTIMAGE)),true)
 
 # 1KB blocks for mkfs.vfat
@@ -20,5 +22,7 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(INTERNAL_BOOTIMAGE_FILES) $(INSTALLED_BOOTSCRIP
 	#
 	BOOTIMAGE_FILES_SIZE="$$(($$(du -bc $(BOOTIMAGE_FILES) | tail -n1 | cut -f1) * (100 + 10) / 100))"; \
 	truncate -s $$((((BOOTIMAGE_FILES_SIZE + 511) / 512) * 512)) $@
+
+endif
 
 endif

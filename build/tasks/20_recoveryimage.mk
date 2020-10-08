@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 ifeq (,$(filter true, $(TARGET_NO_KERNEL) $(TARGET_NO_RECOVERY)))
 
 MKIMAGE := $(HOST_OUT_EXECUTABLES)/mkimage$(HOST_EXECUTABLE_SUFFIX)
@@ -33,5 +35,7 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): $(INSTALLED_BOOTSCRIPT_TARGET) $(wildcard $(L
 	#
 	RECOVERYIMAGE_FILES_SIZE="$$(($$(du -bc $(RECOVERYIMAGE_FILES) | tail -n1 | cut -f1) * (100 + 10) / 100))"; \
 	truncate -s $$((((RECOVERYIMAGE_FILES_SIZE + 511) / 512) * 512)) $@
+
+endif
 
 endif

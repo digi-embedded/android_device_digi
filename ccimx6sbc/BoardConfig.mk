@@ -100,6 +100,9 @@ TARGET_DEA_BUILDINFO := true
 TARGET_DEA_FWINSTALLER := true
 TARGET_DEA_SDIMAGE := true
 
+# Enable DEA specific makefiles for building firmware
+TARGET_DEA_FIRMWARE_MK := true
+
 # Use sparse images
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
 

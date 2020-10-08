@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 MKIMAGE := $(HOST_OUT_EXECUTABLES)/mkimage$(HOST_EXECUTABLE_SUFFIX)
 
 BOOTSCRIPT_SRC := device/digi/$(TARGET_PRODUCT)/bootscript.txt
@@ -13,3 +15,5 @@ $(INSTALLED_BOOTSCRIPT_TARGET): $(BOOTSCRIPT_SRC) $(wildcard $(LOCALCONF_MK)) | 
 		$(TF_SIGN_ARTIFACT) -p ccimx6 -b $@ $(basename $@)-signed$(suffix $@); \
 		mv $(basename $@)-signed$(suffix $@) $@; \
 	fi
+
+endif

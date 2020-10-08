@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 ifneq ($(strip $(TARGET_UBOOT_CONFIG)),)
 
 UBOOT_CROSS_TOOLCHAIN := $(ANDROID_TOOLCHAIN)/arm-linux-androideabi-
@@ -78,6 +80,8 @@ ifeq ($(strip $(TF_SIGN_ENABLED)),1)
 endif
 ifeq ($(strip $(TF_ENCRYPT_ENABLED)),1)
 	install -D $(<D)/u-boot$(TARGET_DTB_POSTFIX)-encrypted.imx $(subst u-boot,u-boot-encrypted,$@)
+endif
+
 endif
 
 endif

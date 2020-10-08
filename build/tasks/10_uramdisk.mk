@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 MKIMAGE := $(HOST_OUT_EXECUTABLES)/mkimage$(HOST_EXECUTABLE_SUFFIX)
 
 INSTALLED_URAMDISK_TARGET := $(PRODUCT_OUT)/uramdisk.img
@@ -12,3 +14,5 @@ $(INSTALLED_URAMDISK_TARGET): $(INSTALLED_RAMDISK_TARGET) $(wildcard $(LOCALCONF
 		$(TF_SIGN_ARTIFACT) -p ccimx6 -i $@ $(basename $@)-signed$(suffix $@); \
 		mv $(basename $@)-signed$(suffix $@) $@; \
 	fi
+
+endif

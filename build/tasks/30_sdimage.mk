@@ -1,3 +1,5 @@
+ifeq ($(strip $(TARGET_DEA_FIRMWARE_MK)),true)
+
 ifeq ($(strip $(TARGET_DEA_SDIMAGE)),true)
 
 MKSDIMAGE := $(TOPDIR)device/digi/build/tools/mksdimage.sh
@@ -26,5 +28,7 @@ $(INSTALLED_SDIMAGE_TARGET_GZ): $(TARGET_UBOOT_IMAGES) $(INSTALLED_BOOTIMAGE_TAR
 	$(hide) rm -f $(INSTALLED_SDIMAGE_TARGET)
 
 droidcore: $(INSTALLED_SDIMAGE_TARGET_GZ)
+
+endif
 
 endif
