@@ -1,9 +1,0 @@
-allow init diginative_exec:lnk_file read;
-allow init lock_path:file { lock };
-allow init proc:file setattr;
-allow init sysfs_device_tree:file { read open };
-allow init ubootenv_path:blk_file { open read };
-allow init var_path:dir { write open create lock };
-allow init var_path:file { write open create lock };
-allow init var_path:lnk_file { read };
-

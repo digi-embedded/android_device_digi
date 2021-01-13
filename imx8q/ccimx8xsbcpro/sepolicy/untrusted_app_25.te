@@ -1,3 +1,0 @@
-allow untrusted_app_25 digiservices:service_manager find;
-allow untrusted_app_25 sysfs_device_tree:file { r_file_perms };
-allow untrusted_app_25 sysfs_device_tree:dir { r_dir_perms };

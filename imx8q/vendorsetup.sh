@@ -1,3 +1,0 @@
-add_lunch_combo ccimx8xsbcpro-eng
-add_lunch_combo ccimx8xsbcpro-user
-add_lunch_combo ccimx8xsbcpro-userdebug

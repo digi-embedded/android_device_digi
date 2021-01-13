@@ -1,4 +1,0 @@
-# can ioctls
-define(`can_ioctls', `{
-SIOCGIFINDEX
-}')

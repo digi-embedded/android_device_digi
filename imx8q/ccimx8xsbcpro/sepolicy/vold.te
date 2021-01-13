@@ -1,1 +1,0 @@
-allow vold sysfs_block_devices:file write;

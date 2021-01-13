@@ -1,3 +1,0 @@
-## Permissions to load the WiFi module
-allow hal_wifi_default self:capability sys_module;
-allow hal_wifi_default vendor_file:system module_load;
