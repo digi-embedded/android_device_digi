@@ -1,3 +1,0 @@
-allow modprobe sysfs_mac_address:file r_file_perms;
-allow modprobe sysfs_device_tree:file { r_file_perms };
-allow modprobe sysfs_device_tree:dir { r_dir_perms };

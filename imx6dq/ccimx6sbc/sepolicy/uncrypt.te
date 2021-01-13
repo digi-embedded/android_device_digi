@@ -1,6 +1,0 @@
-allow uncrypt fw_printenv_exec:file { execute };
-allow uncrypt lock_path:dir { search write add_name };
-allow uncrypt lock_path:file { write open create lock };
-allow uncrypt rootfs:file { execute execute_no_trans };
-allow uncrypt sysfs:file { write };
-allow uncrypt ubootenv_path:blk_file { create setattr getattr read open write };

@@ -1,2 +1,0 @@
-# Ethernet properties
-persist.eth0.       u:object_r:ethernet_prop:s0

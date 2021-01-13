@@ -1,3 +1,0 @@
-allow kernel sysfs_mac_address:file { open read };
-allow kernel sysfs_device_tree:file { r_file_perms };
-allow kernel sysfs_device_tree:dir { r_dir_perms };

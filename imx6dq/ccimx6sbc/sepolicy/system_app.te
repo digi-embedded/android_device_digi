@@ -1,6 +1,0 @@
-allow system_app asec_apk_file:dir { getattr read };
-allow system_app file_contexts_file:file getattr;
-allow system_app mnt_media_rw_file:dir { getattr read open };
-allow system_app cache_private_backup_file:dir getattr;
-allow system_app service_contexts_file:file getattr;
-allow system_app cache_file:dir remove_name;
