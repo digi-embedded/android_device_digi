@@ -9,11 +9,7 @@ include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 -include device/nxp/common/imx_path/ImxPathConfig.mk
 
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
-ifeq ($(PRODUCT_IMX_CAR),true)
-$(call inherit-product, $(IMX_DEVICE_PATH)/core_64_bit_car.mk)
-else
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-endif # PRODUCT_IMX_CAR
 endif # IMX8_BUILD_32BIT_ROOTFS
 $(call inherit-product, device/nxp/imx8q/ProductConfigCommon.mk)
 
@@ -36,13 +32,9 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/power
 PRODUCT_SOONG_NAMESPACES += hardware/google/pixel
 
-ifeq ($(PRODUCT_IMX_CAR),true)
-SOONG_CONFIG_IMXPLUGIN_IMX_CAR = true
-SOONG_CONFIG_IMXPLUGIN_BOARD_USE_LEGACY_SENSOR = false
-else
 SOONG_CONFIG_IMXPLUGIN_IMX_CAR = false
 SOONG_CONFIG_IMXPLUGIN_BOARD_USE_LEGACY_SENSOR = true
-endif
+
 #Enable this to choose 32 bit user space build
 #IMX8_BUILD_32BIT_ROOTFS := true
 
@@ -120,36 +112,9 @@ PRODUCT_COPY_FILES += \
     device/nxp/imx8q/mek_8q/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json \
     device/nxp/imx8q/mek_8q/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
-ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/audio_policy_configuration_car.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(IMX_DEVICE_PATH)/car_audio_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/car_audio_configuration.xml \
-    $(IMX_DEVICE_PATH)/car_display_settings.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display_settings.xml
-else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
-endif
 
-ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init_car.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
-    $(IMX_DEVICE_PATH)/fstab.nxp.car:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
-    $(IMX_DEVICE_PATH)/early.init_car.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
-    $(IMX_DEVICE_PATH)/required_hardware_auto.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/init.recovery.nxp.car.rc:root/init.recovery.nxp.rc
-
-ifeq ($(PRODUCT_IMX_CAR_M4),true)
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/setup.main.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.main.cfg \
-    $(IMX_DEVICE_PATH)/setup.core.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.core.cfg \
-    $(IMX_DEVICE_PATH)/init_car_m4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car_additional.rc
-else
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/setup.main.car2.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.main.cfg \
-    $(IMX_DEVICE_PATH)/setup.core.car2.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/setup.core.cfg \
-    $(IMX_DEVICE_PATH)/init_car_no_m4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.car_additional.rc
-endif #PRODUCT_IMX_CAR_M4
-else
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
     $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
@@ -163,8 +128,6 @@ PRODUCT_COPY_FILES += \
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.nxp
-endif
-
 endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
@@ -194,7 +157,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.activities_on_secondary_displays.xml \
     frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.ambient_temperature.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.ambient_temperature.xml \
@@ -208,7 +170,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.device_admin.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_admin.xml \
     frameworks/native/data/etc/android.software.managed_users.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.managed_users.xml \
     frameworks/native/data/etc/android.software.print.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.print.xml
-endif
 
 # Vendor seccomp policy files for media components:
 PRODUCT_COPY_FILES += \
@@ -235,7 +196,6 @@ PRODUCT_COPY_FILES += \
      device/nxp/imx8q/mek_8q/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
      device/nxp/imx8q/mek_8q/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
 	  device/nxp/imx8q/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
@@ -243,18 +203,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
     device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh
-endif
-
 
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 
 PRODUCT_CHARACTERISTICS := tablet
 
 PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi xxhdpi
-
-ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_CUSTOM_RECOVERY_DENSITY := ldpi
-endif
 
 # GPU openCL g2d
 PRODUCT_COPY_FILES += \
@@ -337,22 +291,9 @@ PRODUCT_PACKAGES += \
     configstore@1.1.policy
 
 # Thermal HAL
-
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_COPY_FILES += \
     device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
     device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
-else
-ifneq ($(PRODUCT_IMX_CAR_M4),true)
-PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm_car2.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
-else
-PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
-endif
-endif
 
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
@@ -400,12 +341,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmitxfw.bin
 
-# AudioControl service
-ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_PACKAGES += \
-    android.hardware.automotive.audiocontrol@2.0-service
-endif
-
 # hardware backed keymaster service
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
@@ -447,18 +382,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/by-name/presistdata
 endif
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 # Tensorflow lite camera demo
 PRODUCT_PACKAGES += \
                     tflitecamerademo
-endif
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
-endif
-
 
 # Add oem unlocking option in settings.
 PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
@@ -466,23 +396,9 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 BOARD_VNDK_VERSION := current
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 # Included GMS package
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
 PRODUCT_SOONG_NAMESPACES += vendor/partner_gms
-else
-# Included GAS package
-$(call inherit-product-if-exists, vendor/partner_gas/products/gms.mk)
-PRODUCT_SOONG_NAMESPACES += vendor/partner_gas
-endif
-
-ifeq ($(PRODUCT_IMX_CAR),true)
-HAVE_GAS_INTEGRATED := $(shell test -f vendor/partner_gas/products/gms.mk && echo true)
-ifneq ($(HAVE_GAS_INTEGRATED),true)
-PRODUCT_PACKAGES += \
-    CarMapsPlaceholder
-endif
-endif
 
 #DRM Widevine 1.2 L3 support
 PRODUCT_PACKAGES += \
@@ -494,14 +410,6 @@ PRODUCT_PACKAGES += \
     libwvhidl \
     libwvdrmengine \
 
-# In user build, the Cluster display is not included in
-# packages/services/Car/car_product/build/car.mk. Here add it back for testing
-ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_PACKAGES += \
-    DirectRenderingCluster \
-
-endif
-
 # Specify rollback index for vbmeta and boot partition
 ifneq ($(AVB_RBINDEX),)
 BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
@@ -509,12 +417,10 @@ else
 BOARD_AVB_ROLLBACK_INDEX := 0
 endif
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 ifneq ($(AVB_BOOT_RBINDEX),)
 BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
 else
 BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
-endif
 endif
 
 #set default lib name for g2d, which will be linked

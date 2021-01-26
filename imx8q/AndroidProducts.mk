@@ -27,14 +27,8 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-  $(LOCAL_DIR)/mek_8q/mek_8q.mk \
-  $(LOCAL_DIR)/mek_8q/mek_8q_car.mk \
-  $(LOCAL_DIR)/mek_8q/mek_8q_car2.mk
+  $(LOCAL_DIR)/mek_8q/mek_8q.mk
 
 COMMON_LUNCH_CHOICES := \
   mek_8q-user \
-  mek_8q-userdebug \
-  mek_8q_car-user \
-  mek_8q_car-userdebug \
-  mek_8q_car2-user \
-  mek_8q_car2-userdebug
+  mek_8q-userdebug

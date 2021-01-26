@@ -1,11 +1,5 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
-ifeq ($(PRODUCT_IMX_CAR),true)
-$(call inherit-product, packages/services/Car/car_product/build/car.mk)
-endif
-ifneq ($(TARGET_PRODUCT),mek_8q_car)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
-endif
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 
 # Installs gsi keys into ramdisk.
@@ -31,20 +25,12 @@ PRODUCT_PACKAGES += \
     verity_warning_images
 
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     MultiDisplay
-else
-PRODUCT_PACKAGES += \
-    MultiDisplaySecondaryHomeTestLauncher
-endif
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     slideshow
-endif
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     Camera \
     CubeLiveWallpapers \
@@ -53,7 +39,6 @@ PRODUCT_PACKAGES += \
     Gallery2 \
     LiveWallpapersPicker \
     SoundRecorder
-endif
 
 # HAL
 PRODUCT_PACKAGES += \
@@ -73,10 +58,8 @@ PRODUCT_PACKAGES += \
     update_engine_client \
     update_verifier
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     update_engine_sideload
-endif
 
 PRODUCT_HOST_PACKAGES += \
     brillo_update_payload \
@@ -129,7 +112,6 @@ PRODUCT_PACKAGES += \
     fastbootd
 
 # camera
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.6-service-google \
     android.hardware.camera.provider@2.6-impl-google \
@@ -143,15 +125,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@1.0-impl \
     camera.device@3.2-impl
-endif
-
-ifeq ($(PRODUCT_IMX_CAR),true)
-PRODUCT_PACKAGES += \
-    android.hardware.automotive.evs@1.1-EvsEnumeratorHw
-
-PRODUCT_PACKAGES += \
-    evs_service
-endif
 
 # display
 PRODUCT_PACKAGES += \
