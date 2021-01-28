@@ -1,3 +1,0 @@
-allow platform_app opencl_cache_file:dir {search};
-
-get_prop(platform_app, vendor_default_prop)
