@@ -27,8 +27,8 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-  $(LOCAL_DIR)/mek_8q/mek_8q.mk
+  $(LOCAL_DIR)/ccimx8xsbcpro/ccimx8xsbcpro.mk
 
 COMMON_LUNCH_CHOICES := \
-  mek_8q-user \
-  mek_8q-userdebug
+  ccimx8xsbcpro-user \
+  ccimx8xsbcpro-userdebug

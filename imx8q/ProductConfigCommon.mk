@@ -10,7 +10,7 @@ PRODUCT_PACKAGES += \
 
 # overrides
 PRODUCT_BRAND := Android
-PRODUCT_MANUFACTURER := nxp
+PRODUCT_MANUFACTURER := digi
 
 # Android infrastructures
 PRODUCT_PACKAGES += \

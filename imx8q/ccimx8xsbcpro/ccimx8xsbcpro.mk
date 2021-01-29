@@ -1,32 +1,25 @@
 # This is a FSL Android Reference Design platform based on i.MX8QP ARD board
 # It will inherit from FSL core product which in turn inherit from Google generic
 
-IMX_DEVICE_PATH := device/nxp/imx8q/mek_8q
+IMX_DEVICE_PATH := device/digi/imx8q/ccimx8xsbcpro
 
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
+# Include PATHs from NXP's device folder
 -include device/nxp/common/imx_path/ImxPathConfig.mk
 
 ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif # IMX8_BUILD_32BIT_ROOTFS
-$(call inherit-product, device/nxp/imx8q/ProductConfigCommon.mk)
 
-include device/nxp/imx8q/ProductConfigCommon.mk
-
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab_nand.nxp),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab_nand.nxp)
-endif
-
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.nxp),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab.nxp)
-endif
+$(call inherit-product, device/digi/imx8q/ProductConfigCommon.mk)
+include device/digi/imx8q/ProductConfigCommon.mk
 
 # Overrides
-PRODUCT_NAME := mek_8q
-PRODUCT_DEVICE := mek_8q
-PRODUCT_MODEL := MEK-MX8Q
+PRODUCT_NAME := ccimx8xsbcpro
+PRODUCT_DEVICE := ccimx8xsbcpro
+PRODUCT_MODEL := CCIMX8XSBCPRO
 
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/power
@@ -78,10 +71,10 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
     $(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     $(IMX_DEVICE_PATH)/input-port-associations.xml:$(TARGET_COPY_OUT_VENDOR)/etc/input-port-associations.xml \
-    $(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8qm.rc \
-    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.imx8qxp.rc \
-    $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.usb.rc \
-    $(IMX_DEVICE_PATH)/ueventd.nxp.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+    $(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qm.rc \
+    $(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qxp.rc \
+    $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.usb.rc \
+    $(IMX_DEVICE_PATH)/ueventd.digi.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
     device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
     device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
@@ -108,18 +101,18 @@ PRODUCT_COPY_FILES += \
 endif
 
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qm.json \
-    device/nxp/imx8q/mek_8q/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+    device/digi/imx8q/ccimx8xsbcpro/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qm.json \
+    device/digi/imx8q/ccimx8xsbcpro/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json \
+    device/digi/imx8q/ccimx8xsbcpro/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.rc \
-    $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.nxp \
+    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
+    $(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi \
     $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/init.recovery.nxp.rc:root/init.recovery.nxp.rc \
+    $(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
     $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
@@ -127,7 +120,7 @@ PRODUCT_COPY_FILES += \
 # can be deleted once we figure out what kernel modules should be put into the vendor boot ramdisk.
 ifeq ($(TARGET_USE_VENDOR_BOOT),true)
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/fstab.nxp:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.nxp
+    $(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.digi
 endif
 
 # ONLY devices that meet the CDD's requirements may declare these features
@@ -193,8 +186,8 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 PRODUCT_COPY_FILES += \
-     device/nxp/imx8q/mek_8q/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
-     device/nxp/imx8q/mek_8q/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
+     device/digi/imx8q/ccimx8xsbcpro/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
+     device/digi/imx8q/ccimx8xsbcpro/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
@@ -292,8 +285,8 @@ PRODUCT_PACKAGES += \
 
 # Thermal HAL
 PRODUCT_COPY_FILES += \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/nxp/imx8q/mek_8q/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    device/digi/imx8q/ccimx8xsbcpro/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
+    device/digi/imx8q/ccimx8xsbcpro/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
 
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
@@ -323,11 +316,6 @@ PRODUCT_PACKAGES += \
 # WiFi RRO
 PRODUCT_PACKAGES += \
     WifiOverlay
-
-# NXP 8997 Wifi and Bluetooth Combo Firmware
-PRODUCT_COPY_FILES += \
-    vendor/nxp/imx-firmware/nxp/FwImage_8997/pcieuart8997_combo_v4.bin:vendor/firmware/pcieuart8997_combo_v4.bin \
-    vendor/nxp/imx-firmware/nxp/android_wifi_mod_para.conf:vendor/firmware/wifi_mod_para.conf
 
 # Wifi regulatory
 PRODUCT_COPY_FILES += \
