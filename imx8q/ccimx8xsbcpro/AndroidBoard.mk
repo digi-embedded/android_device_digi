@@ -1,6 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
-include device/nxp/common/build/dtbo.mk
+# Digi's "dtbo.mk" modified for DTS_ADDITIONAL_PATH
+include device/digi/common/build/dtbo.mk
 include device/nxp/common/build/imx-recovery.mk
 include device/nxp/common/build/gpt.mk
 include $(FSL_PROPRIETARY_PATH)/fsl-proprietary/media-profile/media-profile.mk
