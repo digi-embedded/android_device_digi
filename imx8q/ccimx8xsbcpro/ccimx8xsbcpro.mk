@@ -71,7 +71,6 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
     $(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
     $(IMX_DEVICE_PATH)/input-port-associations.xml:$(TARGET_COPY_OUT_VENDOR)/etc/input-port-associations.xml \
-    $(IMX_DEVICE_PATH)/init.imx8qm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qm.rc \
     $(IMX_DEVICE_PATH)/init.imx8qxp.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8qxp.rc \
     $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.usb.rc \
     $(IMX_DEVICE_PATH)/ueventd.digi.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
@@ -101,7 +100,6 @@ PRODUCT_COPY_FILES += \
 endif
 
 PRODUCT_COPY_FILES += \
-    device/digi/imx8q/ccimx8xsbcpro/camera_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qm.json \
     device/digi/imx8q/ccimx8xsbcpro/camera_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8qxp.json \
     device/digi/imx8q/ccimx8xsbcpro/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
 
@@ -186,8 +184,7 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
 
 PRODUCT_COPY_FILES += \
-     device/digi/imx8q/ccimx8xsbcpro/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json \
-     device/digi/imx8q/ccimx8xsbcpro/powerhint_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qm.json
+     device/digi/imx8q/ccimx8xsbcpro/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
@@ -285,8 +282,7 @@ PRODUCT_PACKAGES += \
 
 # Thermal HAL
 PRODUCT_COPY_FILES += \
-    device/digi/imx8q/ccimx8xsbcpro/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json \
-    device/digi/imx8q/ccimx8xsbcpro/thermal_info_config_imx8qm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qm.json
+    device/digi/imx8q/ccimx8xsbcpro/thermal_info_config_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8qxp.json
 
 # Neural Network HAL and Lib
 PRODUCT_PACKAGES += \
