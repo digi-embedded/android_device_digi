@@ -3,7 +3,7 @@
 #
 
 BOARD_SOC_TYPE := IMX8MM
-BOARD_TYPE := EVK
+BOARD_TYPE := DVK
 BOARD_HAVE_VPU := true
 BOARD_VPU_TYPE := hantro
 FSL_VPU_OMX_ONLY := true
@@ -31,15 +31,14 @@ SOONG_CONFIG_IMXPLUGIN_BOARD_VPU_ONLY = false
 #
 # Product-specific compile-time definitions.
 #
+IMX_DEVICE_PATH := device/digi/imx8m/ccimx8mmdvk
 
-IMX_DEVICE_PATH := device/nxp/imx8m/evk_8mm
-
-include device/nxp/imx8m/BoardConfigCommon.mk
+include device/digi/imx8m/BoardConfigCommon.mk
 
 BUILD_TARGET_FS ?= ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
-TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.nxp
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.digi
 
 # Support gpt
 ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
@@ -80,19 +79,19 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 # NXP 8987 wifi support dual interface
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
-# NXP 8987 wifi driver module
-BOARD_VENDOR_KERNEL_MODULES += \
-  $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
-  $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
+# # NXP 8987 wifi driver module
+# BOARD_VENDOR_KERNEL_MODULES += \
+#   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
+#   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
 
 # Qcom 1PJ(QCA9377) BT
-BOARD_HAVE_BLUETOOTH_QCOM := true
-BOARD_HAS_QCA_BT_ROME := true
-BOARD_HAVE_BLUETOOTH_BLUEZ := false
-QCOM_BT_USE_SIBS := true
-ifeq ($(QCOM_BT_USE_SIBS), true)
-    WCNSS_FILTER_USES_SIBS := true
-endif
+# BOARD_HAVE_BLUETOOTH_QCOM := true
+# BOARD_HAS_QCA_BT_ROME := true
+# BOARD_HAVE_BLUETOOTH_BLUEZ := false
+# QCOM_BT_USE_SIBS := true
+# ifeq ($(QCOM_BT_USE_SIBS), true)
+#     WCNSS_FILTER_USES_SIBS := true
+# endif
 
 BOARD_USE_SENSOR_FUSION := true
 
@@ -124,7 +123,7 @@ NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 CMASIZE=800M
 
 # NXP default config
-BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
+BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc0 androidboot.hardware=digi firmware_class.path=/vendor/firmware loop.max_part=7
 
 # memory config
 BOARD_KERNEL_CMDLINE += transparent_hugepage=never
@@ -133,7 +132,7 @@ BOARD_KERNEL_CMDLINE += transparent_hugepage=never
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
 # wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN moal.mod_para=wifi_mod_para_sd8987.conf
+BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
@@ -152,32 +151,8 @@ $(error "TARGET_USERIMAGES_USE_UBIFS and TARGET_USERIMAGES_USE_EXT4 config open 
 endif
 endif
 
-BOARD_PREBUILT_DTBOIMAGE := out/target/product/evk_8mm/dtbo-imx8mm.img
-
-ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-  # dts target for imx8mm_evk with DDR4 on board
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    # dts without product partition
-    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-product.dtb
-  else
-    TARGET_BOARD_DTS_CONFIG ?= imx8mm-ddr4:imx8mm-ddr4-evk.dtb
-    # imx8mm with MIPI-HDMI display and NXP wifi
-    TARGET_BOARD_DTS_CONFIG += imx8mm:imx8mm-evk-usd-wifi.dtb
-    # imx8mm with MIPI panel display and NXP wifi
-    TARGET_BOARD_DTS_CONFIG += imx8mm-mipi-panel:imx8mm-evk-rm67191.dtb
-    # imx8mm with MIPI-HDMI display, NXP wifi and m4 image to support LPA
-    TARGET_BOARD_DTS_CONFIG += imx8mm-m4:imx8mm-evk-rpmsg.dtb
-  endif
-else
-  ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-product-no-dynamic_partition.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-product-no-dynamic_partition.dtb
-  else
-    TARGET_BOARD_DTS_CONFIG ?= imx8mm:imx8mm-evk-no-dynamic_partition.dtb
-    TARGET_BOARD_DTS_CONFIG += imx8mm-ddr4:imx8mm-ddr4-evk-no-dynamic_partition.dtb
-  endif
-endif
+BOARD_PREBUILT_DTBOIMAGE := out/target/product/ccimx8mmdvk/dtbo-imx8mm.img
+TARGET_BOARD_DTS_CONFIG += imx8mm:ccimx8mm-dvk.dtb
 
 BOARD_SEPOLICY_DIRS := \
        device/nxp/imx8m/sepolicy \

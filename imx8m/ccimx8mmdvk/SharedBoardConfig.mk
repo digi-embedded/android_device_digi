@@ -1,10 +1,6 @@
 KERNEL_NAME := Image
 TARGET_KERNEL_ARCH := arm64
 # IMX8MM_USES_GKI := true
-# after selecting the target by "lunch" command, TARGET_PRODUCT will be set
-ifeq ($(TARGET_PRODUCT),evk_8mm_ddr4)
-  PRODUCT_8MM_DDR4 := true
-endif
 
 #Enable this to config 1GB ddr on evk_imx8mm
 #LOW_MEMORY := true
@@ -61,9 +57,9 @@ BOARD_VENDOR_KERNEL_MODULES += \
     $(KERNEL_OUT)/drivers/ptp/ptp.ko \
     $(KERNEL_OUT)/drivers/net/phy/at803x.ko \
     $(KERNEL_OUT)/drivers/net/ethernet/freescale/fec.ko
-else
-BOARD_VENDOR_KERNEL_MODULES +=     \
-    $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
+# else
+# BOARD_VENDOR_KERNEL_MODULES +=     \
+#     $(KERNEL_OUT)/drivers/input/touchscreen/synaptics_dsx/synaptics_dsx_i2c.ko
 endif
 
 # CONFIG_CLK_IMX8MM: clk-imx8mm.ko

@@ -27,8 +27,8 @@
 # Copied from build/target/product/AndroidProducts.mk
 
 PRODUCT_MAKEFILES := \
-  $(LOCAL_DIR)/evk_8mm/evk_8mm.mk
+  $(LOCAL_DIR)/ccimx8mmdvk/ccimx8mmdvk.mk
 
 COMMON_LUNCH_CHOICES := \
-  evk_8mm-user \
-  evk_8mm-userdebug
+  ccimx8mmdvk-user \
+  ccimx8mmdvk-userdebug
