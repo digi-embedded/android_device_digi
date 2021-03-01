@@ -121,11 +121,7 @@ TARGET_USES_MKE2FS := true
 # define frame buffer count
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
-ifeq ($(PRODUCT_IMX_DRM),true)
-CMASIZE=736M
-else
 CMASIZE=800M
-endif
 
 # NXP default config
 BOARD_KERNEL_CMDLINE := init=/init androidboot.console=ttymxc1 androidboot.hardware=nxp firmware_class.path=/vendor/firmware loop.max_part=7
@@ -186,11 +182,6 @@ endif
 BOARD_SEPOLICY_DIRS := \
        device/nxp/imx8m/sepolicy \
        $(IMX_DEVICE_PATH)/sepolicy
-
-ifeq ($(PRODUCT_IMX_DRM),true)
-BOARD_SEPOLICY_DIRS += \
-       $(IMX_DEVICE_PATH)/sepolicy_drm
-endif
 
 TARGET_BOARD_KERNEL_HEADERS := device/nxp/common/kernel-headers
 

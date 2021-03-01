@@ -3,9 +3,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 endif
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic.mk)
-ifeq ($(PRODUCT_IMX_CAR),true)
-$(call inherit-product, packages/services/Car/car_product/build/car.mk)
-endif
 $(call inherit-product, $(TOPDIR)frameworks/base/data/sounds/AllAudio.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
@@ -32,7 +29,6 @@ PRODUCT_PACKAGES += \
     slideshow \
     verity_warning_images
 
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     Camera \
     CubeLiveWallpapers \
@@ -40,7 +36,6 @@ PRODUCT_PACKAGES += \
     Gallery2 \
     LiveWallpapersPicker \
     SoundRecorder
-endif
 
 # HAL
 PRODUCT_PACKAGES += \
@@ -103,7 +98,6 @@ PRODUCT_PACKAGES += \
     memtrack.imx
 
 # camera
-ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.6-service-google \
     android.hardware.camera.provider@2.6-impl-google \
@@ -117,7 +111,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@1.0-impl \
     camera.device@3.2-impl
-endif
 
 # health
 PRODUCT_PACKAGES += \
