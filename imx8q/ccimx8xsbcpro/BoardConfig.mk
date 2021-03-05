@@ -99,6 +99,9 @@ BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=
 # wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
+# Move the kernel bootup logo to the center
+BOARD_KERNEL_CMDLINE += fbcon=logo-pos:center
+
 BOARD_KERNEL_CMDLINE += androidboot.console=ttyLP2
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))

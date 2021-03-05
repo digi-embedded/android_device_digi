@@ -119,6 +119,9 @@ BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=
 # wifi config
 BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
 
+# Move the kernel bootup logo to the center
+BOARD_KERNEL_CMDLINE += fbcon=logo-pos:center
+
 # low memory device build config
 ifeq ($(LOW_MEMORY),true)
 BOARD_KERNEL_CMDLINE += cma=320M@0x400M-0xb80M androidboot.displaymode=720p galcore.contiguousSize=33554432
