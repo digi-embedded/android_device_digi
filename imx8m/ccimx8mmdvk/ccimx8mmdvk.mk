@@ -85,6 +85,10 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
     device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
 
+PRODUCT_COPY_FILES += \
+    device/digi/common/runtime/sysinfo:$(TARGET_COPY_OUT_VENDOR)/bin/sysinfo \
+    device/digi/common/runtime/bootanimation.zip:system/media/bootanimation.zip
+
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
 # boot ramdisk so far, we need this step to generate the vendor-ramdisk folder or build process would fail. This
 # can be deleted once we figure out what kernel modules should be put into the vendor boot ramdisk.
