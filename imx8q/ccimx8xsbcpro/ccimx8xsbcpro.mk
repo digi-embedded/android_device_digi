@@ -309,6 +309,15 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     WifiOverlay
 
+# QCA65X4
+PRODUCT_PACKAGES += \
+    qwlan30 \
+    bdwlan30 \
+    otp30 \
+    utf \
+    WCNSS_cfg \
+    WCNSS_qcom_cfg
+
 # Wifi regulatory
 PRODUCT_COPY_FILES += \
     external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
