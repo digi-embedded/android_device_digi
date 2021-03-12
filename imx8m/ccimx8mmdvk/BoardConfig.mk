@@ -54,15 +54,19 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 USE_OPENGL_RENDERER := true
 
 # 8mm LPDDR4 board use NXP 8987 wifi
-BOARD_WLAN_DEVICE            := nxp
+BOARD_WLAN_DEVICE            := qcwcn
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
 BOARD_HOSTAPD_DRIVER         := NL80211
+
 BOARD_HOSTAPD_PRIVATE_LIB               := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 
-# NXP 8987 wifi support dual interface
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
+# Qcom QCA65X4 Wi-Fi
+BOARD_HAVE_WIFI_QCA65X4 := true
+WIFI_DRIVER_MODULE_PATH := /vendor/lib/modules/wlan.ko
+WIFI_DRIVER_MODULE_NAME := wlan
+WIFI_DRIVER_MODULE_ARG := "asyncintdelay=0x2 writecccr1=0xf2 writecccr1value=0xf writecccr2=0xf1 writecccr2value=0xa8 writecccr3=0xf0 writecccr3value=0xa1 writecccr4=0x15 writecccr4value=0x30 enable_p2p=1"
 
 # # NXP 8987 wifi driver module
 # BOARD_VENDOR_KERNEL_MODULES += \
