@@ -14,6 +14,7 @@ cat << EOF
            bootloader              bootloader will be compiled
            kernel                  kernel, include related dts will be compiled
            galcore                 galcore.ko in GPU repo will be compiled
+           qcacld                  QCACLD wireless driver (external module)
            vvcam                   vvcam.ko, the ISP driver will be compiled
            dtboimage               dtbo images will be built out
            bootimage               boot.img will be built out
@@ -90,6 +91,9 @@ for arg in ${args[*]} ; do
         galcore) build_bootloader_kernel_flag=1;
                     build_kernel_module_flag=1;
                     build_galcore="galcore";;
+        qcacld) build_bootloader_kernel_flag=1;
+                    build_kernel_module_flag=1
+                    build_qcacld="qcacld";;
         vvcam) build_bootloader_kernel_flag=1;
                     build_kernel_module_flag=1
                     build_vvcam="vvcam";;
@@ -139,13 +143,13 @@ fi
 
 # redirect standard input to /dev/null to avoid manually input in kernel configuration stage
 soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
-    make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
+    make -C ./ -f ${digi_git_path}/common/build/Makefile ${parallel_option} \
     ${build_bootloader} ${build_kernel} </dev/null || exit
 
 if [ ${build_kernel_module_flag} -eq 1 ]; then
     soc_path=${soc_path} product_path=${product_path} nxp_git_path=${nxp_git_path} clean_build=${clean_build} \
-        make -C ./ -f ${nxp_git_path}/common/build/Makefile ${parallel_option} \
-        ${build_vvcam} ${build_galcore} </dev/null || exit
+        make -C ./ -f ${digi_git_path}/common/build/Makefile ${parallel_option} \
+        ${build_vvcam} ${build_galcore} ${build_qcacld} </dev/null || exit
 fi
 
 if [ ${build_android_flag} -eq 1 ]; then

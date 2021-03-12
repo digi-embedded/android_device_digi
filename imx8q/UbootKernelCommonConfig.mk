@@ -6,3 +6,4 @@ TARGET_UBOOT_ARCH := arm64
 DIGI_PROPRIETARY_PATH := vendor/digi/proprietary
 KERNEL_IMX_PATH := vendor/digi
 UBOOT_IMX_PATH := vendor/digi
+QCACLD_PATH := vendor/digi/qcacld-2.0
