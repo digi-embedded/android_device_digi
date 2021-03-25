@@ -1,0 +1,31 @@
+java_library {
+    name: "RXTXcomm",
+    installable: true,
+    required: ["librxtxSerial"],
+    srcs: ["java/**/*.java"],
+}
+
+cc_library_shared {
+    name: "librxtxSerial",
+
+    srcs: [
+        "lib/fuserImp.c",
+        "lib/SerialImp.c",
+    ],
+
+    local_include_dirs: ["lib"],
+
+    cflags: [
+        "-fPIC",
+        "-D_GNU_SOURCE",
+        "-Wno-unused-variable",
+        "-Wno-unused-parameter",
+        "-Wno-unused-function",
+        "-Wno-incompatible-pointer-types",
+    ],
+
+    shared_libs: [
+        "libdl",
+        "liblog",
+    ],
+}
