@@ -327,6 +327,25 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     bt_vendor.conf
 
+# Custom Digi packages
+PRODUCT_PACKAGES += \
+        com.digi.android \
+        com.digi.android.xml \
+        DigiLicenseApp \
+        DigiServicesApp \
+        digiservices \
+        digiservices.xml \
+        libdigiservices \
+        librxtxSerial \
+        libdiginativeservice \
+        diginativeservice
+
+# Jars boot order.
+PRODUCT_BOOT_JARS += \
+        CloudConnectorAndroid \
+        digiservices \
+        RXTXcomm
+
 PRODUCT_COPY_FILES += \
     vendor/nxp/linux-firmware-imx/firmware/hdmi/cadence/hdmitxfw.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/hdmitxfw.bin
 
