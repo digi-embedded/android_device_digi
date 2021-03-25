@@ -492,6 +492,11 @@ PRODUCT_PACKAGES += \
         FirmwareUpdateSample \
         mca_tool
 
+# Jars boot order.
+PRODUCT_BOOT_JARS += \
+        digiservices \
+        RXTXcomm
+
 PRODUCT_COPY_FILES += \
     device/digi/common/runtime/sysinfo:$(TARGET_COPY_OUT_VENDOR)/bin/sysinfo \
     device/digi/common/runtime/bootanimation.zip:system/media/bootanimation.zip
