@@ -190,4 +190,16 @@
 
     <!-- If the system has the input method for each display - enable per-display focus. -->
     <bool name="config_perDisplayFocusEnabled">true</bool>
+
+    <!-- Enable overlay for all location components. -->
+    <bool name="config_enableNetworkLocationOverlay" translatable="false">true</bool>
+
+    <!--
+       Sets the package names whose certificates should be used to
+       verify location providers are allowed to be loaded.
+    -->
+    <string-array name="config_networkLocationProviderPackageName" translatable="false">
+        <item>com.digi.android.server.location</item>
+    </string-array>
+
 </resources>
