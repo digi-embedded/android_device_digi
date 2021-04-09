@@ -12,34 +12,10 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.digi
 
 # Support gpt
-ifeq ($(PRODUCT_IMX_DUAL_BOOTLOADER),true)
-  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-    BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader_super.bpt
-    ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader_super.bpt
-  else
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader-no-product.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader-no-product.bpt
-    else
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-dual-bootloader.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-dual-bootloader.bpt
-    endif
-  endif
-else
-  ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab_super.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab_super.bpt
-  else
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab-no-product.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab-no-product.bpt
-    else
-      BOARD_BPT_INPUT_FILES += device/nxp/common/partition/device-partitions-13GB-ab.bpt
-      ADDITION_BPT_PARTITION = partition-table-28GB:device/nxp/common/partition/device-partitions-28GB-ab.bpt
-    endif
-  endif
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+BOARD_BPT_INPUT_FILES += device/digi/common/partition/device-partitions-14GB-ab_super.bpt
+ADDITION_BPT_PARTITION = partition-table-7GB:device/digi/common/partition/device-partitions-7GB-ab_super.bpt
 endif
-
 
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := $(IMX_DEVICE_PATH)/manifest.xml
