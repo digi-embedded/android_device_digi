@@ -23,3 +23,9 @@ android_app {
     privileged: true,
     platform_apis: true,
 }
+
+prebuilt_etc {
+    name: "privapp-permissions-com.digi.android.server.xml",
+    src: "privapp-permissions-com.digi.android.server.xml",
+    sub_dir: "permissions",
+}
