@@ -169,8 +169,7 @@ PRODUCT_COPY_FILES += \
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
-	  device/nxp/imx8m/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
-
+	  device/digi/imx8m/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml
 
 USE_XML_AUDIO_POLICY_CONF := 1
 

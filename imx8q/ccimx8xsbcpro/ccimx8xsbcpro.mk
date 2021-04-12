@@ -184,7 +184,7 @@ PRODUCT_COPY_FILES += \
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
-	  device/nxp/imx8q/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml \
+	  device/digi/imx8q/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
