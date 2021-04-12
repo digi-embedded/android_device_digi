@@ -40,8 +40,6 @@ on early-init && property:ro.boot.mode=charger
     setprop vendor.skip.charger_not_need 1
 
 on init && property:vendor.skip.charger_not_need=0
-    start watchdogd
-
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
@@ -163,11 +161,6 @@ service sensor_fusion /vendor/bin/fsl_sensor_fusion
     user system
     group system uhid
     oneshot
-
-# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
-service watchdogd /system/bin/watchdogd 10 20
-    class core
-    seclabel u:r:watchdogd:s0
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -aABDKL
     class main
