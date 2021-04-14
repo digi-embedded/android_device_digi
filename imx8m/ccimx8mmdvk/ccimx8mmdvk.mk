@@ -275,6 +275,26 @@ PRODUCT_COPY_FILES += \
     external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
     external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
 
+# Custom Digi packages
+PRODUCT_PACKAGES += \
+        com.digi.android \
+        com.digi.android.xml \
+        DigiLicenseApp \
+        DigiServicesApp \
+        privapp-permissions-com.digi.android.server.xml \
+        digiservices \
+        digiservices.xml \
+        libdigiservices \
+        librxtxSerial \
+        libdiginativeservice \
+        diginativeservice
+
+# Jars boot order.
+PRODUCT_BOOT_JARS += \
+        CloudConnectorAndroid \
+        digiservices \
+        RXTXcomm
+
 # Keymaster HAL
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_PACKAGES += \
