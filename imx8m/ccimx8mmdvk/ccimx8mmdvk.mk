@@ -248,7 +248,7 @@ PRODUCT_PACKAGES += \
 
 # WiFi RRO
 PRODUCT_PACKAGES += \
-    WifiOverlay
+    WifiOverlayQCA65X4
 
 # QCA65X4
 PRODUCT_PACKAGES += \
