@@ -323,9 +323,10 @@ PRODUCT_COPY_FILES += \
     external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
     external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
 
-# Bluetooth vendor config
+# QCA65X4 Bluetooth Firmware
 PRODUCT_PACKAGES += \
-    bt_vendor.conf
+	nvm_tlv \
+	rampatch_tlv
 
 # Custom Digi packages
 PRODUCT_PACKAGES += \
