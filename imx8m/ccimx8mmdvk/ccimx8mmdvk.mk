@@ -105,7 +105,7 @@ PRODUCT_COPY_FILES += \
 
 #LPDDR4 board, NXP wifi supplicant overlay
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.imx8mm.lpddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.nxp.additional.rc \
+    $(IMX_DEVICE_PATH)/init.imx8mm.lpddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.additional.rc \
     device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
@@ -274,6 +274,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
     external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
+
+# QCA65X4 Bluetooth Firmware
+PRODUCT_PACKAGES += \
+	nvm_tlv \
+	rampatch_tlv
 
 # Custom Digi packages
 PRODUCT_PACKAGES += \

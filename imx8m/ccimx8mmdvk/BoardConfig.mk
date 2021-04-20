@@ -53,7 +53,6 @@ TARGET_BOOTLOADER_BOARD_NAME := EVK
 
 USE_OPENGL_RENDERER := true
 
-# 8mm LPDDR4 board use NXP 8987 wifi
 BOARD_WLAN_DEVICE            := qcwcn
 WPA_SUPPLICANT_VERSION       := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER  := NL80211
@@ -68,26 +67,16 @@ WIFI_DRIVER_MODULE_PATH := /vendor/lib/modules/wlan.ko
 WIFI_DRIVER_MODULE_NAME := wlan
 WIFI_DRIVER_MODULE_ARG := "asyncintdelay=0x2 writecccr1=0xf2 writecccr1value=0xf writecccr2=0xf1 writecccr2value=0xa8 writecccr3=0xf0 writecccr3value=0xa1 writecccr4=0x15 writecccr4value=0x30 enable_p2p=1"
 
-# # NXP 8987 wifi driver module
-# BOARD_VENDOR_KERNEL_MODULES += \
-#   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/mlan.ko \
-#   $(KERNEL_OUT)/drivers/net/wireless/nxp/mxm_wifiex/wlan_src/moal.ko
-
-# Qcom 1PJ(QCA9377) BT
-# BOARD_HAVE_BLUETOOTH_QCOM := true
-# BOARD_HAS_QCA_BT_ROME := true
-# BOARD_HAVE_BLUETOOTH_BLUEZ := false
-# QCOM_BT_USE_SIBS := true
-# ifeq ($(QCOM_BT_USE_SIBS), true)
-#     WCNSS_FILTER_USES_SIBS := true
-# endif
+# Qcom QCA65X4 BT
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BOARD_HAS_QCA_BT_ROME := true
+QCOM_BT_USE_SIBS := false
 
 BOARD_USE_SENSOR_FUSION := true
 
 # we don't support sparse image.
 TARGET_USERIMAGES_SPARSE_EXT_DISABLED := false
-
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(IMX_DEVICE_PATH)/bluetooth
 
 BOARD_HAVE_USB_CAMERA := true
 BOARD_HAVE_USB_MJPEG_CAMERA := false
