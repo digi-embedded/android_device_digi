@@ -31,6 +31,11 @@ on init
     chown system system /sys/class/gpio/export
     chown system system /sys/class/gpio/unexport
 
+    # Create /var/lock dir required for "librxtxSerial"
+    mkdir /dev/lock 0775 system shell
+    mkdir /var 0775 root shell
+    symlink /dev/lock /var/lock
+
 on early-boot
     # For mek_8qxp, when swap used about 400M, upgrade the level.
     setprop ro.lmk.upgrade_pressure 87
