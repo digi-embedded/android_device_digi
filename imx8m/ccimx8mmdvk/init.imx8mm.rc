@@ -38,6 +38,11 @@ on early-boot
     chown system system /sys/class/gpio/export
     chown system system /sys/class/gpio/unexport
 
+    # Create /var/lock dir required for "librxtxSerial"
+    mkdir /dev/lock 0775 system shell
+    mkdir /var 0775 root shell
+    symlink /dev/lock /var/lock
+
 on property:sys.boot_completed=1
     # Set default CPU frequency governor
     # configure governor settings for little cluster
