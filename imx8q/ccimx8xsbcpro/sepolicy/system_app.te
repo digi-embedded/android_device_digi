@@ -16,6 +16,9 @@ allow system_app sysfs_gpio:file { rw_file_perms };
 allow system_app sysfs_gpio:dir { r_dir_perms };
 allow system_app sysfs_gpu:file { rw_file_perms };
 allow system_app sysfs_gpu:dir { r_dir_perms };
+allow system_app sysfs_pwm:file { rw_file_perms };
+allow system_app sysfs_pwm:lnk_file { read };
+allow system_app sysfs_pwm:dir { r_dir_perms };
 allow system_app var_path:lnk_file { read };
 
 allow system_app var_path:dir { getattr read search };
