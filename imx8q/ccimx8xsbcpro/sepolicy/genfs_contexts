@@ -19,3 +19,6 @@ genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/wakeup/w
 genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x-rtc/wakeup/wakeup4                                 u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x-rtc/rtc/rtc0/wakeup5                               u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/bus@5a000000/5a830000.i2c/i2c-3/3-0052/power_supply/tcpm-source-psy-3-0052/wakeup6                 u:object_r:sysfs_wakeup:s0
+
+# Device Tree
+genfscon sysfs /firmware/devicetree                                                                                                 u:object_r:sysfs_device_tree:s0
