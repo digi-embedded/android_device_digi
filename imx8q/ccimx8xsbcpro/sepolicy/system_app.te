@@ -6,6 +6,7 @@ allow system_app i2c_device:chr_file { getattr open read write ioctl };
 allow system_app lock_path:dir { getattr search write add_name remove_name };
 allow system_app lock_path:file { getattr create write open read unlink };
 allow system_app proc_stat:file { getattr open read };
+allow system_app self:can_socket { bind create getopt read write setopt ioctl };
 allow system_app serial_device:chr_file { open read write ioctl };
 allow system_app spi_device:chr_file { getattr open read write ioctl };
 allow system_app sysfs:file { getattr };
@@ -28,5 +29,8 @@ allow system_app sysfs_pwm:lnk_file { read };
 allow system_app sysfs_pwm:dir { r_dir_perms };
 allow system_app var_path:lnk_file { read };
 allow system_app watchdog_device:chr_file { getattr open read write ioctl };
+
+# Socket IOCTLs
+allowxperm system_app self:can_socket ioctl { can_ioctls };
 
 allow system_app var_path:dir { getattr read search };
