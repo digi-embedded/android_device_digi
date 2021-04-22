@@ -1,3 +1,4 @@
 com.android.server.gpio.IGPIOService u:object_r:digiservices:s0
 com.android.server.i2c.II2CService u:object_r:digiservices:s0
+com.android.server.spi.ISPIService u:object_r:digiservices:s0
 DigiNativeService u:object_r:diginative_service:s0
