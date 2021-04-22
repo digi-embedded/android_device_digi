@@ -48,6 +48,12 @@
 /sys/devices/platform/i2c-rpbus-1/i2c-1/1-0050/power_supply/tcpm-source-psy-1-0050/wakeup[0-9]*(/.*)?                                u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/bus@5f000000/5f000000.pcie/wakeup[0-9]*(/.*)?                                                                  u:object_r:sysfs_wakeup:s0
 
+#adc
+/sys/bus/iio/devices(/.*)?                                                        u:object_r:sysfs_adc:s0
+/sys/devices/platform/bus@5a000000/5a880000.adc(/.*)?                             u:object_r:sysfs_adc:s0
+/sys/devices/platform/bus@5a000000/5a890000.adc(/.*)?                             u:object_r:sysfs_adc:s0
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-som-adc(/.*)?    u:object_r:sysfs_adc:s0
+
 #cpu
 /sys/devices/virtual/thermal(/.*)?                                                u:object_r:sysfs_cpu:s0
 /sys/devices/virtual/thermal/thermal_zone[0-9]*/type                              u:object_r:sysfs_cpu:s0
