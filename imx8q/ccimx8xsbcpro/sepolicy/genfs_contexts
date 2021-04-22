@@ -20,5 +20,18 @@ genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x
 genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x-rtc/rtc/rtc0/wakeup5                               u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/bus@5a000000/5a830000.i2c/i2c-3/3-0052/power_supply/tcpm-source-psy-3-0052/wakeup6                 u:object_r:sysfs_wakeup:s0
 
+# GPIO
+genfscon sysfs /class/gpio u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x-gpio                                               u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d080000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d090000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d0a0000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d0b0000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d0c0000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d0d0000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d0e0000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@5d000000/5d0f0000.gpio                                                                         u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/bus@58000000/58222000.gpio                                                                         u:object_r:sysfs_gpio:s0
+
 # Device Tree
 genfscon sysfs /firmware/devicetree                                                                                                 u:object_r:sysfs_device_tree:s0

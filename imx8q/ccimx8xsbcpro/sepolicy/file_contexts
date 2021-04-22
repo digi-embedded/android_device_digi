@@ -65,6 +65,20 @@
 #Hardware Media C2 service
 /vendor/bin/hw/android\.hardware\.media\.c2@1\.0-service    u:object_r:mediacodec_exec:s0
 
+#gpio
+/sys/class/gpio/export                                                            u:object_r:sysfs_gpio:s0
+/sys/class/gpio/unexport                                                          u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x-gpio(/.*)?  u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d080000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d090000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d0a0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d0b0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d0c0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d0d0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d0e0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@5d000000/5d0f0000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/bus@58000000/58222000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+
 #device-tree
 /sys/firmware/devicetree/base(/.*)?                                               u:object_r:sysfs_device_tree:s0
 
