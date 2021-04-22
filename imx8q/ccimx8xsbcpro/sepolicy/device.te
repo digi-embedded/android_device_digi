@@ -1,1 +1,2 @@
 type i2c_device, dev_type, mlstrustedsubject;
+type spi_device, dev_type, mlstrustedsubject;
