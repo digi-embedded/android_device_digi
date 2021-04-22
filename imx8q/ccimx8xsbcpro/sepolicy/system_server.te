@@ -1,0 +1,2 @@
+# properties
+set_prop(system_server, ethernet_prop)
