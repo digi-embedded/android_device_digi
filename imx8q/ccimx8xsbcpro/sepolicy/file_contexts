@@ -64,3 +64,8 @@
 
 #Hardware Media C2 service
 /vendor/bin/hw/android\.hardware\.media\.c2@1\.0-service    u:object_r:mediacodec_exec:s0
+
+#services
+/system/bin/diginativeservice  -l  u:object_r:diginative_exec:s0
+/system/bin/diginativeservice32    u:object_r:diginative_exec:s0
+/system/bin/diginativeservice64    u:object_r:diginative_exec:s0
