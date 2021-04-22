@@ -44,6 +44,9 @@
 /sys/devices/platform/i2c-rpbus-1/i2c-1/1-0050/power_supply/tcpm-source-psy-1-0050/wakeup[0-9]*(/.*)?                                u:object_r:sysfs_wakeup:s0
 /sys/devices/platform/bus@5f000000/5f000000.pcie/wakeup[0-9]*(/.*)?                                                                  u:object_r:sysfs_wakeup:s0
 
+#device-tree
+/sys/firmware/devicetree/base(/.*)?                                               u:object_r:sysfs_device_tree:s0
+
 #services
 /system/bin/diginativeservice  -l  u:object_r:diginative_exec:s0
 /system/bin/diginativeservice32    u:object_r:diginative_exec:s0

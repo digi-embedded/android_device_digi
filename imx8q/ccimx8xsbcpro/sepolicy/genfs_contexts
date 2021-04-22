@@ -9,3 +9,6 @@ genfscon sysfs /devices/platform/system-controller/system-controller:keys/wakeup
 genfscon sysfs /devices/platform/system-controller/system-controller:rtc/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/bus@5f000000/5f010000.pcie/pci0000:00/0000:00:00.0/0000:01:00.1/wakeup u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/system-controller/system-controller:rtc/rtc/rtc0/alarmtimer.0.auto/wakeup u:object_r:sysfs_wakeup:s0
+
+# Device Tree
+genfscon sysfs /firmware/devicetree                                                                                                 u:object_r:sysfs_device_tree:s0

@@ -1,1 +1,2 @@
 allow init diginative_exec:lnk_file read;
+allow init sysfs_device_tree:file { read open };
