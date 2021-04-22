@@ -78,9 +78,6 @@ BOARD_KERNEL_CMDLINE += cma=1184M@0x960M-0xe00M transparent_hugepage=never
 # display config
 BOARD_KERNEL_CMDLINE += androidboot.lcd_density=240 androidboot.primary_display=imx-drm
 
-# wifi config
-BOARD_KERNEL_CMDLINE += androidboot.wificountrycode=CN
-
 # Move the kernel bootup logo to the center
 BOARD_KERNEL_CMDLINE += fbcon=logo-pos:center
 
