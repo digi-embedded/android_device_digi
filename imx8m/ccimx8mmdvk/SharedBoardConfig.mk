@@ -14,3 +14,6 @@ PRODUCT_IMX_TRUSTY := true
 # QCACLD wifi driver module
 BOARD_VENDOR_KERNEL_MODULES += $(TARGET_OUT_INTERMEDIATES)/QCACLD_OBJ/wlan.ko
 QCACLD_WIFI_INTERFACE := sdio
+
+# SPI CAN controller on DVK
+BOARD_VENDOR_KERNEL_MODULES += $(KERNEL_OUT)/drivers/net/can/spi/mcp25xxfd/mcp25xxfd.ko
