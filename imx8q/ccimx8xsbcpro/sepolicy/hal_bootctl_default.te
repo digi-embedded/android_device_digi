@@ -1,0 +1,2 @@
+allow hal_bootctl_default sysfs_device_tree:dir { open read search };
+allow hal_bootctl_default sysfs_device_tree:file { getattr open read };
