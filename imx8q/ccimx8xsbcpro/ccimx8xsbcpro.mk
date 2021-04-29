@@ -340,7 +340,8 @@ PRODUCT_PACKAGES += \
         libdigiservices \
         librxtxSerial \
         libdiginativeservice \
-        diginativeservice
+        diginativeservice \
+        mca_tool
 
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
