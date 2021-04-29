@@ -62,6 +62,11 @@
 #device-tree
 /sys/firmware/devicetree/base(/.*)?                                                  u:object_r:sysfs_device_tree:s0
 
+#pwm
+/sys/class/pwm(/.*)?                                                                 u:object_r:sysfs_pwm:s0
+/sys/devices/platform/soc@0/soc@0:bus@30400000/30670000.pwm/pwm(/.*)?                u:object_r:sysfs_pwm:s0
+/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-pwm/pwm(/.*)?     u:object_r:sysfs_pwm:s0
+
 #services
 /system/bin/diginativeservice     -l                                                 u:object_r:diginative_exec:s0
 /system/bin/diginativeservice32                                                      u:object_r:diginative_exec:s0
