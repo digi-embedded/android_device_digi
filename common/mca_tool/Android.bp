@@ -1,0 +1,14 @@
+// This should be probably 'cc_prebuilt_binary', but somehow the symlinks are
+// not being created in that case, so abuse 'sh_binary' which does the job just
+// fine (binary is installed and symlinks created).
+sh_binary {
+    name: "mca_tool",
+    src: "mca_tool",
+    symlinks: [
+        "ioexp_fw_updater",
+        "mca_config_tool",
+        "mca_fw_updater",
+        "tamper_cfg"
+    ],
+    vendor: true,
+}
