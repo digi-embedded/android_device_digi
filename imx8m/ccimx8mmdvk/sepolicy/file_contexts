@@ -40,6 +40,10 @@
 
 /dev/block/pmem0  u:object_r:rebootescrow_device:s0
 
+#cpu
+/sys/devices/virtual/thermal/thermal_zone0/trip_point_[01]_temp                      u:object_r:sysfs_cpu:s0
+/sys/devices/virtual/thermal/thermal_zone0/temp                                      u:object_r:sysfs_cpu:s0
+
 #gpio
 /sys/class/gpio/export                                                               u:object_r:sysfs_gpio:s0
 /sys/class/gpio/unexport                                                             u:object_r:sysfs_gpio:s0
