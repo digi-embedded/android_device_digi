@@ -18,5 +18,15 @@ genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0
 genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-rtc/rtc/rtc0/wakeup3                u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30be0000.ethernet/net/eth0/wakeup4                                     u:object_r:sysfs_wakeup:s0
 
+# GPIO
+genfscon sysfs /class/gpio                                                                                                       u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-gpio                                u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30840000.spi/spi_master/spi2/spi2.0/gpio                               u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30200000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30210000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30220000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30230000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30240000.gpio                                                          u:object_r:sysfs_gpio:s0
+
 # Device Tree
 genfscon sysfs /firmware/devicetree                                                                                              u:object_r:sysfs_device_tree:s0
