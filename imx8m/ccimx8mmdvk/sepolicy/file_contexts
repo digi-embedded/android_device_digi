@@ -40,6 +40,10 @@
 
 /dev/block/pmem0  u:object_r:rebootescrow_device:s0
 
+#adc
+/sys/bus/iio/devices(/.*)?                                                           u:object_r:sysfs_adc:s0
+sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8x-adc(/.*)?    u:object_r:sysfs_adc:s0
+
 #cpu
 /sys/devices/virtual/thermal/thermal_zone0/trip_point_[01]_temp                      u:object_r:sysfs_cpu:s0
 /sys/devices/virtual/thermal/thermal_zone0/temp                                      u:object_r:sysfs_cpu:s0
