@@ -2,3 +2,5 @@
 set_prop(system_server, ethernet_prop)
 
 allow system_server diginative_service:service_manager find;
+
+allow system_server sysfs_net:file { read open getattr };
