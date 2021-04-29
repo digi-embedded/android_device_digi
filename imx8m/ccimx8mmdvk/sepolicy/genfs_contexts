@@ -18,3 +18,5 @@ genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0
 genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-rtc/rtc/rtc0/wakeup3                u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30be0000.ethernet/net/eth0/wakeup4                                     u:object_r:sysfs_wakeup:s0
 
+# Device Tree
+genfscon sysfs /firmware/devicetree                                                                                              u:object_r:sysfs_device_tree:s0

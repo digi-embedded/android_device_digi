@@ -36,6 +36,9 @@
 
 /dev/block/pmem0  u:object_r:rebootescrow_device:s0
 
+#device-tree
+/sys/firmware/devicetree/base(/.*)?                                                  u:object_r:sysfs_device_tree:s0
+
 #services
 /system/bin/diginativeservice     -l                                                 u:object_r:diginative_exec:s0
 /system/bin/diginativeservice32                                                      u:object_r:diginative_exec:s0
