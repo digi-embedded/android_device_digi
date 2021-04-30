@@ -7,8 +7,8 @@ on early-boot
     write /sys/bus/platform/drivers/galcore/gpu3DMinClock 3
 
     # Change owner, group and permissions for GPU multiplier and gpu3DMinClock
-    chown system system /sys/devices/platform/bus@53100000/80000000.imx8_gpu0_ss/gpu_mult
-    chmod 0660 /sys/devices/platform/bus@53100000/80000000.imx8_gpu0_ss/gpu_mult
+    chown system system /sys/devices/platform/38000000.gpu/gpu_mult
+    chmod 0660 /sys/devices/platform/38000000.gpu/gpu_mult
     chown system system /sys/bus/platform/drivers/galcore/gpu3DMinClock
     chmod 0660 /sys/bus/platform/drivers/galcore/gpu3DMinClock
 
