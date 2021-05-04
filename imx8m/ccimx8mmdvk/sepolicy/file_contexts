@@ -59,6 +59,9 @@ sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8x
 /sys/devices/platform/soc@0/soc@0:bus@30000000/30230000.gpio(/.*)?                   u:object_r:sysfs_gpio:s0
 /sys/devices/platform/soc@0/soc@0:bus@30000000/30240000.gpio(/.*)?                   u:object_r:sysfs_gpio:s0
 
+#MCA cancel poweroff
+/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-pwrkey/mca_cancel_pwroff  u:object_r:sysfs_mca_pwroff:s0
+
 #gpu
 /sys/devices/platform/38000000.gpu/gpu_mult                                          u:object_r:sysfs_gpu:s0
 /sys/bus/platform/drivers/galcore/gpu3DMinClock                                      u:object_r:sysfs_gpu:s0
