@@ -1,7 +1,9 @@
 java_library {
     name: "RXTXcomm",
     installable: true,
-    required: ["librxtxSerial"],
+    required: [
+        "librxtxSerial",
+    ],
     srcs: ["java/**/*.java"],
 }
 

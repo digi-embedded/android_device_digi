@@ -19,6 +19,9 @@ android_app {
         "digiservices",
         "com.android.location.provider",
     ],
+    required: [
+        "privapp-permissions-com.digi.android.server.xml",
+    ],
     certificate: "platform",
     privileged: true,
     platform_apis: true,

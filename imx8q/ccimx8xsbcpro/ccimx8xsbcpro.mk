@@ -331,16 +331,8 @@ PRODUCT_PACKAGES += \
 # Custom Digi packages
 PRODUCT_PACKAGES += \
         com.digi.android \
-        com.digi.android.xml \
         DigiLicenseApp \
         DigiServicesApp \
-        privapp-permissions-com.digi.android.server.xml \
-        digiservices \
-        digiservices.xml \
-        libdigiservices \
-        librxtxSerial \
-        libdiginativeservice \
-        diginativeservice \
         mca_tool
 
 # Jars boot order.
