@@ -60,6 +60,7 @@ public class DigiLicenseActivity extends Activity {
         s.setSaveFormData(false);
         s.setBlockNetworkLoads(true);
         s.setJavaScriptEnabled(false);
+        s.setAllowFileAccess(true);
 
         // Restore if we have a saved instance.
         if (savedInstanceState != null)
