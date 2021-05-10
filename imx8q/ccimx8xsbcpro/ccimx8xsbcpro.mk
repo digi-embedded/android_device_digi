@@ -66,6 +66,10 @@ ifeq ($(PRODUCT_IMX_TRUSTY),true)
 -include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
 endif
 
+# License
+PRODUCT_COPY_FILES += \
+	device/digi/common/legal/license.html:$(TARGET_COPY_OUT_VENDOR)/etc/license.html
+
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \

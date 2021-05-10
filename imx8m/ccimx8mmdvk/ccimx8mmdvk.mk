@@ -66,6 +66,10 @@ ifeq ($(LOW_MEMORY),true)
 $(call inherit-product, build/target/product/go_defaults.mk)
 endif
 
+# License
+PRODUCT_COPY_FILES += \
+	device/digi/common/legal/license.html:$(TARGET_COPY_OUT_VENDOR)/etc/license.html
+
 # Copy device related config and binary to board
 PRODUCT_COPY_FILES += \
     $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8mm/imx8mm_mcu_demo.img:imx8mm_mcu_demo.img \
