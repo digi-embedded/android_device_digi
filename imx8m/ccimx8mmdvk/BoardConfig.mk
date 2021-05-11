@@ -130,7 +130,15 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/ccimx8mmdvk/dtbo-imx8mm.img
-TARGET_BOARD_DTS_CONFIG += imx8mm:ccimx8mm-dvk.dtb
+
+# Keep the first one the base DTB, and then the overlays
+TARGET_BOARD_DTS_CONFIG := \
+	ccimx8mm-dvk.dtb \
+	_ov_board_lvds_ccimx8m-dvk.dtbo \
+	_ov_board_user-leds_ccimx8m-dvk.dtbo \
+	_ov_som_bt_ccimx8m.dtbo \
+	_ov_som_mca-keypad_ccimx8m.dtbo \
+	_ov_som_wifi_ccimx8m.dtbo
 
 BOARD_SEPOLICY_DIRS := \
        device/nxp/imx8m/sepolicy \

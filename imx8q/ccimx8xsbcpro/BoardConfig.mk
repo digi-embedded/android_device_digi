@@ -94,7 +94,24 @@ endif
 endif
 
 BOARD_PREBUILT_DTBOIMAGE := out/target/product/ccimx8xsbcpro/dtbo-imx8qxp.img
-TARGET_BOARD_DTS_CONFIG := imx8qxp:ccimx8x-sbc-pro.dtb
+
+# Keep the first one the base DTB, and then the overlays
+TARGET_BOARD_DTS_CONFIG := \
+	ccimx8x-sbc-pro.dtb \
+	_ov_board_flexcan1_ccimx8x-sbc-pro.dtbo \
+	_ov_board_hsd101pfw2-lvds_ccimx8x-sbc-pro.dtbo \
+	_ov_board_lpuart3_ccimx8x-sbc-pro.dtbo \
+	_ov_board_lt8912-hdmi-dsi0_ccimx8x-sbc-pro.dtbo \
+	_ov_board_lvds1_ccimx8x-sbc-pro.dtbo \
+	_ov_board_parallel-camera_ccimx8x-sbc-pro.dtbo \
+	_ov_board_pcie-card_ccimx8x-sbc-pro.dtbo \
+	_ov_board_pcie-modem_ccimx8x-sbc-pro.dtbo \
+	_ov_board_user-leds_ccimx8x-sbc-pro.dtbo \
+	_ov_board_v1-v3_ccimx8x-sbc-pro.dtbo \
+	_ov_som_bt_ccimx8x.dtbo \
+	_ov_som_mca-keypad_ccimx8x.dtbo \
+	_ov_som_quad_ccimx8x.dtbo \
+	_ov_som_wifi_ccimx8x.dtbo
 
 BOARD_SEPOLICY_DIRS := \
        device/nxp/imx8q/sepolicy \
