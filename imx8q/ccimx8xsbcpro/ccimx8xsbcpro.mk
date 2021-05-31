@@ -176,12 +176,9 @@ PRODUCT_COPY_FILES += \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin:vendor/firmware/vpu/vpu_fw_imx8_dec.bin \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_enc.bin:vendor/firmware/vpu/vpu_fw_imx8_enc.bin
 
-# fastboot_imx_flashall scripts, fsl-sdcard-partition and uuu_imx_android_flash scripts
+# install_android_fw.sh script
 PRODUCT_COPY_FILES += \
-    device/nxp/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-    device/nxp/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-    device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
+    device/digi/common/tools/install_android_fw.sh:install_android_fw.sh
 
 PRODUCT_COPY_FILES += \
      device/digi/imx8q/ccimx8xsbcpro/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json
@@ -191,8 +188,7 @@ PRODUCT_COPY_FILES += \
 	  device/digi/imx8q/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml
 
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml \
-    device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh
+    frameworks/native/data/etc/android.hardware.screen.portrait.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.screen.portrait.xml
 
 DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
 

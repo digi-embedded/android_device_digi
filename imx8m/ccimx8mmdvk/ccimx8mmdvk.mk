@@ -163,13 +163,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/digi/imx8m/ccimx8mmdvk/powerhint_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mm.json
 
-# fastboot_imx_flashall scripts, fsl-sdcard-partition script uuu_imx_android_flash scripts
+# install_android_fw.sh script
 PRODUCT_COPY_FILES += \
-    device/nxp/common/tools/fastboot_imx_flashall.bat:fastboot_imx_flashall.bat \
-    device/nxp/common/tools/fastboot_imx_flashall.sh:fastboot_imx_flashall.sh \
-    device/nxp/common/tools/imx-sdcard-partition.sh:imx-sdcard-partition.sh \
-    device/nxp/common/tools/uuu_imx_android_flash.bat:uuu_imx_android_flash.bat \
-    device/nxp/common/tools/uuu_imx_android_flash.sh:uuu_imx_android_flash.sh
+    device/digi/common/tools/install_android_fw.sh:install_android_fw.sh
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
