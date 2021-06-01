@@ -1,0 +1,4 @@
+recovery_only(`
+  allow recovery sysfs_device_tree:dir { open read search };
+  allow recovery sysfs_device_tree:file { getattr open read };
+')

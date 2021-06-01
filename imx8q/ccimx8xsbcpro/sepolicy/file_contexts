@@ -79,6 +79,9 @@
 /sys/devices/virtual/thermal/thermal_zone0/trip_point_[01]_temp                   u:object_r:sysfs_cpu:s0
 /sys/devices/virtual/thermal/thermal_zone0/temp                                   u:object_r:sysfs_cpu:s0
 
+#cursor_blink
+/sys/devices/virtual/graphics/fbcon/cursor_blink                                  u:object_r:sysfs_cursor_blink:s0
+
 #gpio
 /sys/class/gpio/export                                                            u:object_r:sysfs_gpio:s0
 /sys/class/gpio/unexport                                                          u:object_r:sysfs_gpio:s0
