@@ -1,0 +1,10 @@
+recovery_only(`
+  allow fastbootd boottime_prop:property_service set;
+  allow fastbootd kernel:process setsched;
+  allow fastbootd storage_config_prop:file { getattr map open read };
+  allow fastbootd sysfs_batteryinfo:dir search;
+  allow fastbootd sysfs_device_tree:dir { open read search };
+  allow fastbootd sysfs_device_tree:file { getattr open read };
+  allow fastbootd sysfs:dir { open read };
+  allow fastbootd sysfs:file { getattr open read };
+')
