@@ -119,9 +119,12 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
+    <!-- Permissions for firmware download -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <protected-broadcast android:name="com.android.server.firmwareupdate.FirmwareUpdateAppInstaller.DONE" />
 
-    <application android:name=".DigiServicesApp" android:persistent="true">
+    <application android:name=".DigiServicesApp" android:persistent="true" android:usesCleartextTraffic="true">
         <uses-library android:name="com.android.location.provider"/>
         <service
             android:name=".location.DigiLocationService"
