@@ -184,6 +184,9 @@ else
   endif
 endif
 
+# Enable DEA specific makefiles for building firmware
+TARGET_DEA_FIRMWARE_MK := true
+
 # kernel module's copy to vendor need this folder setting
 KERNEL_OUT ?= $(OUT_DIR)/target/product/$(PRODUCT_DEVICE)/obj/KERNEL_OBJ
 

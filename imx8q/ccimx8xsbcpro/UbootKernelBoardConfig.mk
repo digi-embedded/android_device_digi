@@ -8,5 +8,7 @@ TARGET_BOOTLOADER_CONFIG := \
 TARGET_KERNEL_DEFCONFIG := ccimx8_android_defconfig
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig
 
+ifndef TARGET_DEVICE_DIR
 # absolute path is used, not the same as relative path used in AOSP make
 TARGET_DEVICE_DIR := $(patsubst %/, %, $(dir $(realpath $(lastword $(MAKEFILE_LIST)))))
+endif
