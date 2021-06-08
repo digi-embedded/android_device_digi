@@ -1,0 +1,3 @@
+# Firmware Update service.
+allow update_engine sysfs_device_tree:dir { search read open };
+allow update_engine sysfs_device_tree:file { getattr open read };
