@@ -1,0 +1,236 @@
+#
+# U-Boot script for installing Android images from the SD card into the eMMC
+#
+
+# Reset temp variables
+install_abort=0
+
+setenv INSTALL_MMCDEV 1
+setenv IMG_BOOT_FILENAME boot.img
+setenv IMG_DTBO_FILENAME dtbo-imx8mm.img
+setenv IMG_PART_TABLE_FILENAME partition-table.img
+setenv IMG_SUPER_FILENAME super.img
+setenv IMG_UBOOT_FILENAME u-boot-ccimx8mmdvk.imx
+setenv IMG_VBMETA_FILENAME vbmeta-imx8mm.img
+setenv IMG_VENDOR_BOOT_FILENAME vendor_boot.img
+
+# Check for presence of firmware files on the SD card
+for install_f in ${IMG_BOOT_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_SUPER_FILENAME} ${IMG_UBOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_VENDOR_BOOT_FILENAME}; do
+	if test ! -e mmc ${INSTALL_MMCDEV} ${install_f}; then
+		echo "ERROR: Could not find file ${install_f}"
+		install_abort=1
+	fi
+done
+if test "${install_abort}" = "1"; then
+	echo "Aborted."
+	exit
+fi
+
+echo "############################################################"
+echo "#          Android firmware install from micro SD          #"
+echo "############################################################"
+echo ""
+echo " This process will erase your eMMC and will install the following files"
+echo " on the partitions of the eMMC."
+echo ""
+echo "   PARTITION      FILENAME"
+echo "   ---------      --------"
+echo "   bootloader     ${IMG_UBOOT_FILENAME}"
+echo "   gpt            ${IMG_PART_TABLE_FILENAME}"
+echo "   dtbo_a         ${IMG_DTBO_FILENAME}"
+echo "   dtbo_b         ${IMG_DTBO_FILENAME}"
+echo "   boot_a         ${IMG_BOOT_FILENAME}"
+echo "   boot_b         ${IMG_BOOT_FILENAME}"
+echo "   vendor_boot_a  ${IMG_VENDOR_BOOT_FILENAME}"
+echo "   vendor_boot_b  ${IMG_VENDOR_BOOT_FILENAME}"
+echo "   super          ${IMG_SUPER_FILENAME}"
+echo "   vbmeta_a       ${IMG_VBMETA_FILENAME}"
+echo "   vbmeta_b       ${IMG_VBMETA_FILENAME}"
+echo ""
+echo " Press CTRL+C now if you wish to abort or wait 10 seconds"
+echo " to continue."
+
+sleep 10
+if test $? -eq 1; then
+	echo "Aborted by user."
+	exit
+fi
+
+# Skip user confirmation for U-Boot update
+setenv forced_update 1
+
+# Set bootdelay to zero so that firmware update is run immediately after
+# the first reset.
+setenv bootdelay 0
+
+# Set target MMC device index to eMMC
+setenv mmcdev 0
+
+# Update U-Boot
+echo ""
+echo ""
+echo ">> Installing U-Boot boot loader image ${IMG_UBOOT_FILENAME} (target will reset)"
+echo ""
+echo ""
+update uboot mmc ${INSTALL_MMCDEV} ${IMG_UBOOT_FILENAME}
+if test $? -eq 1; then
+	# Use old-style update with source file system argument
+	update uboot mmc ${INSTALL_MMCDEV} fat ${IMG_UBOOT_FILENAME}
+	if test $? -eq 1; then
+		echo "[ERROR] Failed to update U-Boot boot loader!"
+		echo ""
+		echo "Aborted."
+		exit
+	fi
+fi
+
+# Set 'bootcmd' to the second part of the script that will
+#  - Reset environment to defaults
+#  - Save the environment
+#  - Force on-the-fly updates to avoid possible verification errors
+#  - Partition the eMMC user data area for Android
+#  - Update Android partitions
+#  - Configure recovery to wipe 'userdata' partition
+#  - Disable on-the-fly updates
+#  - Run 'recovery' and let the system boot after
+setenv bootcmd "
+	env default -a;
+	saveenv;
+	setenv otf-update yes;
+	echo \"\";
+	echo \"\";
+	echo \">> Creating Android partition table on the eMMC\";
+	echo \"\";
+	echo \"\";
+	update gpt mmc ${INSTALL_MMCDEV} ${IMG_PART_TABLE_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to create Android partition table!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing dtbo_a image file ${IMG_DTBO_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update dtbo_a mmc ${INSTALL_MMCDEV} ${IMG_DTBO_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update dtbo_a partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing dtbo_b image file ${IMG_DTBO_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update dtbo_b mmc ${INSTALL_MMCDEV} ${IMG_DTBO_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update dtbo_b partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing boot_a image file ${IMG_BOOT_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update boot_a mmc ${INSTALL_MMCDEV} ${IMG_BOOT_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update boot_a partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing boot_b image file ${IMG_BOOT_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update boot_b mmc ${INSTALL_MMCDEV} ${IMG_BOOT_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update boot_b partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing vendor_boot_a image file ${IMG_VENDOR_BOOT_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update vendor_boot_a mmc ${INSTALL_MMCDEV} ${IMG_VENDOR_BOOT_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update vendor_boot_a partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing vendor_boot_b image file ${IMG_VENDOR_BOOT_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update vendor_boot_b mmc ${INSTALL_MMCDEV} ${IMG_VENDOR_BOOT_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update vendor_boot_b partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing super image file ${IMG_SUPER_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update super mmc ${INSTALL_MMCDEV} ${IMG_SUPER_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update super partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing vbmeta_a image file ${IMG_VBMETA_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update vbmeta_a mmc ${INSTALL_MMCDEV} ${IMG_VBMETA_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update vbmeta_a partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing vbmeta_b image file ${IMG_VBMETA_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update vbmeta_b mmc ${INSTALL_MMCDEV} ${IMG_VBMETA_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update vbmeta_b partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	bcb load 0 misc;
+	bcb set command boot-recovery;
+	bcb set recovery recovery:--wipe_data;
+	bcb store;
+	setenv otf-update;
+	saveenv;
+	echo \"\";
+	echo \"\";
+	echo \">> Firmware installation complete. Rebooting into recovery mode for final deployment.\";
+	echo \"\";
+	echo \"\";
+	sleep 1;
+	reset;
+"
+saveenv
+reset
