@@ -1,4 +1,4 @@
-<!-- Copyright 2019, Digi International Inc.
+<!-- Copyright 2019-2021, Digi International Inc.
 
      Permission to use, copy, modify, and/or distribute this software for any
      purpose with or without fee is hereby granted, provided that the above
@@ -16,29 +16,18 @@
 List of targets for the Firmware Update.
 -->
 <targets>
-	<firmware_target id="0" name="Android System">
+	<firmware_target id="0" name="OTA JSON configuration file">
 		<!-- Maximum allowed size of the firmware image -->
-		<size>536870912</size>
+		<size>16384</size>
 		<!-- Regular expression for the firmware image name -->
-		<regex>update\.zip</regex>
+		<regex>.+\.json</regex>
 		<!-- Determines if the firmware can be updated or not -->
 		<can_update>true</can_update>
 		<!-- Path to save the firmware image if the 'firmware_file_notify' 
 		property of the connector_config.txt is 'file_completed' -->
 		<path>/cache/fw_update/</path>
 	</firmware_target>
-	<firmware_target id="1" name="Update manifest">
-		<!-- Maximum allowed size of the firmware image -->
-		<size>2048</size>
-		<!-- Regular expression for the firmware image name -->
-		<regex>manifest\.txt</regex>
-		<!-- Determines if the firmware can be updated or not -->
-		<can_update>true</can_update>
-		<!-- Path to save the firmware image if the 'firmware_file_notify' 
-		property of the connector_config.txt is 'file_completed' -->
-		<path>/cache/fw_update/</path>
-	</firmware_target>
-	<firmware_target id="2" name="Application package">
+	<firmware_target id="1" name="Application package">
 		<!-- Maximum allowed size of the firmware image -->
 		<size>104857600</size>
 		<!-- Regular expression for the firmware image name -->
