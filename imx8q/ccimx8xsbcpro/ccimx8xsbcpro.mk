@@ -176,9 +176,9 @@ PRODUCT_COPY_FILES += \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_dec.bin:vendor/firmware/vpu/vpu_fw_imx8_dec.bin \
     $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/vpu/vpu_fw_imx8_enc.bin:vendor/firmware/vpu/vpu_fw_imx8_enc.bin
 
-# install_android_fw.sh script
+# install_android_fw_uuu.sh script
 PRODUCT_COPY_FILES += \
-    device/digi/common/tools/install_android_fw.sh:install_android_fw.sh
+    device/digi/common/tools/install_android_fw_uuu.sh:install_android_fw_uuu.sh
 
 PRODUCT_COPY_FILES += \
      device/digi/imx8q/ccimx8xsbcpro/powerhint_imx8qxp.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8qxp.json

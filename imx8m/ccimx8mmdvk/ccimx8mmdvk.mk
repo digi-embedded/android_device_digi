@@ -163,9 +163,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/digi/imx8m/ccimx8mmdvk/powerhint_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mm.json
 
-# install_android_fw.sh script
+# install_android_fw_uuu.sh script
 PRODUCT_COPY_FILES += \
-    device/digi/common/tools/install_android_fw.sh:install_android_fw.sh
+    device/digi/common/tools/install_android_fw_uuu.sh:install_android_fw_uuu.sh
 
 # Set permission for GMS packages
 PRODUCT_COPY_FILES += \
