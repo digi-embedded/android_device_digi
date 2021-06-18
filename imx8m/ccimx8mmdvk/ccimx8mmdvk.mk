@@ -285,6 +285,7 @@ PRODUCT_PACKAGES += \
         com.digi.android \
         DigiLicenseApp \
         DigiServicesApp \
+        FirmwareUpdateSample \
         mca_tool
 
 # Jars boot order.
