@@ -1,4 +1,7 @@
 recovery_only(`
+  allow recovery boottime_prop:property_service set;
+  allow recovery devpts:chr_file { read write };
+  allow recovery kmsg_device:chr_file { getattr write };
   allow recovery sysfs_device_tree:dir { open read search };
   allow recovery sysfs_device_tree:file { getattr open read };
 ')
