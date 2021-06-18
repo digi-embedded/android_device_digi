@@ -243,6 +243,9 @@ on post-fs && property:vendor.skip.charger_not_need=0
     chown system system /proc/pagetypeinfo
     chmod 0440 /proc/pagetypeinfo
 
+    # Create Firmware Update directory in cache.
+    mkdir /cache/fw_update 0771 system system
+
 on post-fs-data && property:vendor.skip.charger_not_need=0
     setprop vold.post_fs_data_done 1
     # create temp node for secure storage proxy
