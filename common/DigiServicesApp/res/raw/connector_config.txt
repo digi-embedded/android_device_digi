@@ -48,7 +48,7 @@ vendor_id=
 firmware_version=0.0.0.1
 
 # Device Type: Name of the device running Cloud Connector.
-device_type=ConnectCore 8X
+device_type=##CC_DEVICE_TYPE##
 
 # Description: Description of the device running Cloud Connector.
 description=
