@@ -38,6 +38,12 @@ on early-boot
     chown system system /sys/class/gpio/export
     chown system system /sys/class/gpio/unexport
 
+    # Reset the XBee module: GPIO1_IO8 (XBEE_RESET_N)
+    write /sys/class/gpio/export 8
+    write /sys/class/gpio/gpio8/direction low
+    write /sys/class/gpio/gpio8/direction high
+    write /sys/class/gpio/unexport 8
+
     # Create /var/lock dir required for "librxtxSerial"
     mkdir /dev/lock 0775 system shell
     mkdir /var 0775 root shell
