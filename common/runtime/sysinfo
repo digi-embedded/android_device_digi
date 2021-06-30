@@ -26,7 +26,7 @@ write_environment_table(){
 	echo "||*Component*|*Version*"
 	echo "|| DUT | SN-${BOARD_SN}, ${MACHINE} ${BOARD_VARIANT} SBCv${BOARD_VERSION} board_ID=${BOARD_ID}."
 	echo "|| U-Boot | ${UBOOT_VERSION}"
-	echo "|| Firmware | ${DEA_VERSION}-${DEA_BUILD}"
+	echo "|| Firmware | ${DEA_VERSION}-${ANDROID_VERSION}-${DEA_BUILD}"
 	echo "|| Kernel | ${KERNEL_VERSION}"
 	[ -n "${MCA_VERSION}" ] && echo "|| MCA | ${MCA_VERSION}"
 	# Show, for repositories that belong to the group 'sysinfo', name and version (in table format)
@@ -186,6 +186,7 @@ make_report(){
 }
 
 DEA_VERSION="dea_version_undefined"
+ANDROID_VERSION="android_version_undefined"
 UBOOT_VERSION="uboot_version_undefined"
 BOARD_VARIANT="board_variant_undefined"
 BOARD_SN="board_sn_undefined"
@@ -195,7 +196,8 @@ DEA_BUILD="dea_build_undefined"
 KERNEL_VERSION="kernel_version_undefined"
 DATE="00000000000000"
 
-DEA_VERSION="$(getprop ro.build.id 2> /dev/null)"
+DEA_VERSION="$(getprop ro.build.dea.id 2> /dev/null)"
+ANDROID_VERSION="$(getprop ro.build.id 2> /dev/null)"
 DEA_BUILD="$(getprop ro.build.version.incremental 2> /dev/null)"
 
 UBOOT_VERSION="$(cat /proc/device-tree/digi,uboot,version 2>/dev/null)"
