@@ -1,0 +1,8 @@
+props {
+  module: "com.android.digi.sysprop.DeaProperties"
+  prop {
+    api_name: "dea_id"
+    type: String
+    prop_name: "ro.build.dea.id"
+  }
+}

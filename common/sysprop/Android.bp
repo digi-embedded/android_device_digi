@@ -1,0 +1,6 @@
+sysprop_library {
+    name: "DeaProperties",
+    srcs: ["DeaProperties.sysprop"],
+    property_owner: "Platform",
+    vendor_available: true,
+}
