@@ -29,8 +29,6 @@ write_environment_table(){
 	echo "|| Firmware | ${DEA_VERSION}-${ANDROID_VERSION}-${DEA_BUILD}"
 	echo "|| Kernel | ${KERNEL_VERSION}"
 	[ -n "${MCA_VERSION}" ] && echo "|| MCA | ${MCA_VERSION}"
-	# Show, for repositories that belong to the group 'sysinfo', name and version (in table format)
-	sed -ne '/groups=.*sysinfo/{s,.*name="\([^"]*\)".*revision="\([^"]*\)".*,|| \1 | \2,g;T;p}' /vendor/etc/repo-manifest.xml
 	spaces
 }
 
@@ -43,16 +41,13 @@ banner() {
 --------------------------------------
 
 "
+	# shellcheck disable=SC2059
 	printf "${format}" "${1}"
 }
 
 make_report(){
 	banner "Kernel version"
 	echo "${KERNEL_VERSION}"
-	spaces
-
-	banner "Repo manifest"
-	cat /vendor/etc/repo-manifest.xml
 	spaces
 
 	banner "U-boot saved environment"
@@ -154,10 +149,10 @@ make_report(){
 	banner "Wireless configuration"
 	/vendor/bin/hw/wpa_supplicant -v 2>/dev/null
 	for file in /etc/wifi/*.conf /vendor/etc/wifi/*.conf; do
-		[ -d $(dirname "${file}") ] && [ $(ls -A "${file}") ] || continue
+		echo "${file}" | grep -qs 'etc/wifi/\*' && continue
 		echo ""
-		echo "$file:"
-		cat "$file"
+		echo "${file}:"
+		cat "${file}"
 	done
 
 	echo ""
@@ -165,9 +160,8 @@ make_report(){
 	spaces
 
 	banner "TrustFence"
-	OTP_CFG5="$(cat /sys/fsl_otp/HW_OCOTP_CFG5 2>&1)"
-	if [ "$?" = 0 ]; then
-		if [ "$((${OTP_CFG5} & 2))" != "0" ]; then
+	if OTP_CFG5="$(cat /sys/fsl_otp/HW_OCOTP_CFG5 2>&1)"; then
+		if [ "$((OTP_CFG5 & 2))" != "0" ]; then
 			echo "Device status: [CLOSED]"
 		else
 			echo "Device status: [OPEN]"
@@ -196,9 +190,9 @@ DEA_BUILD="dea_build_undefined"
 KERNEL_VERSION="kernel_version_undefined"
 DATE="00000000000000"
 
-DEA_VERSION="$(getprop ro.build.dea.id 2> /dev/null)"
-ANDROID_VERSION="$(getprop ro.build.id 2> /dev/null)"
-DEA_BUILD="$(getprop ro.build.version.incremental 2> /dev/null)"
+DEA_VERSION="$(getprop ro.build.dea.id 2>/dev/null)"
+ANDROID_VERSION="$(getprop ro.build.id 2>/dev/null)"
+DEA_BUILD="$(getprop ro.build.version.incremental 2>/dev/null)"
 
 UBOOT_VERSION="$(cat /proc/device-tree/digi,uboot,version 2>/dev/null)"
 if [ -z "${UBOOT_VERSION}" ]; then
@@ -212,12 +206,12 @@ fi
 
 KERNEL_VERSION="$(uname -a)"
 
-if grep -qs 'digi,ccimx8x' /proc/device-tree/compatible; then
+if grep -qs -e 'digi,ccimx8mm' -e 'digi,ccimx8x' /proc/device-tree/compatible; then
 	MCA_NODE="/sys/bus/i2c/devices/0-0063"
 fi
-if [ -d "$MCA_NODE" ]; then
-	MCA_HW_VERSION=$(cat ${MCA_NODE}/hw_version 2>/dev/null | tr -d '\0') || MCA_HW_VERSION="??"
-	MCA_FW_VERSION=$(cat ${MCA_NODE}/fw_version 2>/dev/null | tr -d '\0') || MCA_FW_VERSION="??"
+if [ -d "${MCA_NODE}" ]; then
+	MCA_HW_VERSION="$(tr -d '\0' 2>/dev/null <${MCA_NODE}/hw_version || printf '??')"
+	MCA_FW_VERSION="$(tr -d '\0' 2>/dev/null <${MCA_NODE}/fw_version || printf '??')"
 	MCA_VERSION="HW_VERSION=${MCA_HW_VERSION}  FW_VERSION=${MCA_FW_VERSION}"
 fi
 
@@ -226,13 +220,12 @@ REPORT_PATH="/sdcard/Download/sysinfo-${DEA_VERSION}-${BOARD_SN}-${DATE}"
 
 write_environment_table
 
-if touch "${REPORT_PATH}.txt" 2> /dev/null; then
+if touch "${REPORT_PATH}.txt" 2>/dev/null; then
 	write_environment_table >> "${REPORT_PATH}.txt"
-
 	make_report >> "${REPORT_PATH}.txt"
-	tar -zhcf "${REPORT_PATH}.tar.gz" -C $(dirname ${REPORT_PATH}) $(basename "${REPORT_PATH}.txt") /proc/device-tree 2> /dev/null
+	tar -zhcf "${REPORT_PATH}.tar.gz" -C "$(dirname "${REPORT_PATH}")" "$(basename "${REPORT_PATH}.txt")" /proc/device-tree 2>/dev/null
 	echo "Report generated in ${REPORT_PATH}.tar.gz"
 	rm -rf "${REPORT_PATH}.txt"
 else
-	echo "$(dirname ${REPORT_PATH}) is not writtable, skipping report generation"
+	echo "$(dirname "${REPORT_PATH}") is not writtable, skipping report generation"
 fi
