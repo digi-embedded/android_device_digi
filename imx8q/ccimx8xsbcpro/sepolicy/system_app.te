@@ -39,5 +39,7 @@ allow system_app watchdog_device:chr_file { getattr open read write ioctl };
 allowxperm system_app self:can_socket ioctl { can_ioctls };
 
 # Firmware Update service.
+allow system_app fwupdate_vendor_data_file:dir { add_name remove_name search write };
+allow system_app fwupdate_vendor_data_file:file { create getattr map open read setattr unlink write };
 allow system_app ota_package_file:dir { add_name remove_name search write };
 allow system_app ota_package_file:file { map create getattr open read unlink write };

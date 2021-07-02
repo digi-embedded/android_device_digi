@@ -60,6 +60,9 @@
 /dev/spidev[0-9.]*              u:object_r:spi_device:s0
 /dev/lock(/.*)?                 u:object_r:lock_path:s0
 
+# Firmware update
+/data/vendor/fw_update(/.*)?    u:object_r:fwupdate_vendor_data_file:s0
+
 #Neural Network HAL service
 /vendor/bin/hw/android\.hardware\.neuralnetworks@1\.2-service-vsi-npu-server      u:object_r:hal_neuralnetworks_imx_exec:s0
 

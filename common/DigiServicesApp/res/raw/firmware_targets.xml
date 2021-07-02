@@ -25,7 +25,7 @@ List of targets for the Firmware Update.
 		<can_update>true</can_update>
 		<!-- Path to save the firmware image if the 'firmware_file_notify' 
 		property of the connector_config.txt is 'file_completed' -->
-		<path>/cache/fw_update/</path>
+		<path>/data/vendor/fw_update/</path>
 	</firmware_target>
 	<firmware_target id="1" name="Application package">
 		<!-- Maximum allowed size of the firmware image -->
@@ -36,6 +36,6 @@ List of targets for the Firmware Update.
 		<can_update>true</can_update>
 		<!-- Path to save the firmware image if the 'firmware_file_notify' 
 		property of the connector_config.txt is 'file_completed' -->
-		<path>/cache/fw_update/</path>
+		<path>/data/vendor/fw_update/</path>
 	</firmware_target>
 </targets>

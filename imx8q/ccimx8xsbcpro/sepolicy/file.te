@@ -1,3 +1,4 @@
+type fwupdate_vendor_data_file, file_type, data_file_type;
 type lock_path, file_type;
 type sysfs_adc, sysfs_type, fs_type;
 type sysfs_cpu, sysfs_type, fs_type;
