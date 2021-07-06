@@ -199,6 +199,9 @@ check_images()
 	IMG_VENDOR_BOOT_FILENAME="vendor_boot.img"
 	IMG_SUPER_FILENAME="super.img"
 
+	[ ! -f "${1}${IMG_DTBO_FILENAME}" ] && IMG_DTBO_FILENAME="dtbo.img"
+	[ ! -f "${1}${IMG_VBMETA_FILENAME}" ] && IMG_VBMETA_FILENAME="vbmeta.img"
+
 	# Check existance of files before starting the update
 	IMGS="${IMG_UBOOT_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_BOOT_FILENAME} ${IMG_VENDOR_BOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_SUPER_FILENAME}"
 	for f in ${IMGS}; do
@@ -206,7 +209,7 @@ check_images()
 			show_error "Could not find file '${f}'."
 			ABORT=true
 		fi
-	done;
+	done
 
 	[ "${ABORT}" = true ] && exit 1
 }
