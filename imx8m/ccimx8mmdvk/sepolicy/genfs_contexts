@@ -30,3 +30,6 @@ genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30240000.gpio         
 
 # Device Tree
 genfscon sysfs /firmware/devicetree                                                                                              u:object_r:sysfs_device_tree:s0
+
+# Backlight
+genfscon sysfs /devices/platform/lvds_backlight/backlight                                                                        u:object_r:sysfs_leds:s0
