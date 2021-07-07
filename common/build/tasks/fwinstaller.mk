@@ -45,7 +45,7 @@ $(INSTALLED_FIRMWARE_ZIP_TARGET): $(FWINSTALLER_DEPENDENCIES)
 		echo "Digi Embedded for Android kit upgrader"; \
 		echo "--------------------------------------"; \
 		echo ""; \
-		echo "Version: $(BUILD_ID)"; \
+		echo "Version: $(DEA_BUILD_ID)"; \
 		echo ""; \
 		md5sum $(FWINSTALLER_FILELIST) | sed -e 's,^\([[:xdigit:]]\{32\}\).*/\([^/]\+\)$$,\1  \2,g'; \
 	) > README.txt
