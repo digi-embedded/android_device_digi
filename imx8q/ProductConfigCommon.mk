@@ -34,7 +34,6 @@ PRODUCT_PACKAGES += \
     Camera \
     CubeLiveWallpapers \
     Email \
-    ethernet \
     Gallery2 \
     LiveWallpapersPicker \
     SoundRecorder

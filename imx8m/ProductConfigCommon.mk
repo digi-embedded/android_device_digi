@@ -22,7 +22,6 @@ PRODUCT_PACKAGES += \
     ExtractorPkg \
     charger_res_images \
     charger \
-    ethernet \
     libedid \
     libion \
     slideshow \
