@@ -386,10 +386,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/by-name/presistdata
 endif
 
-# Tensorflow lite camera demo
-PRODUCT_PACKAGES += \
-                    tflitecamerademo
-
 PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service
