@@ -1,4 +1,6 @@
 # Firmware Update service.
+allow update_engine fuse:dir search;
+allow update_engine fuse:file { getattr open read };
 allow update_engine mnt_media_rw_file:dir search;
 allow update_engine sysfs_device_tree:dir { search read open };
 allow update_engine sysfs_device_tree:file { getattr open read };

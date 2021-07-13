@@ -1,0 +1,1 @@
+allow vold dm_device:blk_file ioctl;
