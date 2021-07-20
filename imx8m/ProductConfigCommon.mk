@@ -261,7 +261,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_DEFAULT_DEV_CERTIFICATE := \
-    device/nxp/common/security/testkey
+    device/digi/common/security/testkey
 
 # In userdebug, add minidebug info the the boot image and the system server to support
 # diagnosing native crashes.

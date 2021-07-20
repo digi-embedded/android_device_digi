@@ -114,8 +114,8 @@ PRODUCT_COPY_FILES += \
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
-    device/nxp/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
-    device/nxp/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+    device/digi/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
+    device/digi/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 endif
 
 PRODUCT_COPY_FILES += \
