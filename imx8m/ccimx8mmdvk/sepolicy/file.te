@@ -8,4 +8,5 @@ type sysfs_gpio, sysfs_type, fs_type;
 type sysfs_gpu, sysfs_type, fs_type;
 type sysfs_mca_pwroff, sysfs_type, fs_type;
 type sysfs_pwm, sysfs_type, fs_type;
+type sysfs_tamper, sysfs_type, fs_type;
 type var_path, file_type;

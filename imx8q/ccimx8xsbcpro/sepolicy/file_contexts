@@ -118,3 +118,7 @@
 /system/bin/diginativeservice  -l  u:object_r:diginative_exec:s0
 /system/bin/diginativeservice32    u:object_r:diginative_exec:s0
 /system/bin/diginativeservice64    u:object_r:diginative_exec:s0
+
+#tamper
+/sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x-tamper(/.*)?    u:object_r:sysfs_tamper:s0
+/dev/iio:device[0-9.]*                                                                u:object_r:tamper_device:s0

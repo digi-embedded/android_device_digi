@@ -84,3 +84,7 @@
 /system/bin/diginativeservice     -l                                                 u:object_r:diginative_exec:s0
 /system/bin/diginativeservice32                                                      u:object_r:diginative_exec:s0
 /system/bin/diginativeservice64                                                      u:object_r:diginative_exec:s0
+
+#tamper
+/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-tamper(/.*)?    u:object_r:sysfs_tamper:s0
+/dev/iio:device[0-9.]*                                                                            u:object_r:tamper_device:s0

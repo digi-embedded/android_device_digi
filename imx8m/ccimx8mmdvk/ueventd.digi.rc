@@ -90,3 +90,7 @@
 
 # MCA cancel power-off sequence
 /sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-pwrkey mca_cancel_pwroff 0644  system  system
+
+# Tamper
+/sys/bus/iio/devices/iio:device*   tamper_events    0644   system   system
+/dev/iio:device*    0660   system   system
