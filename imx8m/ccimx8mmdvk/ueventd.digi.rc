@@ -94,3 +94,9 @@
 # Tamper
 /sys/bus/iio/devices/iio:device*   tamper_events    0644   system   system
 /dev/iio:device*    0660   system   system
+
+# Cellular devices
+/dev/ttyUSB0 0660 system radio
+/dev/ttyUSB1 0660 system radio
+/dev/ttyUSB2 0660 system radio
+/dev/ppp     0660 system radio

@@ -1,0 +1,6 @@
+# System properties
+
+# Mobile
+hw.nophone=no
+ro.boot.noril=no
+ro.telephony.default_network=9

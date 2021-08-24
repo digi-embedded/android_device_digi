@@ -272,7 +272,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # wifionly device
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.radio.noril=yes
+    ro.radio.noril=no
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.mediacomponents.package=com.nxp.extractorpkg

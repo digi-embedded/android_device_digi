@@ -288,6 +288,13 @@ PRODUCT_PACKAGES += \
         FirmwareUpdateSample \
         mca_tool
 
+# Default system properties
+TARGET_SYSTEM_PROP := $(IMX_DEVICE_PATH)/system.prop
+
+# Cellular generic files
+PRODUCT_COPY_FILES += \
+        device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
         CloudConnectorAndroid \
