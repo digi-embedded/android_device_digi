@@ -295,6 +295,20 @@ TARGET_SYSTEM_PROP := $(IMX_DEVICE_PATH)/system.prop
 PRODUCT_COPY_FILES += \
         device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
 
+# Telit RIL packages
+PRODUCT_PACKAGES += \
+        chat \
+        libreference-ril-telit-serial \
+        libtelit-rild \
+        ip-up-ppp0 \
+        ip-down-ppp0
+
+# Telit RIL files
+PRODUCT_COPY_FILES += \
+        device/digi/common/cellular/telit/configuration/options:system/etc/telit/ppp_options \
+        device/digi/common/cellular/telit/configuration/ppp_connect:system/etc/telit/ppp_connect \
+        device/digi/common/cellular/telit/configuration/ppp_disconnect:system/etc/telit/ppp_disconnect
+
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
         CloudConnectorAndroid \

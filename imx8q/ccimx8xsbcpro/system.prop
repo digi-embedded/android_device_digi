@@ -4,3 +4,8 @@
 hw.nophone=no
 ro.boot.noril=no
 ro.telephony.default_network=9
+
+# Telit RIL
+vendor.rild.libpath=/vendor/lib64/libreference-ril-telit-serial.so
+vendor.rild.libargs=-d /dev/ttyUSB2
+vendor.telit.ril.internet.context=1
