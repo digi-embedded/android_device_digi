@@ -1,0 +1,11 @@
+#!/bin/sh
+# Connection to the network
+ABORT "NO CARRIER"
+ABORT "NO DIALTONE"
+ABORT "ERROR"
+ABORT "NO ANSWER"
+ABORT "BUSY"
+TIMEOUT 3
+# If set property vendor.telit.ril.internet.context
+# change context number also here (ATD*99***<context number>#)
+'' ATE0 OK-+++\d\dATH-OK ATD*99***3# TIMEOUT 15 CONNECT ''

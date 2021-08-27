@@ -1,0 +1,30 @@
+# pppd option script example
+#
+# PLEASE NOTE: this example should be customized with
+# proper serial port
+#
+# In this example the following names are used:
+#
+#       ttyUSB3 -> serial port for pppd
+#       ppp_connect -> chat connection script
+#       ppp_disconnect -> chat disconnection script
+#
+# Please refer to the user guide for instructions
+
+debug
+modem
+connect "/system/bin/chat -v -f /etc/ppp/ppp_connect"
+disconnect "/system/bin/chat -v -f /etc/ppp/ppp_disconnect"
+/dev/ttyUSB3
+dump
+noauth
+mru 1280
+mtu 1280
+defaultroute
+ipcp-accept-local
+ipcp-accept-remote
+usepeerdns
+linkname ppp0
+connect-delay 5000
+ipcp-max-failure 30
+nodetach

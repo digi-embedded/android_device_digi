@@ -1,0 +1,10 @@
+#!/bin/sh
+#Disconnection to the network
+#
+TIMEOUT 6
+ABORT "NO CARRIER"
+ABORT 'ERROR'
+ABORT 'NO DIALTONE'
+SAY '\nDisconnecting\n'
+'' ATE0 OK-+++\c-OK ATH OK ''
+SAY '\nppp disconnected\n'
