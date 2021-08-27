@@ -10,3 +10,6 @@ type sysfs_mca_pwroff, sysfs_type, fs_type;
 type sysfs_pwm, sysfs_type, fs_type;
 type sysfs_tamper, sysfs_type, fs_type;
 type var_path, file_type;
+
+# Telit RIL
+type telit_ril_radio_device, dev_type;

@@ -122,3 +122,14 @@
 #tamper
 /sys/devices/platform/bus@5a000000/5a800000.i2c/i2c-0/0-0063/mca-cc8x-tamper(/.*)?    u:object_r:sysfs_tamper:s0
 /dev/iio:device[0-9.]*                                                                u:object_r:tamper_device:s0
+
+# Telit RIL
+# Binaries
+/etc/ppp/ip-up-ppp0                 u:object_r:ppp_tools_exec:s0
+/etc/ppp/ip-down-ppp0               u:object_r:ppp_tools_exec:s0
+/vendor/bin/hw/libtelit-rild        u:object_r:libtelit_rild_exec:s0
+
+# Devices
+/dev/ttyUSB0            u:object_r:telit_ril_radio_device:s0
+/dev/ttyUSB1            u:object_r:telit_ril_radio_device:s0
+/dev/ttyUSB2            u:object_r:telit_ril_radio_device:s0

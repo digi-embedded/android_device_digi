@@ -1,0 +1,30 @@
+#============= init ==============
+allow init ppp_exec:file getattr;
+
+#============= radio ==============
+allow radio system_app_data_file:dir getattr;
+allow radio telit_ril_prop:file read;
+allow radio telit_ril_prop:file open;
+allow radio telit_ril_prop:file getattr;
+allow radio telit_ril_prop:file map;
+
+#============= ppp ==============
+init_daemon_domain(ppp)
+
+allow ppp telit_ril_radio_device:chr_file {getattr read write open ioctl};
+allow ppp self:capability { net_raw setgid setuid };
+allow ppp shell_exec:file execute;
+allow ppp shell_exec:file { execute_no_trans getattr open read };
+allow ppp kernel:system module_request;
+allow ppp nativetest_data_file:dir { getattr search };
+allow ppp property_socket:sock_file write;
+allow ppp init:unix_stream_socket connectto;
+allow ppp net_radio_prop:property_service set;
+allow ppp usb_serial_device:chr_file { getattr read write open ioctl };
+allow ppp shell_exec:file map;
+allow ppp vendor_file:dir read;
+allow ppp shell_data_file:dir read;
+allow ppp system_data_root_file:dir read;
+allow ppp telit_ril_prop:property_service set;
+allow ppp shell_data_file:dir getattr;
+allow ppp postinstall_mnt_dir:dir getattr;

@@ -1,0 +1,9 @@
+# Telit RIL
+type ppp_tools, domain;
+type ppp_tools_exec, exec_type, file_type;
+
+allow ppp_tools telit_ril_prop:file read;
+allow ppp_tools telit_ril_prop:file open;
+allow ppp_tools telit_ril_prop:file getattr;
+allow ppp_tools telit_ril_prop:file map;
+allow ppp_tools telit_ril_prop:property_service set;
