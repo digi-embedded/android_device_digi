@@ -13,9 +13,9 @@
 
 debug
 modem
-connect "/system/bin/chat -v -f /etc/ppp/ppp_connect"
-disconnect "/system/bin/chat -v -f /etc/ppp/ppp_disconnect"
-/dev/ttyUSB3
+connect "/system/bin/chat -v -f /etc/telit/ppp_connect"
+disconnect "/system/bin/chat -v -f /etc/telit/ppp_disconnect"
+/dev/ttyUSB1
 dump
 noauth
 mru 1280
