@@ -1,0 +1,39 @@
+# Copyright 2021, Digi International Inc.
+#
+# Permission to use, copy, modify, and/or distribute this software for any
+# purpose with or without fee is hereby granted, provided that the above
+# copyright notice and this permission notice appear in all copies.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+# WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+# ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+# WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+# ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+# OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+LOCAL_PATH:= $(call my-dir)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE:= chat
+LOCAL_SRC_FILES:= \
+        chat.c
+LOCAL_SHARED_LIBRARIES := \
+        libcutils libc
+LOCAL_CFLAGS := -DANDROID_CHANGES -DTERMIOS -DSIGTYPE=void -UNO_SLEEP -DFNDELAY=O_NDELAY -Wno-unused-parameter -Wno-unused-const-variable
+LOCAL_MODULE_PATH := $(TARGET_OUT_EXECUTABLES)
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := ip-up-ppp0
+LOCAL_SRC_FILES := ip-up-ppp0.c
+LOCAL_SHARED_LIBRARIES := libcutils liblog libc
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/ppp
+include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := ip-down-ppp0
+LOCAL_SRC_FILES := ip-down-ppp0.c
+LOCAL_SHARED_LIBRARIES := libcutils liblog libc
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/ppp
+include $(BUILD_EXECUTABLE)
