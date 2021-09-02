@@ -128,6 +128,8 @@
 /etc/ppp/ip-up-ppp0                 u:object_r:ppp_tools_exec:s0
 /etc/ppp/ip-down-ppp0               u:object_r:ppp_tools_exec:s0
 /vendor/bin/hw/libtelit-rild        u:object_r:libtelit_rild_exec:s0
+/vendor/bin/hw/libtelit-rild32	    u:object_r:libtelit_rild_exec:s0
+/vendor/bin/hw/libtelit-rild64	    u:object_r:libtelit_rild_exec:s0
 
 # Devices
 /dev/ttyUSB0            u:object_r:telit_ril_radio_device:s0
