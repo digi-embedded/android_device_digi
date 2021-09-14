@@ -18,9 +18,17 @@ define build_imx_uboot
 	cp --remove-destination $(UBOOT_OUT)/arch/arm/dts/$${UBOOT_DTB} $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	cp --remove-destination $(FSL_PROPRIETARY_PATH)/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_pmu_train* $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$${ATF_PLATFORM} clean; \
-	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$${ATF_PLATFORM} bl31 -B 1>/dev/null || exit 1; \
+	if [ "$$(echo $(2) | cut -d '-' -f2)" = "trusty" ]; then \
+		cp --remove-destination $(DIGI_FIRMWARE_PATH)/uboot-firmware/imx8m/tee-ccimx8mm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/tee.bin; \
+		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$${ATF_PLATFORM} bl31 -B SPD=trusty 1>/dev/null || exit 1; \
+	else \
+		rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/tee.bin; \
+		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$${ATF_PLATFORM} bl31 -B 1>/dev/null || exit 1; \
+	fi; \
 	cp --remove-destination $(IMX_PATH)/arm-trusted-firmware/build/$${ATF_PLATFORM}/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/bl31.bin; \
 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM dtbs=$${UBOOT_DTB} flash_spl_uboot || exit 1; \
+	cp --remove-destination $(UBOOT_OUT)/arch/arm/dts/$${UBOOT_DTB} $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
+	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM dtbs=$${UBOOT_DTB} print_fit_hab || exit 1; \
 	cp --remove-destination $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx;
 endef
