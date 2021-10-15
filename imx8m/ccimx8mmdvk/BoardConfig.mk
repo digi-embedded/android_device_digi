@@ -138,6 +138,7 @@ TARGET_BOARD_DTS_CONFIG := \
 	_ov_board_user-leds_ccimx8m-dvk.dtbo \
 	_ov_som_bt_ccimx8m.dtbo \
 	_ov_som_mca-keypad_ccimx8m.dtbo \
+	_ov_som_trusty_ccimx8m.dtbo \
 	_ov_som_wifi_ccimx8m.dtbo
 
 BOARD_SEPOLICY_DIRS := \
