@@ -26,9 +26,13 @@ TARGET_DIGI_ATHEROS_FW                      := true
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_qcwcn
 
+# Qcom QCA6564 Wi-Fi
+BOARD_HAVE_WIFI_QCA6564 := true
+
 BOARD_VENDOR_KERNEL_MODULES += \
 	$(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_core.ko \
-	$(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_sdio.ko
+	$(KERNEL_OUT)/drivers/net/wireless/ath/ath6kl/ath6kl_sdio.ko \
+	$(QCACLD_INTERMEDIATES)/qca6564_wlan.ko
 
 # for recovery service
 TARGET_SELECT_KEY := 28

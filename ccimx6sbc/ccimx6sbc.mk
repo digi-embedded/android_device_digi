@@ -45,6 +45,16 @@ PRODUCT_PACKAGES += \
 	PS_ASIC_class_2 \
 	RamPatch
 
+# QCA6564
+PRODUCT_PACKAGES += \
+	qca6564_wlan.ko \
+	bdwlan30_US \
+	qwlan30 \
+	otp30 \
+	utf30 \
+	WCNSS_cfg \
+	WCNSS_qcom_cfg
+
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
 	CloudConnectorAndroid
