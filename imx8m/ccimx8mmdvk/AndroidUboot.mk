@@ -8,8 +8,33 @@ ATF_TOOLCHAIN_ABS := $(realpath prebuilts/gcc/$(HOST_PREBUILT_TAG)/aarch64/aarch
 ATF_CROSS_COMPILE := $(ATF_TOOLCHAIN_ABS)/aarch64-linux-androidkernel-
 endif
 
+CSF_TEMPLATES := \
+	encrypt_sign_uboot_fit \
+	encrypt_sign_uboot_spl \
+	encrypt_uboot_fit \
+	encrypt_uboot_spl \
+	sign_uboot_fit \
+	sign_uboot_spl
+
+define build_trustfence_tools_zip
+	echo "== Building Trustfence tools ZIP"; \
+	TF_TOOLS_DIR="trustfence-tools-$(strip $(1))"; \
+	UBOOT_SCRIPTS_DIR="$(realpath $(UBOOT_IMX_PATH)/uboot-imx/scripts)"; \
+	( \
+		cd $(UBOOT_COLLECTION); \
+		mkdir -p $${TF_TOOLS_DIR}/csf_templates; \
+		mv mkimage*.log $${TF_TOOLS_DIR}/; \
+		install -m 0755 $${UBOOT_SCRIPTS_DIR}/sign_spl_fit.sh $${TF_TOOLS_DIR}/trustfence-sign-uboot.sh; \
+		for f in $(CSF_TEMPLATES); do \
+			cp --remove-destination $${UBOOT_SCRIPTS_DIR}/csf_templates/$${f} $${TF_TOOLS_DIR}/csf_templates/; \
+		done; \
+		zip -qXr $${TF_TOOLS_DIR}.zip $${TF_TOOLS_DIR}; \
+		rm -rf $${TF_TOOLS_DIR}; \
+	);
+endef
+
 define build_imx_uboot
-	$(hide) echo Building i.MX U-Boot with firmware; \
+	echo "== Building i.MX U-Boot with firmware"; \
 	ATF_PLATFORM="imx8mm"; \
 	UBOOT_DTB="ccimx8mm-dvk.dtb"; \
 	cp --remove-destination $(UBOOT_OUT)/u-boot-nodtb.$(strip $(1)) $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
@@ -27,8 +52,9 @@ define build_imx_uboot
 	fi; \
 	cp --remove-destination $(IMX_PATH)/arm-trusted-firmware/build/$${ATF_PLATFORM}/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/bl31.bin; \
 	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ clean; \
-	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM dtbs=$${UBOOT_DTB} flash_spl_uboot || exit 1; \
+	$(MAKE) --no-print-directory -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM dtbs=$${UBOOT_DTB} flash_spl_uboot 2>&1 | tee $(UBOOT_COLLECTION)/mkimage.log || exit 1; \
 	cp --remove-destination $(UBOOT_OUT)/arch/arm/dts/$${UBOOT_DTB} $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/.; \
-	$(MAKE) -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM dtbs=$${UBOOT_DTB} print_fit_hab || exit 1; \
-	cp --remove-destination $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx;
+	$(MAKE) --no-print-directory -C $(IMX_MKIMAGE_PATH)/imx-mkimage/ SOC=iMX8MM dtbs=$${UBOOT_DTB} print_fit_hab 2>&1 | tee $(UBOOT_COLLECTION)/mkimage-print_fit_hab.log || exit 1; \
+	cp --remove-destination $(IMX_MKIMAGE_PATH)/imx-mkimage/iMX8M/flash.bin $(UBOOT_COLLECTION)/u-boot-$(strip $(2)).imx; \
+	$(call build_trustfence_tools_zip, $(2))
 endef
