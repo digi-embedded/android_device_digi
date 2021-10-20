@@ -51,3 +51,6 @@
 
 #device tree
 /sys/firmware/devicetree/base(/.*)?	u:object_r:sysfs_device_tree:s0
+
+# init_wlan service
+/vendor/bin/init-wlan.sh	u:object_r:init_wlan_service_exec:s0

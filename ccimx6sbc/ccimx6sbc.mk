@@ -55,6 +55,9 @@ PRODUCT_PACKAGES += \
 	WCNSS_cfg \
 	WCNSS_qcom_cfg
 
+PRODUCT_COPY_FILES += \
+	device/digi/ccimx6sbc/init-wlan.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init-wlan.sh
+
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
 	CloudConnectorAndroid

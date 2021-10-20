@@ -1,0 +1,15 @@
+# init_wlan_service -- Init domain to initialize wlan driver
+type init_wlan_service, domain;
+type init_wlan_service_exec, exec_type, file_type, vendor_file_type;
+
+init_daemon_domain(init_wlan_service)
+
+allow init_wlan_service shell_exec:file { execute read getattr };
+allow init_wlan_service toolbox_exec:file { getattr execute execute_no_trans open read };
+allow init_wlan_service sysfs:file { getattr read open };
+allow init_wlan_service proc_modules:file { getattr read open };
+allow init_wlan_service self:capability sys_module;
+allow init_wlan_service vendor_file:system module_load;
+allow init_wlan_service sysfs_device_tree:dir search;
+allow init_wlan_service sysfs_mac_address:file { read open };
+

@@ -41,7 +41,8 @@ on init
     symlink /dev/lock /var/lock
 
 on early-boot
-    exec u:r:modprobe:s0 -- /system/bin/modprobe -a -d /vendor/lib/modules ath6kl_core ath6kl_sdio
+    # Initialize WLAN driver
+    start init_wlan
 
 on boot
     # Set permission for IIM node
@@ -209,3 +210,10 @@ on post-fs
 
 on post-fs-data
     setprop vold.post_fs_data_done 1
+
+service init_wlan /vendor/bin/init-wlan.sh
+    class main
+    user root
+    group shell
+    disabled
+    oneshot
