@@ -28,7 +28,9 @@ define build_trustfence_tools_zip
 		for f in $(CSF_TEMPLATES); do \
 			cp --remove-destination $${UBOOT_SCRIPTS_DIR}/csf_templates/$${f} $${TF_TOOLS_DIR}/csf_templates/; \
 		done; \
-		zip -qXr $${TF_TOOLS_DIR}.zip $${TF_TOOLS_DIR}; \
+		if [ "$$(echo $(1) | cut -d '-' -f2)" = "trusty" ]; then \
+			zip -qXr $${TF_TOOLS_DIR}.zip $${TF_TOOLS_DIR}; \
+		fi; \
 		rm -rf $${TF_TOOLS_DIR}; \
 	);
 endef
