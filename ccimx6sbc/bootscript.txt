@@ -96,6 +96,9 @@ if itest.s "x" == "x$cma" ; then
 fi
 setenv bootargs_android $bootargs_android cma=$cma
 
+# Add firmware path required to load QCA6564 driver firmware
+setenv bootargs_android ${bootargs_android} firmware_class.path=/vendor/firmware
+
 #
 # Boot
 #
