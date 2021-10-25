@@ -20,11 +20,16 @@ define build_trustfence_tools_zip
 	echo "== Building Trustfence tools ZIP"; \
 	TF_TOOLS_DIR="trustfence-tools-$(strip $(1))"; \
 	UBOOT_SCRIPTS_DIR="$(realpath $(UBOOT_IMX_PATH)/uboot-imx/scripts)"; \
+	TF_KEY_SCRIPTS_DIR="$(realpath device/digi/common/trustfence)"; \
 	( \
 		cd $(UBOOT_COLLECTION); \
-		mkdir -p $${TF_TOOLS_DIR}/csf_templates; \
+		mkdir -p $${TF_TOOLS_DIR}/bin $${TF_TOOLS_DIR}/csf_templates; \
 		mv mkimage*.log $${TF_TOOLS_DIR}/; \
 		install -m 0755 $${UBOOT_SCRIPTS_DIR}/sign_spl_fit.sh $${TF_TOOLS_DIR}/trustfence-sign-uboot.sh; \
+		install -m 0755 $${TF_KEY_SCRIPTS_DIR}/keys/hab4_pki_tree.sh $${TF_TOOLS_DIR}/bin/trustfence-gen-pki.sh; \
+		install -m 0755 $${TF_KEY_SCRIPTS_DIR}/ca/openssl.cnf $${TF_TOOLS_DIR}/bin/openssl.cnf; \
+		install -m 0755 $${TF_KEY_SCRIPTS_DIR}/ca/v3_ca.cnf $${TF_TOOLS_DIR}/bin/v3_ca.cnf; \
+		install -m 0755 $${TF_KEY_SCRIPTS_DIR}/ca/v3_usr.cnf $${TF_TOOLS_DIR}/bin/v3_usr.cnf; \
 		for f in $(CSF_TEMPLATES); do \
 			cp --remove-destination $${UBOOT_SCRIPTS_DIR}/csf_templates/$${f} $${TF_TOOLS_DIR}/csf_templates/; \
 		done; \
