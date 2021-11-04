@@ -228,4 +228,7 @@
          docked if the dock is configured to enable the accelerometer. -->
     <bool name="config_supportAutoRotation">false</bool>
 
+    <!-- The maximum duration (in milliseconds) we expect a network transition to take -->
+    <integer name="config_networkTransitionTimeout">1000</integer>
+
 </resources>
