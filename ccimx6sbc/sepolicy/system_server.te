@@ -15,3 +15,8 @@ allow system_server sysfs_device_tree:dir { r_dir_perms };
 
 # properties
 set_prop(system_server, ethernet_prop)
+
+# module load/unload
+allow system_server proc_modules:file { getattr read open };
+allow system_server self:capability sys_module;
+allow system_server self:system module_load;
