@@ -111,6 +111,7 @@ TARGET_BOARD_DTS_CONFIG := \
 	_ov_som_bt_ccimx8x.dtbo \
 	_ov_som_mca-keypad_ccimx8x.dtbo \
 	_ov_som_quad_ccimx8x.dtbo \
+	_ov_som_trusty_ccimx8x.dtbo \
 	_ov_som_wifi_ccimx8x.dtbo
 
 BOARD_SEPOLICY_DIRS := \
