@@ -3,7 +3,9 @@ UBOOT_POST_PROCESS := true
 
 TARGET_BOOTLOADER_CONFIG := \
         ccimx8xsbcpro2GB-C0:ccimx8x_sbc_pro2GB_android_defconfig \
-        ccimx8xsbcpro2GB-B0:ccimx8x_sbc_pro2GB_android_defconfig
+        ccimx8xsbcpro2GB-B0:ccimx8x_sbc_pro2GB_android_defconfig \
+        ccimx8xsbcpro2GB-C0-trusty:ccimx8x_sbc_pro2GB_android_trusty_defconfig \
+        ccimx8xsbcpro2GB-B0-trusty:ccimx8x_sbc_pro2GB_android_trusty_defconfig
 
 TARGET_KERNEL_DEFCONFIG := ccimx8_android_defconfig
 TARGET_KERNEL_ADDITION_DEFCONF := android_addition_defconfig

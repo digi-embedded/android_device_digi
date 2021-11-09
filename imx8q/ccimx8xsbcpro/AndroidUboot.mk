@@ -22,7 +22,13 @@ define build_imx_uboot
 		REV="C0";  \
 	fi; \
 	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ PLAT=$${ATF_PLATFORM} clean; \
-	$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$${ATF_PLATFORM} bl31 -B 1>/dev/null || exit 1; \
+	if [ "$$(echo $(2) | cut -d '-' -f3)" = "trusty" ]; then \
+		cp --remove-destination $(DIGI_FIRMWARE_PATH)/uboot-firmware/imx8q/tee-$${SCFW_PLATFORM}.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$${MKIMAGE_PLATFORM}/tee.bin; \
+		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$${ATF_PLATFORM} bl31 SPD=trusty -B 1>/dev/null || exit 1; \
+	else \
+		rm -f $(IMX_MKIMAGE_PATH)/imx-mkimage/$${MKIMAGE_PLATFORM}/tee.bin; \
+		$(MAKE) -C $(IMX_PATH)/arm-trusted-firmware/ CROSS_COMPILE="$(ATF_CROSS_COMPILE)" PLAT=$${ATF_PLATFORM} bl31 -B 1>/dev/null || exit 1; \
+	fi; \
 	cp --remove-destination $(IMX_PATH)/arm-trusted-firmware/build/$${ATF_PLATFORM}/release/bl31.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$${MKIMAGE_PLATFORM}/bl31.bin; \
 	cp --remove-destination $(FSL_PROPRIETARY_PATH)/imx-seco/firmware/seco/mx8qx*ahab-container.img $(IMX_MKIMAGE_PATH)/imx-mkimage/$$MKIMAGE_PLATFORM/; \
 	cp --remove-destination $(DIGI_FIRMWARE_PATH)/uboot-firmware/imx8q/$${SCFW_PLATFORM}_scfw-tcm.bin $(IMX_MKIMAGE_PATH)/imx-mkimage/$${MKIMAGE_PLATFORM}/scfw_tcm.bin; \
