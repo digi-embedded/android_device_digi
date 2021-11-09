@@ -22,6 +22,7 @@ STD='\033[0;0m'
 CCIMX8MMDVK="ccimx8mmdvk"
 CCIMX8XSBCPRO="ccimx8xsbcpro"
 FIRST_DEPLOY=0
+TF_DEPLOY=0
 WIPE_PARTITIONS=0
 WAIT=10
 
@@ -33,9 +34,12 @@ FB: ucmd mmc dev 0
 FB: ucmd mmc dev 0 0
 "
 
-UUU_LST_BOOTLOADER="\
+UUU_LST_BOOTCMD="\
 FB: ucmd env set bootcmd \"env default -a; env save; env save; reset\"
 FB: ucmd env save
+"
+
+UUU_LST_BOOTLOADER="\
 FB: ucmd mmc partconf 0 1 1 1
 FB[-t 600000]: flash gpt %s
 FB: ucmd setenv fastboot_dev sata
@@ -90,6 +94,8 @@ MODE
   first-deploy              Completely erases and programs images including
                             the bootloader from the USB.
   development               Programs Android images.
+  tf-deploy                 Similar to 'first-deploy' but for TrustFence images
+                            in closed devices.
 
 'first-deploy' options:
   -u <uboot_filename>       U-Boot file name located at images directory.
@@ -104,6 +110,18 @@ MODE
   -d <images_dir>           Directory where images are located.
                             Current directory if not specify.
   -wipe                     Wipe data partitions.
+
+'tf-deploy' options:
+  -lu <uboot_filename>      U-Boot file to load from USB.
+                            It must be a signed bootloader image without Trusty.
+  -u <uboot_filename>       U-Boot file name located at images directory.
+                            It must be a signed bootloader image with Trusty.
+  -p <part_table_filename>  Partition table file name located at images
+                            directory.
+                            'partition-table.img' if not specified.
+  -d <images_dir>           Directory where images are located.
+                            Current directory if not specify.
+  -n                        No wait. Skips 10 seconds delay to stop script.
 
 EOF
 }
@@ -203,7 +221,7 @@ check_images()
 	[ ! -f "${1}${IMG_VBMETA_FILENAME}" ] && IMG_VBMETA_FILENAME="vbmeta.img"
 
 	# Check existance of files before starting the update
-	IMGS="${IMG_UBOOT_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_BOOT_FILENAME} ${IMG_VENDOR_BOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_SUPER_FILENAME}"
+	IMGS="${IMG_UBOOT_FILENAME} ${IMG_UBOOT_USB_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_BOOT_FILENAME} ${IMG_VENDOR_BOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_SUPER_FILENAME}"
 	for f in ${IMGS}; do
 		if [ ! -f "${1}${f}" ]; then
 			show_error "Could not find file '${f}'."
@@ -262,7 +280,12 @@ generate_uuu_lst()
 	printf "${UUU_LST_HEADER}" > "${UUU_LST_FILE}"
 
 	if [ ${FIRST_DEPLOY} -eq 1 ]; then
-		# Erase bootloader environment and flash partition table image
+		# Erase bootloader environment in next reset only for first deploy
+		# If Trusty is enabled and RPMB key is programmed,
+		# bootloader environment cannot be written since
+		# BOOT1 partition is set with power-on write protection
+		[ ${TF_DEPLOY} -eq 0 ] && printf "${UUU_LST_BOOTCMD}" >> "${UUU_LST_FILE}"
+		# Flash partition table image
 		printf "${UUU_LST_BOOTLOADER}" "${IMG_PART_TABLE_FILENAME}" \
 			>> "${UUU_LST_FILE}"
 	else
@@ -300,7 +323,11 @@ get_options()
 				IMAGES_DIR=${2}; shift;;
 			-u)
 				[ "${FIRST_DEPLOY}" -eq 0 ] && not_supported_option "${1}"
+				[ -z "${IMG_UBOOT_USB_FILENAME}" ] && IMG_UBOOT_USB_FILENAME=${2};
 				IMG_UBOOT_FILENAME=${2}; shift;;
+			-lu)
+				[ "${TF_DEPLOY}" -eq 0 ] && not_supported_option "${1}"
+				IMG_UBOOT_USB_FILENAME=${2}; shift;;
 			-p)
 				[ "${FIRST_DEPLOY}" -eq 0 ] && not_supported_option "${1}"
 				IMG_PART_TABLE_FILENAME=${2}; shift;;
@@ -318,6 +345,11 @@ get_options()
 
 	if [ "${FIRST_DEPLOY}" -eq 1 ] && [ -z "${IMG_UBOOT_FILENAME}" ]; then
 		show_error "U-Boot file name required."
+		show_usage && exit 1
+	fi
+
+	if [ "${TF_DEPLOY}" -eq 1 ] && [ -z "${IMG_UBOOT_USB_FILENAME}" ]; then
+		show_error "USB U-Boot file name required."
 		show_usage && exit 1
 	fi
 
@@ -351,6 +383,10 @@ case "${MODE}" in
 	development)
 		WAIT=0;;
 	first-deploy)
+		FIRST_DEPLOY=1
+		WIPE_PARTITIONS=1;;
+	tf-deploy)
+		TF_DEPLOY=1
 		FIRST_DEPLOY=1
 		WIPE_PARTITIONS=1;;
 	*)
