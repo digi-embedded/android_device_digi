@@ -220,17 +220,16 @@ get_platform_from_target()
 	if [ "${FIRST_DEPLOY}" -eq 1 ]; then
 		printf " Looking for a supported platform... "
 		if uuu -lsusb | grep -qs 'MX8QXP'; then
-			uuu "${IMAGES_DIR}${IMG_UBOOT_FILENAME}" >/dev/null
 			SOC_TYPE="imx8qxp"
 			printf "%s\n\n" "${CCIMX8XSBCPRO}"
 		elif uuu -lsusb | grep -qs 'MX8MM'; then
-			uuu -b spl "${IMAGES_DIR}${IMG_UBOOT_FILENAME}" >/dev/null
 			SOC_TYPE="imx8mm"
 			printf "%s\n\n" "${CCIMX8MMDVK}"
 		else
 			show_error "Unable to find a supported platform. Ensure switches are properly configured and reset the device."
 			exit 1
 		fi
+		uuu -b spl "${IMAGES_DIR}${IMG_UBOOT_USB_FILENAME}" >/dev/null
 	fi
 
 	if [ -z "${SOC_TYPE}" ]; then
