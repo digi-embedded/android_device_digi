@@ -99,6 +99,8 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/ccimx8xsbcpro/dtbo-imx8qxp.img
 TARGET_BOARD_DTS_CONFIG := \
 	ccimx8x-sbc-pro.dtb \
 	_ov_board_flexcan1_ccimx8x-sbc-pro.dtbo \
+	_ov_board_flexspi_ccimx8x-sbc-pro.dtbo \
+	_ov_board_gpio-watchdog_ccimx8x-sbc-pro.dtbo \
 	_ov_board_hsd101pfw2-lvds_ccimx8x-sbc-pro.dtbo \
 	_ov_board_lpuart3_ccimx8x-sbc-pro.dtbo \
 	_ov_board_lt8912-hdmi-dsi0_ccimx8x-sbc-pro.dtbo \

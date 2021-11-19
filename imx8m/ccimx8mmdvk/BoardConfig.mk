@@ -134,6 +134,9 @@ BOARD_PREBUILT_DTBOIMAGE := out/target/product/ccimx8mmdvk/dtbo-imx8mm.img
 # Keep the first one the base DTB, and then the overlays
 TARGET_BOARD_DTS_CONFIG := \
 	ccimx8mm-dvk.dtb \
+	_ov_board_flexspi_ccimx8m-dvk.dtbo \
+	_ov_board_gpio-watchdog_ccimx8m-dvk.dtbo \
+	_ov_board_hsd101pfw2-lvds_ccimx8m-dvk.dtbo \
 	_ov_board_lvds_ccimx8m-dvk.dtbo \
 	_ov_board_user-leds_ccimx8m-dvk.dtbo \
 	_ov_som_bt_ccimx8m.dtbo \
