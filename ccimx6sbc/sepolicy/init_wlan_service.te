@@ -11,5 +11,6 @@ allow init_wlan_service proc_modules:file { getattr read open };
 allow init_wlan_service self:capability sys_module;
 allow init_wlan_service vendor_file:system module_load;
 allow init_wlan_service sysfs_device_tree:dir search;
+allow init_wlan_service sysfs_device_tree:file { read open };
 allow init_wlan_service sysfs_mac_address:file { read open };
 
