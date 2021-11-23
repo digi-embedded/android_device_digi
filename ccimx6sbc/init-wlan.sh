@@ -44,7 +44,7 @@ while [ "${IFACE_NUM}" -lt "${NUM_SDIO_IFACES}" ]; do
 		exec /system/bin/modprobe -a -d /vendor/lib/modules ath6kl_core ath6kl_sdio
 	elif [ ${DEVICE_ID_NUMBER} -eq ${QCA_DEVICE_ID_NUMBER} ]; then
 		log -p i -t ${0} "[Digi] Found Qualcomm device ${QCA_DEVICE_ID_NUMBER}"
-		exec /system/bin/modprobe -a -d /vendor/lib/modules qca6564_wlan ${QCA_ARGS}
+		exec /system/bin/modprobe -d /vendor/lib/modules qca6564_wlan ${QCA_ARGS}
 	fi
 done
 
