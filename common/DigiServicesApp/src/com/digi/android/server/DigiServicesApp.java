@@ -42,8 +42,6 @@ import com.android.server.system.gpu.GPUServiceImpl;
 import com.android.server.system.gpu.IGPUService;
 import com.android.server.system.memory.IMemoryService;
 import com.android.server.system.memory.MemoryServiceImpl;
-import com.android.server.trustfence.ITrustfenceService;
-import com.android.server.trustfence.TrustfenceServiceImpl;
 import com.android.server.watchdog.IWatchdogService;
 import com.android.server.watchdog.WatchdogServiceImpl;
 
@@ -92,9 +90,6 @@ public class DigiServicesApp extends Application {
 
         ServiceManager.addService(ISPIService.class.getName(),
                                   new SPIServiceImpl(this));
-
-        ServiceManager.addService(ITrustfenceService.class.getName(),
-                                  new TrustfenceServiceImpl(this));
 
         ServiceManager.addService(IWatchdogService.class.getName(),
                                   new WatchdogServiceImpl(this));

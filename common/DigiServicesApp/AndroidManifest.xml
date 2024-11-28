@@ -84,12 +84,6 @@
         android:label="@string/permlab_spi"
         android:description="@string/permdesc_spi" />
 
-    <permission android:name="com.digi.android.permission.TRUSTFENCE"
-        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-        android:protectionLevel="normal"
-        android:label="@string/permlab_trustfence"
-        android:description="@string/permdesc_trustfence" />
-
     <permission android:name="com.digi.android.permission.WATCHDOG"
         android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
         android:protectionLevel="normal"
