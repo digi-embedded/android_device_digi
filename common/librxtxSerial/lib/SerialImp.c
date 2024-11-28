@@ -4593,7 +4593,7 @@ JNIEXPORT jboolean JNICALL Java_android_gnu_io_RXTXCommDriver_registerKnownPorts
 		PORT_TYPE_RS485,
 		PORT_TYPE_RAW};
 	jboolean result = JNI_FALSE;
-	char message[80];
+	char message[100];
 
 	switch(portType) {
 		case PORT_TYPE_SERIAL:
