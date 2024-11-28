@@ -22,8 +22,6 @@ import com.android.server.adc.ADCServiceImpl;
 import com.android.server.adc.IADCService;
 import com.android.server.can.CANServiceImpl;
 import com.android.server.can.ICANService;
-import com.android.server.cloudconnector.CloudConnectorServiceImpl;
-import com.android.server.cloudconnector.ICloudConnectorService;
 import com.android.server.firmwareupdate.FirmwareUpdateServiceImpl;
 import com.android.server.firmwareupdate.IFirmwareUpdateService;
 import com.android.server.gpio.GPIOServiceImpl;
@@ -60,9 +58,6 @@ public class DigiServicesApp extends Application {
 
         ServiceManager.addService(ICANService.class.getName(),
                                   new CANServiceImpl(this));
-
-        ServiceManager.addService(ICloudConnectorService.class.getName(),
-                                  new CloudConnectorServiceImpl(this));
 
         ServiceManager.addService(ICPUService.class.getName(),
                                   new CPUServiceImpl(this));

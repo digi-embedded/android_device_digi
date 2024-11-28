@@ -1,4 +1,4 @@
-// Copyright 2021, Digi International Inc.
+// Copyright 2021-2025, Digi International Inc.
 //
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
@@ -37,32 +37,18 @@ prebuilt_etc {
 }
 
 filegroup {
-    name: "DigiServicesApp-resources-raw",
-    srcs: ["res/raw/*.xml"],
-}
-
-filegroup {
     name: "DigiServicesApp-resources-values",
     srcs: ["res/values/*.xml"],
-}
-
-filegroup {
-    name: "DigiServicesApp-resources-cc-config",
-    srcs: ["res/raw/connector_config.txt"],
 }
 
 java_genrule {
     name: "DigiServicesApp-resources",
     srcs: [
-        ":DigiServicesApp-resources-raw",
         ":DigiServicesApp-resources-values",
-        ":DigiServicesApp-resources-cc-config",
     ],
     tools: ["soong_zip"],
     cmd: "mkdir -p $(genDir)/res/values $(genDir)/res/raw " +
-         "&& cp $(locations :DigiServicesApp-resources-raw) $(genDir)/res/raw/. " +
          "&& cp $(locations :DigiServicesApp-resources-values) $(genDir)/res/values/. " +
-         "&& sed -e \"s,##CC_DEVICE_TYPE##,$${TARGET_PRODUCT},g\" $(location :DigiServicesApp-resources-cc-config) > $(genDir)/res/raw/connector_config.txt " +
          "&& $(location soong_zip) -o $(out) -C $(genDir)/res -D $(genDir)/res",
     out: [
         "res.zip",
