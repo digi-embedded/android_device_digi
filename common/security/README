@@ -1,21 +1,13 @@
-For detailed information on key types and image signing, please see:
-
-https://source.android.com/devices/tech/ota/sign_builds.html
-
-The test keys in this directory are used in development only and should
-NEVER be used to sign packages in publicly released images (as that would
-open a major security hole).
-
-key generation
---------------
-
 The following commands were used to generate the test key pairs:
 
-  development/tools/make_key testkey  '/C=US/ST=Minnesota/L=Minnetonka/O=Android/OU=Android/CN=Android/emailAddress=android@digi.com'
-  development/tools/make_key platform '/C=US/ST=Minnesota/L=Minnetonka/O=Android/OU=Android/CN=Android/emailAddress=android@digi.com'
-  development/tools/make_key shared   '/C=US/ST=Minnesota/L=Minnetonka/O=Android/OU=Android/CN=Android/emailAddress=android@digi.com'
-  development/tools/make_key media    '/C=US/ST=Minnesota/L=Minnetonka/O=Android/OU=Android/CN=Android/emailAddress=android@digi.com'
-  development/tools/make_key networkstack    '/C=US/ST=Minnesota/L=Minnetonka/O=Android/OU=Android/CN=Android/emailAddress=android@digi.com'
+  development/tools/make_key testkey  '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key platform '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key shared   '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key media    '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key networkstack    '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key bluetooth    '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key sdk_sandbox  '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key nfc  '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
 
 The following standard test keys are currently included:
 
@@ -24,10 +16,14 @@ platform -- a test key for packages that are part of the core platform.
 shared -- a test key for things that are shared in the home/contacts process.
 media -- a test key for packages that are part of the media/download system.
 networkstack -- a test key for networkstack packages.
+bluetooth --  a test key for bluetooth packages.
+sdk_sandbox --  a test key for sdk_sandbox packages.
+nfc --  a test key for nfc apex and apk.
 
 These test keys are used strictly in development, and should never be assumed
 to convey any sort of validity.  When $BUILD_SECURE=true, the code should not
 honor these keys in any context.
+
 
 signing using the openssl commandline (for boot/system images)
 --------------------------------------------------------------
@@ -40,5 +36,7 @@ signing using the openssl commandline (for boot/system images)
 
 extracting public keys for embedding
 ------------------------------------
-
-openssl x509 -pubkey -noout -in device/digi/common/security/testkey.x509.pem
+it's a Java tool
+but it generates C code
+take a look at commands/recovery/Android.mk
+you'll see it running $(HOST_OUT_JAVA_LIBRARIES)/dumpkey.jar
