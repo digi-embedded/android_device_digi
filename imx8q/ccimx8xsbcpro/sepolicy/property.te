@@ -1,4 +1,0 @@
-type ethernet_prop, property_type, system_property_type;
-
-# Telit RIL
-system_public_prop(telit_ril_prop)
