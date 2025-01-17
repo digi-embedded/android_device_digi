@@ -45,7 +45,7 @@ IMX_INSTALLED_VBMETAIMAGE_TARGET := $(subst dtbo,vbmeta,$(BOARD_PREBUILT_DTBOIMA
 RECOVERY_IMG := $(subst dtbo,recovery,$(BOARD_PREBUILT_DTBOIMAGE))
 
 $(IMX_INSTALLED_VBMETAIMAGE_TARGET): $(PRODUCT_OUT)/vbmeta.img $(BOARD_PREBUILT_DTBOIMAGE) | $(AVBTOOL)
-	$(if $(filter true, $(BOARD_USES_RECOVERY_AS_BOOT)), \
+	$(if $(strip $(filter true, $(BOARD_USES_RECOVERY_AS_BOOT) $(BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT))), \
 		$(AVBTOOL) make_vbmeta_image \
 			--algorithm $(BOARD_AVB_ALGORITHM) --key $(BOARD_AVB_KEY_PATH)  \
 			$(BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS) \
@@ -75,6 +75,9 @@ endif
 
 otapackage: signapk
 target-files-package: signapk
+
+otapackage: gen_update_config
+target-files-package: gen_update_config
 
 ifeq ($(TARGET_USE_VENDOR_BOOT), true)
 INSTALLED_DTBIMAGE_TARGET := $(PRODUCT_OUT)/dtb.img
