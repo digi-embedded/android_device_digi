@@ -285,7 +285,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     ro.oem_unlock_supported=1
 
-include device/digi/build_id.mk
+include device/digi/common/build/build_info.mk
 
 # include a google recommand heap config file.
 include frameworks/native/build/tablet-10in-xhdpi-2048-dalvik-heap.mk
