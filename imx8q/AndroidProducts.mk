@@ -30,5 +30,5 @@ PRODUCT_MAKEFILES := \
   $(LOCAL_DIR)/ccimx8xsbcpro/ccimx8xsbcpro.mk
 
 COMMON_LUNCH_CHOICES := \
-  ccimx8xsbcpro-user \
-  ccimx8xsbcpro-userdebug
+  ccimx8xsbcpro-trunk_staging-user \
+  ccimx8xsbcpro-trunk_staging-userdebug

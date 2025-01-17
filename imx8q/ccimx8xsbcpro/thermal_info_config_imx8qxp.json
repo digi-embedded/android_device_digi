@@ -1,16 +1,20 @@
 {
+    "HotplugCPUs":[
+            "cpu2",
+            "cpu3"
+    ],
     "Sensors":[
         {
-            "Name":"cpu-thermal0",
+            "Name":"cpu0-thermal",
             "Type":"CPU",
             "HotThreshold":[
                 "NAN",
                 "NAN",
-                "NAN",
+                102,
                 107,
-                127,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
@@ -32,10 +36,10 @@
                 "NAN",
                 "NAN",
                 "NAN",
-                110,
-                125,
+                107,
+                112,
                 "NAN",
-                "NAN"
+                122
             ],
             "HotHysteresis":[
                 2.0,
@@ -60,7 +64,7 @@
                 "NAN",
                 "NAN",
                 "NAN",
-                "NAN"
+                122
             ],
             "VrThreshold":"NAN",
             "Multiplier":0.001,
@@ -69,16 +73,12 @@
     ],
     "CoolingDevices":[
         {
-            "Name":"thermal-cpufreq-0",
+            "Name":"cpufreq-cpu0",
             "Type":"CPU"
         },
         {
-            "Name":"thermal-devfreq-0",
-            "Type":"BATTERY"
-        },
-        {
-            "Name":"thermal-devfreq-1",
-            "Type":"BATTERY"
+            "Name":"thermal-gpufreq-0",
+            "Type":"GPU"
         }
     ]
 }
