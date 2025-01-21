@@ -2,11 +2,11 @@
 
 # hardcode this one again in this shell script
 CONFIG_REPO_PATH=device/nxp
-DIGI_FIRMWARE_PATH=vendor/digi/firmware
 
 # import other paths in the file "common/imx_path/ImxPathConfig.mk" of this
 # repository
-# for f in ${CONFIG_REPO_PATH}/common/imx_path/ImxPathConfig.mk device/digi/imx8q/UbootKernelCommonConfig.mk; do
+
+for f in ${CONFIG_REPO_PATH}/common/imx_path/ImxPathConfig.mk device/digi/imx8q/UbootKernelCommonConfig.mk; do
 	while read -r line
 	do
 		if [ "$(echo ${line} | grep "=")" != "" ]; then
@@ -19,9 +19,8 @@ DIGI_FIRMWARE_PATH=vendor/digi/firmware
 
 			eval ${env_arg}=${env_arg_value}
 		fi
-	done < ${CONFIG_REPO_PATH}/common/imx_path/ImxPathConfig.mk
-# 	done < "${f}"
-# done
+	done < "${f}"
+done
 
 if [ "${AARCH64_GCC_CROSS_COMPILE}" != "" ]; then
 	ATF_CROSS_COMPILE=`eval echo ${AARCH64_GCC_CROSS_COMPILE}`

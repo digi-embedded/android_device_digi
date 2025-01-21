@@ -9,7 +9,7 @@ UBOOT_IMX_PATH := vendor/digi
 QCACLD_PATH := vendor/digi/qcacld-2.0
 
 # Use prebuilt clang tool in android platform code
-#CLANG_PATH := $(realpath prebuilts/clang/host/linux-x86)
+CLANG_PATH := $(realpath prebuilts/clang/host/linux-x86)
 
 # Bare toolchain to build U-Boot bootable artifact
-#AARCH64_GCC_CROSS_COMPILE := $(realpath prebuilts/gcc/linux-x86/aarch64-nolibc/gcc-8.4.0-nolibc/aarch64-linux/bin)/aarch64-linux-
+AARCH64_GCC_CROSS_COMPILE := $(realpath prebuilts/gcc/linux-x86/aarch64-nolibc/gcc-12.4.0-nolibc/aarch64-linux/bin)/aarch64-linux-
