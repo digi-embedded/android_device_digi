@@ -1,5 +1,5 @@
 {
-  "driver_name": "imx-max98088",
+  "driver_name": "max98088",
   "supported_out_devices": ["speaker", "wired_headphone", "aux_digital"],
   "supported_in_devices": ["builtin_mic", "wired_headset"],
   "support_lpa": 1,
