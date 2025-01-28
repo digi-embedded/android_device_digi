@@ -1,0 +1,3 @@
+# Ethernet properties
+persist.vendor.eth0.       u:object_r:ethernet_prop:s0
+persist.vendor.eth1.       u:object_r:ethernet_prop:s0
