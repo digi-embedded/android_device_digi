@@ -445,18 +445,19 @@ PRODUCT_COPY_FILES += \
     device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # WiFi HAL
-# PRODUCT_PACKAGES += \
-#     android.hardware.wifi-service \
-#     wificond
-#
-# # WiFi RRO
-# PRODUCT_PACKAGES += \
-#     WifiOverlayQCA65X4
+PRODUCT_PACKAGES += \
+    android.hardware.wifi-service \
+    wificond
+
+# WiFi RRO
+PRODUCT_PACKAGES += \
+    WifiOverlayQCA65X4
 
 # QCA65X4
 PRODUCT_PACKAGES += \
     qwlan30 \
-    bdwlan30 \
+    bdwlan30_US \
+    bdwlan30_World \
     otp30 \
     utf \
     WCNSS_cfg \
