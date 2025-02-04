@@ -1,0 +1,2 @@
+allow hal_camera_default opencl_g2d-bin_file:dir { add_name search write };
+allow hal_camera_default opencl_g2d-bin_file:file { create getattr open write };
