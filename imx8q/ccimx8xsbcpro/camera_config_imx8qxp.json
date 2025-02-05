@@ -58,6 +58,54 @@
               "omit_num": "2"
           }
       ]
+    },
+    {
+      "camera_type": "back",
+      "camera_name": "mxc_isi.0.capture",
+      "orientation": "0",
+      "mplane": "1",
+      "buffer_type": "dma",
+      "ActiveArrayWidth": "640",
+      "ActiveArrayHeight": "480",
+      "PixelArrayWidth": "640",
+      "PixelArrayHeight": "480",
+      "PhysicalWidth": "3.6288",
+      "PhysicalHeight": "2.7216",
+      "FocalLength": "3.37",
+      "MaxJpegSize": "6291456",
+      "MinFrameDuration": "33333333",
+      "MaxFrameDuration": "150000000",
+      "OmitFrame": [
+          {
+              "width": "640",
+              "height": "480",
+              "omit_num": "2"
+          }
+      ]
+    },
+    {
+      "camera_type": "front",
+      "camera_name": "mxc_isi.0.capture",
+      "orientation": "0",
+      "mplane": "1",
+      "buffer_type": "dma",
+      "ActiveArrayWidth": "640",
+      "ActiveArrayHeight": "480",
+      "PixelArrayWidth": "640",
+      "PixelArrayHeight": "480",
+      "PhysicalWidth": "3.6288",
+      "PhysicalHeight": "2.7216",
+      "FocalLength": "3.37",
+      "MaxJpegSize": "6291456",
+      "MinFrameDuration": "33333333",
+      "MaxFrameDuration": "150000000",
+      "OmitFrame": [
+          {
+              "width": "640",
+              "height": "480",
+              "omit_num": "2"
+          }
+      ]
     }
   ]
 }
