@@ -474,14 +474,14 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
-# Bluetooth vendor config
-PRODUCT_PACKAGES += \
-    bt_vendor.conf
-
 # QCA65X4 Bluetooth Firmware
 PRODUCT_PACKAGES += \
 	nvm_tlv \
 	rampatch_tlv
+
+# bluetooth vendor properties
+PRODUCT_PROPERTY_OVERRIDES += \
+	bluetooth.core.le.vendor_capabilities.enabled=false
 
 # -------@block_custom_digi-------
 # Custom Digi packages
