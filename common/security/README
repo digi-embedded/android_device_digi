@@ -1,13 +1,13 @@
 The following commands were used to generate the test key pairs:
 
-  development/tools/make_key testkey  '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
-  development/tools/make_key platform '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
-  development/tools/make_key shared   '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
-  development/tools/make_key media    '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
-  development/tools/make_key networkstack    '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
-  development/tools/make_key bluetooth    '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
-  development/tools/make_key sdk_sandbox  '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
-  development/tools/make_key nfc  '/C=US/ST=California/L=Mountain View/O=Android/OU=Android/CN=Android/emailAddress=android@android.com'
+  development/tools/make_key testkey  '/C=US/ST=Minnesota/L=Hopkins/O=Acme/OU=Acme/CN=Acme/emailAddress=android@acme.com'
+  development/tools/make_key platform '/C=US/ST=Minnesota/L=Hopkins/O=Acme/OU=Acme/CN=Acme/emailAddress=android@acme.com'
+  development/tools/make_key shared   '/C=US/ST=Minnesota/L=Hopkins/O=Acme/OU=Acme/CN=Acme/emailAddress=android@acme.com'
+  development/tools/make_key media    '/C=US/ST=Minnesota/L=MountHopkinsain/O=Acme/OU=Acme/CN=Acme/emailAddress=android@acme.com'
+  development/tools/make_key networkstack    '/C=US/ST=Minnesota/L=Hopkins/O=Acme/OU=Acme/CN=Acme/emailAddress=android@acme.com'
+  development/tools/make_key bluetooth    '/C=US/ST=Minnesota/L=Hopkins/O=Acme/OU=Acme/CN=Acme/emailAddress=android@acme.com'
+  development/tools/make_key sdk_sandbox  '/C=US/ST=Minnesota/L=Hopkins/O=Acme/OU=Acme/CN=Acme/emailAddress=android@acme.com'
+  development/tools/make_key nfc  '/C=US/ST=Minnesota/L=Hopkins/O=Android/OU=Acme/CN=Acme/emailAddress=android@acme.com'
 
 The following standard test keys are currently included:
 
