@@ -53,6 +53,8 @@ FB: ucmd env set skip-fblock-check yes
 UUU_LST_FLASH="\
 FB[-t 600000]: flash dtbo_a %s
 FB[-t 600000]: flash dtbo_b %s
+FB[-t 600000]: flash init_boot_a %s
+FB[-t 600000]: flash init_boot_b %s
 FB[-t 600000]: flash boot_a %s
 FB[-t 600000]: flash boot_b %s
 FB[-t 600000]: flash vendor_boot_a %s
@@ -159,10 +161,12 @@ EOF
 
 cat << EOF
    dtbo_a           ${IMG_DTBO_FILENAME}
+   init_boot_a      ${IMG_INIT_BOOT}
    boot_a           ${IMG_BOOT_FILENAME}
    vendor_boot_a    ${IMG_VENDOR_BOOT_FILENAME}
    vbmeta_a         ${IMG_VBMETA_FILENAME}
    dtbo_b           ${IMG_DTBO_FILENAME}
+   init_boot_b      ${IMG_INIT_BOOT}
    boot_b           ${IMG_BOOT_FILENAME}
    vendor_boot_b    ${IMG_VENDOR_BOOT_FILENAME}
    vbmeta_b         ${IMG_VBMETA_FILENAME}
@@ -214,6 +218,7 @@ check_images()
 	# Determine partition_table, dtbo, boot, vendor_boot, vbmeta, and super image filenames
 	[ -z "${IMG_PART_TABLE_FILENAME}" ] && IMG_PART_TABLE_FILENAME="partition-table.img"
 	IMG_BOOT_FILENAME="boot.img"
+	IMG_INIT_BOOT="init_boot.img"
 	IMG_VENDOR_BOOT_FILENAME="vendor_boot.img"
 	IMG_SUPER_FILENAME="super.img"
 
@@ -221,7 +226,7 @@ check_images()
 	[ ! -f "${1}${IMG_VBMETA_FILENAME}" ] && IMG_VBMETA_FILENAME="vbmeta.img"
 
 	# Check existance of files before starting the update
-	IMGS="${IMG_UBOOT_FILENAME} ${IMG_UBOOT_USB_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_BOOT_FILENAME} ${IMG_VENDOR_BOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_SUPER_FILENAME}"
+	IMGS="${IMG_UBOOT_FILENAME} ${IMG_UBOOT_USB_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_INIT_BOOT} ${IMG_BOOT_FILENAME} ${IMG_VENDOR_BOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_SUPER_FILENAME}"
 	for f in ${IMGS}; do
 		if [ ! -f "${1}${f}" ]; then
 			show_error "Could not find file '${f}'."
@@ -296,6 +301,7 @@ generate_uuu_lst()
 	# Flash rest of partitions
 	printf "${UUU_LST_FLASH}" \
 		"${IMG_DTBO_FILENAME}" "${IMG_DTBO_FILENAME}" \
+		"${IMG_INIT_BOOT}" "${IMG_INIT_BOOT}" \
 		"${IMG_BOOT_FILENAME}" "${IMG_BOOT_FILENAME}" \
 		"${IMG_VENDOR_BOOT_FILENAME}" "${IMG_VENDOR_BOOT_FILENAME}" \
 		"${IMG_VBMETA_FILENAME}" "${IMG_VBMETA_FILENAME}" \
