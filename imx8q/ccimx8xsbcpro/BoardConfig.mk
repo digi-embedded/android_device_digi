@@ -106,23 +106,23 @@ BOARD_BOOTCONFIG += androidboot.selinux=permissive
 # Keep the first one the base DTB, and then the overlays
 TARGET_BOARD_DTS_CONFIG := \
 	ccimx8x-sbc-pro.dtb \
-	_ov_board_flexcan1_ccimx8x-sbc-pro.dtbo \
-	_ov_board_flexspi_ccimx8x-sbc-pro.dtbo \
-	_ov_board_gpio-watchdog_ccimx8x-sbc-pro.dtbo \
-	_ov_board_hsd101pfw2-lvds_ccimx8x-sbc-pro.dtbo \
-	_ov_board_lpuart3_ccimx8x-sbc-pro.dtbo \
-	_ov_board_lt8912-hdmi-dsi0_ccimx8x-sbc-pro.dtbo \
-	_ov_board_lvds1_ccimx8x-sbc-pro.dtbo \
-	_ov_board_parallel-camera_ccimx8x-sbc-pro.dtbo \
-	_ov_board_pcie-card_ccimx8x-sbc-pro.dtbo \
-	_ov_board_pcie-modem_ccimx8x-sbc-pro.dtbo \
-	_ov_board_user-leds_ccimx8x-sbc-pro.dtbo \
-	_ov_board_v1-v3_ccimx8x-sbc-pro.dtbo \
-	_ov_som_bt_ccimx8x.dtbo \
-	_ov_som_mca-keypad_ccimx8x.dtbo \
-	_ov_som_quad_ccimx8x.dtbo \
-	_ov_som_trusty_ccimx8x.dtbo \
-	_ov_som_wifi_ccimx8x.dtbo
+	ccimx8x-sbc-pro_flexcan1.dtbo \
+	ccimx8x-sbc-pro_flexspi.dtbo \
+	ccimx8x-sbc-pro_gpio-watchdog.dtbo \
+	ccimx8x-sbc-pro_hsd101pfw2-lvds.dtbo \
+	ccimx8x-sbc-pro_lpuart3.dtbo \
+	ccimx8x-sbc-pro_lt8912-hdmi-dsi0.dtbo \
+	ccimx8x-sbc-pro_lvds1.dtbo \
+	ccimx8x-sbc-pro_parallel-camera.dtbo \
+	ccimx8x-sbc-pro_pcie-card.dtbo \
+	ccimx8x-sbc-pro_pcie-modem.dtbo \
+	ccimx8x-sbc-pro_user-leds.dtbo \
+	ccimx8x-sbc-pro_v1-v3.dtbo \
+	ccimx8x_bt.dtbo \
+	ccimx8x_mca-keypad.dtbo \
+	ccimx8x_quad.dtbo \
+	ccimx8x_trusty.dtbo \
+	ccimx8x_wifi.dtbo
 
 ALL_DEFAULT_INSTALLED_MODULES += $(BOARD_VENDOR_KERNEL_MODULES)
 
