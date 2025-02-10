@@ -1,0 +1,20 @@
+#!/bin/bash
+
+dea_path_remove() {
+	PATH="$(echo "${PATH}" | sed -e "s,:\?$1,,g;s,^:,,g")"
+}
+
+if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
+	printf "\n[ERROR]: This script needs to be sourced\n\n"
+else
+	DEA_SCRIPTPATH="$(cd "$(dirname "$(realpath "${BASH_SOURCE[0]}")")" && pwd)"
+	cd "${DEA_SCRIPTPATH}" || return
+	export AARCH64_GCC_CROSS_COMPILE="${DEA_SCRIPTPATH}/prebuilts/gcc/linux-x86/aarch64-nolibc/gcc-12.4.0-nolibc/aarch64-linux/bin/aarch64-linux-"
+	export CLANG_PATH="${DEA_SCRIPTPATH}/prebuilts/clang/host/linux-x86"
+	export LIBCLANG_PATH="${DEA_SCRIPTPATH}/prebuilts/clang/host/linux-x86/clang-r510928/lib"
+	dea_path_remove "${DEA_SCRIPTPATH}/prebuilts/kernel-build-tools/linux-x86/bin"
+	dea_path_remove "${DEA_SCRIPTPATH}/prebuilts/rust/linux-x86/1.75.0/bin"
+	dea_path_remove "${DEA_SCRIPTPATH}/prebuilts/clang-tools/linux-x86/bin"
+	export PATH="${DEA_SCRIPTPATH}/prebuilts/clang-tools/linux-x86/bin:${DEA_SCRIPTPATH}/prebuilts/rust/linux-x86/1.75.0/bin:${DEA_SCRIPTPATH}/prebuilts/kernel-build-tools/linux-x86/bin:${PATH}"
+fi
+unset DEA_SCRIPTPATH dea_path_remove
