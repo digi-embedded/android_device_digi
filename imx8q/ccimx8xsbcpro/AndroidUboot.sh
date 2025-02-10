@@ -6,21 +6,19 @@ CONFIG_REPO_PATH=device/nxp
 # import other paths in the file "common/imx_path/ImxPathConfig.mk" of this
 # repository
 
-for f in ${CONFIG_REPO_PATH}/common/imx_path/ImxPathConfig.mk device/digi/imx8q/UbootKernelCommonConfig.mk; do
-	while read -r line
-	do
-		if [ "$(echo ${line} | grep "=")" != "" ]; then
-			env_arg=`echo ${line} | cut -d "=" -f1`
-			env_arg=${env_arg%:}
-			env_arg=`eval echo ${env_arg}`
+while read -r line
+do
+	if [ "$(echo ${line} | grep "=")" != "" ]; then
+		env_arg=`echo ${line} | cut -d "=" -f1`
+		env_arg=${env_arg%:}
+		env_arg=`eval echo ${env_arg}`
 
-			env_arg_value=`echo ${line} | cut -d "=" -f2`
-			env_arg_value=`eval echo ${env_arg_value}`
+		env_arg_value=`echo ${line} | cut -d "=" -f2`
+		env_arg_value=`eval echo ${env_arg_value}`
 
-			eval ${env_arg}=${env_arg_value}
-		fi
-	done < "${f}"
-done
+		eval ${env_arg}=${env_arg_value}
+	fi
+done < ${CONFIG_REPO_PATH}/common/imx_path/ImxPathConfig.mk
 
 if [ "${AARCH64_GCC_CROSS_COMPILE}" != "" ]; then
 	ATF_CROSS_COMPILE=`eval echo ${AARCH64_GCC_CROSS_COMPILE}`
