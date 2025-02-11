@@ -2,6 +2,7 @@
 
 # hardcode this one again in this shell script
 CONFIG_REPO_PATH=device/nxp
+DIGI_FIRMWARE_PATH=vendor/digi/firmware
 
 # import other paths in the file "common/imx_path/ImxPathConfig.mk" of this
 # repository
