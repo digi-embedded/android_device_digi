@@ -1,0 +1,9 @@
+cc_binary_host {
+    name: "mkimage",
+
+    srcs: [
+        "mkimage.c",
+        "crc32.c",
+    ],
+
+}
