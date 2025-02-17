@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The maximum duration (in milliseconds) we expect a network transition to take -->
+    <integer translatable="false" name="config_networkTransitionTimeout">1000</integer>
+</resources>

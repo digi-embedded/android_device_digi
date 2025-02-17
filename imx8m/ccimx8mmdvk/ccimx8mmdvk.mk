@@ -248,6 +248,7 @@ PRODUCT_PACKAGES += \
 
 # WiFi RRO
 PRODUCT_PACKAGES += \
+    DigiConnectivityOverlay \
     WifiOverlayQCA65X4
 
 # QCA65X4
