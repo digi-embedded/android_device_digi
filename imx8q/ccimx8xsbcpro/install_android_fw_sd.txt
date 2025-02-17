@@ -8,6 +8,7 @@ install_abort=0
 setenv INSTALL_MMCDEV 1
 setenv IMG_BOOT_FILENAME boot.img
 setenv IMG_DTBO_FILENAME dtbo-imx8qxp.img
+setenv IMG_INIT_BOOT_FILENAME init_boot.img
 setenv IMG_PART_TABLE_FILENAME partition-table.img
 setenv IMG_SUPER_FILENAME super.img
 setenv IMG_VBMETA_FILENAME vbmeta-imx8qxp.img
@@ -58,7 +59,7 @@ if test -z "${IMG_UBOOT_FILENAME}"; then
 fi
 
 # Check for presence of firmware files on the SD card
-for install_f in ${IMG_BOOT_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_SUPER_FILENAME} ${IMG_UBOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_VENDOR_BOOT_FILENAME}; do
+for install_f in ${IMG_BOOT_FILENAME} ${IMG_DTBO_FILENAME} ${IMG_INIT_BOOT_FILENAME} ${IMG_PART_TABLE_FILENAME} ${IMG_SUPER_FILENAME} ${IMG_UBOOT_FILENAME} ${IMG_VBMETA_FILENAME} ${IMG_VENDOR_BOOT_FILENAME}; do
 	if test ! -e mmc ${INSTALL_MMCDEV} ${install_f}; then
 		echo "ERROR: Could not find file ${install_f}"
 		install_abort=1
@@ -84,6 +85,8 @@ echo "   dtbo_a         ${IMG_DTBO_FILENAME}"
 echo "   dtbo_b         ${IMG_DTBO_FILENAME}"
 echo "   boot_a         ${IMG_BOOT_FILENAME}"
 echo "   boot_b         ${IMG_BOOT_FILENAME}"
+echo "   init_boot_a    ${IMG_INIT_BOOT_FILENAME}"
+echo "   init_boot_b    ${IMG_INIT_BOOT_FILENAME}"
 echo "   vendor_boot_a  ${IMG_VENDOR_BOOT_FILENAME}"
 echo "   vendor_boot_b  ${IMG_VENDOR_BOOT_FILENAME}"
 echo "   super          ${IMG_SUPER_FILENAME}"
@@ -201,6 +204,30 @@ setenv bootcmd "
 	update boot_b mmc ${INSTALL_MMCDEV} ${IMG_BOOT_FILENAME};
 	if test \$? -eq 1; then
 		echo \"[ERROR] Failed to update boot_b partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing init_boot_a image file ${IMG_INIT_BOOT_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update init_boot_a mmc ${INSTALL_MMCDEV} ${IMG_INIT_BOOT_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update init_boot_a partition!\";
+		echo \"\";
+		echo \"Aborted.\";
+		exit;
+	fi;
+	echo \"\";
+	echo \"\";
+	echo \">> Installing init_boot_b image file ${IMG_INIT_BOOT_FILENAME}\";
+	echo \"\";
+	echo \"\";
+	update init_boot_b mmc ${INSTALL_MMCDEV} ${IMG_INIT_BOOT_FILENAME};
+	if test \$? -eq 1; then
+		echo \"[ERROR] Failed to update init_boot_b partition!\";
 		echo \"\";
 		echo \"Aborted.\";
 		exit;
