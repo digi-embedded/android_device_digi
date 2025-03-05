@@ -139,7 +139,7 @@ if [ -n "${build_kernel_modules}" ] && [ ${TARGET_PRODUCT} = "evk_8mp" ]; then
 fi
 
 # mlan.ko and moal.ko need build with in-tree modules each time to make sure "insmod mlan.ko" and "insmod moal.ko" works
-if [ -n "${build_kernel_modules}" ] && [ ${TARGET_PRODUCT} != "ccimx8xsbcpro" ]; then
+if [ -n "${build_kernel_modules}" ] && [ ${TARGET_PRODUCT} != "ccimx8xsbcpro" ] && [ ${TARGET_PRODUCT} != "ccimx8mmdvk" ]; then
     build_mxmwifi="mxmwifi";
     build_kernel_oot_module_flag=1;
 fi

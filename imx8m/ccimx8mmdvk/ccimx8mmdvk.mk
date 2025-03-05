@@ -1,97 +1,86 @@
-# This is a FSL Android Reference Design platform based on i.MX8QP ARD board
-# It will inherit from FSL core product which in turn inherit from Google generic
+# -------@block_infrastructure-------
 
-IMX_DEVICE_PATH := device/digi/imx8m/ccimx8mmdvk
+CONFIG_REPO_PATH := device/digi
+CURRENT_FILE_PATH :=  $(lastword $(MAKEFILE_LIST))
+IMX_DEVICE_PATH := $(strip $(patsubst %/, %, $(dir $(CURRENT_FILE_PATH))))
+
+PRODUCT_ENFORCE_ARTIFACT_PATH_REQUIREMENTS := true
+#Enable this to choose 32 bit user space build
+IMX_BUILD_32BIT_ROOTFS ?= false
 
 # configs shared between uboot, kernel and Android rootfs
 include $(IMX_DEVICE_PATH)/SharedBoardConfig.mk
 
 # Include PATHs from NXP's device folder
 -include device/nxp/common/imx_path/ImxPathConfig.mk
-include device/digi/imx8m/ProductConfigCommon.mk
+include $(CONFIG_REPO_PATH)/imx8m/ProductConfigCommon.mk
 
-ifneq ($(wildcard $(IMX_DEVICE_PATH)/fstab.nxp),)
-$(shell touch $(IMX_DEVICE_PATH)/fstab.nxp)
-endif
-
+# -------@block_common_config-------
 # Overrides
 PRODUCT_NAME := ccimx8mmdvk
 PRODUCT_DEVICE := ccimx8mmdvk
 PRODUCT_MODEL := CCIMX8MMDVK
 
+TARGET_BOOTLOADER_BOARD_NAME := ccimx8mmdvk
+
+PRODUCT_CHARACTERISTICS := tablet
+
+DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
+
+PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
+
+PRODUCT_VENDOR_PROPERTIES += ro.soc.manufacturer=nxp
+PRODUCT_VENDOR_PROPERTIES += ro.soc.model=IMX8MM
+PRODUCT_VENDOR_PROPERTIES += ro.crypto.metadata_init_delete_all_keys.enabled=true
+# -------@block_treble-------
 PRODUCT_FULL_TREBLE_OVERRIDE := true
+
+# -------@block_power-------
 PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/power
 PRODUCT_SOONG_NAMESPACES += hardware/google/pixel
 
-#Enable this to choose 32 bit user space build
-#IMX8_BUILD_32BIT_ROOTFS := true
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/powerhint_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mm.json
+
+# Do not skip charger_not_need trigger by default
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    vendor.skip.charger_not_need=0
+
+PRODUCT_PACKAGES += \
+    android.hardware.power-service.imx
+
+TARGET_VENDOR_PROP := $(LOCAL_PATH)/product.prop
+
+# Thermal HAL
+PRODUCT_PACKAGES += \
+    android.hardware.thermal-service.imx
+
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/thermal_info_config_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mm.json
+
+# -------@block_app-------
+
+# Set permission for GMS packages
+PRODUCT_COPY_FILES += \
+	  device/digi/imx8m/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml
+
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml
+
+# -------@block_kernel_bootimg-------
 
 # Enable this to support vendor boot and boot header v3, this would be a MUST for GKI
 TARGET_USE_VENDOR_BOOT ?= true
 
-#Enable this to use dynamic partitions for the readonly partitions not touched by bootloader
-TARGET_USE_DYNAMIC_PARTITIONS ?= true
-#If the device is retrofit to have dynamic partition feature, set this variable to true to build
-#the images and OTA package. Here is a demo to update 10.0.0_1.0.0 to 10.0.0_2.0.0 or higher
-TARGET_USE_RETROFIT_DYNAMIC_PARTITION ?= false
+# Allow LZ4 compression
+BOARD_RAMDISK_USE_LZ4 := true
 
-ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
-  $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
-  PRODUCT_USE_DYNAMIC_PARTITIONS := true
-  BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT := true
-  BOARD_SUPER_IMAGE_IN_UPDATE_PACKAGE := true
-  ifeq ($(TARGET_USE_RETROFIT_DYNAMIC_PARTITION),true)
-    PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := true
-    BOARD_SUPER_PARTITION_METADATA_DEVICE := system
-    ifeq ($(IMX_NO_PRODUCT_PARTITION),true)
-      BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor
-      BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 2952790016
-      BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 536870912
-    else
-      BOARD_SUPER_PARTITION_BLOCK_DEVICES := system vendor product
-      BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 1610612736
-      BOARD_SUPER_PARTITION_VENDOR_DEVICE_SIZE := 536870912
-      BOARD_SUPER_PARTITION_PRODUCT_DEVICE_SIZE := 1879048192
-    endif
-  endif
+ifneq ($(IMX8MM_USES_GKI),)
+PRODUCT_PROPERTY_OVERRIDES += \
+    vendor.gki.enable=true
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
+$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 endif
-
-# Include keystore attestation keys and certificates.
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
--include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
-endif
-
-# Include Android Go config for low memory device.
-ifeq ($(LOW_MEMORY),true)
-$(call inherit-product, build/target/product/go_defaults.mk)
-endif
-
-# License
-PRODUCT_COPY_FILES += \
-	device/digi/common/legal/license.html:$(TARGET_COPY_OUT_VENDOR)/etc/license.html
-
-# Copy device related config and binary to board
-PRODUCT_COPY_FILES += \
-    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8mm/imx8mm_mcu_demo.img:imx8mm_mcu_demo.img \
-    $(IMX_DEVICE_PATH)/app_whitelist.xml:system/etc/sysconfig/app_whitelist.xml \
-    $(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
-    $(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    $(IMX_DEVICE_PATH)/usb_audio_policy_configuration-direct-output.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration-direct-output.xml \
-    $(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi \
-    $(IMX_DEVICE_PATH)/init.imx8mm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8mm.rc \
-    $(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
-    $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
-    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
-    $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.usb.rc \
-    $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml \
-    $(IMX_DEVICE_PATH)/ueventd.digi.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR)/firmware/imx/sdma/sdma-imx7d.bin \
-    device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
-    device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh
-
-PRODUCT_COPY_FILES += \
-    device/digi/common/runtime/sysinfo:$(TARGET_COPY_OUT_VENDOR)/bin/sysinfo \
-    device/digi/common/runtime/bootanimation.zip:system/media/bootanimation.zip
 
 # We load the fstab from device tree so this is not needed, but since no kernel modules are installed to vendor
 # boot ramdisk so far, we need this step to generate the vendor-ramdisk folder or build process would fail. This
@@ -101,26 +90,372 @@ PRODUCT_COPY_FILES += \
     $(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.digi
 endif
 
-# Audio card json
 PRODUCT_COPY_FILES += \
-    device/digi/common/audio-json/max98088_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/max98088_config.json \
-    device/nxp/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
-    device/nxp/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
+    $(IMX_DEVICE_PATH)/early.init.cfg:$(TARGET_COPY_OUT_VENDOR)/etc/early.init.cfg \
+    $(LINUX_FIRMWARE_IMX_PATH)/linux-firmware-imx/firmware/sdma/sdma-imx7d.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/lib/firmware/imx/sdma/sdma-imx7d.bin \
+    device/nxp/common/init/init.insmod.sh:$(TARGET_COPY_OUT_VENDOR)/bin/init.insmod.sh \
+    $(IMX_DEVICE_PATH)/ueventd.digi.rc:$(TARGET_COPY_OUT_VENDOR)/etc/ueventd.rc
 
-#LPDDR4 board, NXP wifi supplicant overlay
+# -------@block_storage-------
+
+# support metadata checksum during first stage mount
+ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+PRODUCT_PACKAGES += \
+    linker.vendor_ramdisk \
+    resizefs.vendor_ramdisk \
+    tune2fs.vendor_ramdisk
+endif
+
+#Enable this to use dynamic partitions for the readonly partitions not touched by bootloader
+TARGET_USE_DYNAMIC_PARTITIONS ?= true
+
+ifeq ($(TARGET_USE_DYNAMIC_PARTITIONS),true)
+  ifeq ($(TARGET_USE_VENDOR_BOOT),true)
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/compression_with_xor.mk)
+  else
+    $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
+  endif
+  PRODUCT_USE_DYNAMIC_PARTITIONS := true
+  BOARD_BUILD_SUPER_IMAGE_BY_DEFAULT := true
+  BOARD_SUPER_IMAGE_IN_UPDATE_PACKAGE := true
+endif
+
+#Enable this to disable product partition build.
+IMX_NO_PRODUCT_PARTITION := false
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+
 PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/init.imx8mm.lpddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.additional.rc \
-    device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+    $(IMX_DEVICE_PATH)/fstab.digi:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.digi
+
+TARGET_RECOVERY_FSTAB = $(IMX_DEVICE_PATH)/fstab.digi
+
+ifneq ($(filter TRUE true 1,$(IMX_OTA_POSTINSTALL)),)
+  PRODUCT_PACKAGES += imx_ota_postinstall
+
+  AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_vendor=true \
+    POSTINSTALL_PATH_vendor=bin/imx_ota_postinstall \
+    FILESYSTEM_TYPE_vendor=erofs \
+    POSTINSTALL_OPTIONAL_vendor=false
+
+  PRODUCT_COPY_FILES += \
+    $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/spl-imx8mm-trusty-dual.bin:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader0.img
+  ifeq ($(BUILD_ENCRYPTED_BOOT),true)
+    PRODUCT_COPY_FILES += \
+      $(OUT_DIR)/target/product/$(firstword $(PRODUCT_DEVICE))/obj/UBOOT_COLLECTION/bootloader-imx8mm-trusty-dual.img:$(TARGET_COPY_OUT_VENDOR)/etc/bootloader_ab.i>
+  endif
+endif
+
+# install_android_fw_uuu.sh script
+PRODUCT_COPY_FILES += \
+    $(CONFIG_REPO_PATH)/common/tools/install_android_fw_uuu.sh:install_android_fw_uuu.sh
+
+# -------@block_security-------
+
+# Include keystore attestation keys and certificates.
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+-include $(IMX_SECURITY_PATH)/attestation/imx_attestation.mk
+endif
 
 ifeq ($(PRODUCT_IMX_TRUSTY),true)
 PRODUCT_COPY_FILES += \
-    device/digi/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
-    device/digi/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
+    $(CONFIG_REPO_PATH)/common/security/rpmb_key_test.bin:rpmb_key_test.bin \
+    $(CONFIG_REPO_PATH)/common/security/testkey_public_rsa4096.bin:testkey_public_rsa4096.bin
 endif
 
+# Keymaster HAL
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_PACKAGES += \
+    android.hardware.security.keymint-service.rust.trusty
+endif
+
+PRODUCT_PACKAGES += \
+    android.hardware.security.keymint-service-imx
+
+# Confirmation UI
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_PACKAGES += \
+    android.hardware.confirmationui-service.trusty
+endif
+
+# new gatekeeper HAL
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper-service-imx
+
+# Add Trusty OS backed gatekeeper and secure storage proxy
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+PRODUCT_PACKAGES += \
+    android.hardware.gatekeeper-service.trusty \
+    storageproxyd \
+    imx_dek_extractor \
+    imx_dek_inserter
+endif
+
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+#Oemlock HAL support
+PRODUCT_PACKAGES += \
+    android.hardware.oemlock-service.imx \
+    android.hardware.oemlock-service-software.imx
+endif
+
+# Add oem unlocking option in settings.
+PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
+
+# Specify rollback index for vbmeta and boot partition
+ifneq ($(AVB_RBINDEX),)
+BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
+else
+BOARD_AVB_ROLLBACK_INDEX := 0
+endif
+
+ifneq ($(AVB_BOOT_RBINDEX),)
+BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
+else
+BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
+endif
+
+ifneq ($(AVB_INIT_BOOT_RBINDEX),)
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := $(AVB_INIT_BOOT_RBINDEX)
+else
+BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := 0
+endif
+
+$(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
+
+# Resume on Reboot support
+PRODUCT_PACKAGES += \
+    android.hardware.rebootescrow-service.default
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.rebootescrow.device=/dev/block/pmem0
+
+#DRM Widevine 1.4 L3 support
+PRODUCT_PACKAGES += \
+    android.hardware.drm-service.clearkey \
+    libwvdrmcryptoplugin \
+    libwvaidl
+
+TARGET_BUILD_WIDEVINE :=
+TARGET_BUILD_WIDEVINE_USE_PREBUILT := true
+
+$(call inherit-product-if-exists, vendor/nxp-private/widevine/apex/device.mk)
+
+# -------@block_audio-------
+
+# Audio card json
 PRODUCT_COPY_FILES += \
-    device/digi/imx8m/ccimx8mmdvk/camera_config_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mm.json \
-    device/digi/imx8m/ccimx8mmdvk/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+    $(CONFIG_REPO_PATH)/common/audio-json/max98088_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/max98088_config.json \
+    device/nxp/common/audio-json/btsco_config.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/btsco_config.json \
+    device/nxp/common/audio-json/readme.txt:$(TARGET_COPY_OUT_VENDOR)/etc/configs/audio/readme.txt
+
+PRODUCT_COPY_FILES += \
+    $(FSL_PROPRIETARY_PATH)/fsl-proprietary/mcu-sdk/imx8mm/imx8mm_mcu_demo.img:imx8mm_mcu_demo.img \
+    $(IMX_DEVICE_PATH)/audio_effects.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_effects.xml \
+    $(IMX_DEVICE_PATH)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    $(IMX_DEVICE_PATH)/usb_audio_policy_configuration-direct-output.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration-direct-output.xml
+
+# -------@block_camera-------
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/camera_config_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/camera_config_imx8mm.json \
+    $(IMX_DEVICE_PATH)/external_camera_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/external_camera_config.xml
+
+PRODUCT_SOONG_NAMESPACES += hardware/google/camera
+PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
+
+# Add WebCam option in settings
+PRODUCT_VENDOR_PROPERTIES += ro.usb.uvc.enabled=true
+
+# -------@block_display-------
+
+PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi xxhdpi
+
+# -----some limiataion of overlay/g2d in hwcomposer3 --------
+SOONG_CONFIG_NAMESPACES += nxp_hwc
+SOONG_CONFIG_nxp_hwc += g2d_ip
+SOONG_CONFIG_nxp_hwc_g2d_ip := VIV
+
+# HWC3 HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer3-service.imx
+
+# define frame buffer count
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+
+# disable frame rate override
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.surface_flinger.enable_frame_rate_override=false
+
+# Gralloc HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator-service.imx \
+    mapper.imx
+
+# RenderScript HAL
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
+
+# 2d test
+ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
+PRODUCT_PACKAGES += 2d-test
+endif
+
+PRODUCT_PACKAGES += \
+    libg2d-opencl
+
+# -------@block_gpu-------
+
+PRODUCT_PACKAGES += \
+    libEGL_VIVANTE \
+    libGLESv1_CM_VIVANTE \
+    libGLESv2_VIVANTE \
+    gralloc_viv.$(TARGET_BOARD_PLATFORM) \
+    libGAL \
+    libGLSLC \
+    libVSC \
+    libCLC \
+    libLLVM_viv \
+    libOpenCL \
+    libg2d-viv \
+    libgpuhelper \
+    libSPIRV_viv \
+
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.hardware.egl = VIVANTE
+
+# GPU openCL g2d
+PRODUCT_COPY_FILES += \
+    $(IMX_PATH)/imx/opencl-2d/cl_g2d.cl:$(TARGET_COPY_OUT_VENDOR)/etc/cl_g2d.cl
+
+# -------@block_wifi-------
+PRODUCT_COPY_FILES += \
+    device/nxp/common/wifi/p2p_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/p2p_supplicant_overlay.conf \
+    device/nxp/common/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
+
+# WiFi HAL
+PRODUCT_PACKAGES += \
+    android.hardware.wifi-service \
+    wificond
+
+# WiFi RRO
+PRODUCT_PACKAGES += \
+    DigiConnectivityOverlay \
+    WifiOverlayQCA65X4
+
+# QCA65X4
+PRODUCT_PACKAGES += \
+    qwlan30 \
+    bdwlan30_US \
+    bdwlan30_World \
+    otp30 \
+    utf \
+    WCNSS_cfg \
+    WCNSS_qcom_cfg
+
+# Wifi regulatory
+PRODUCT_COPY_FILES += \
+    external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
+    external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
+
+# -------@block_bluetooth-------
+
+# Bluetooth HAL
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.1-impl \
+    android.hardware.bluetooth@1.1-service
+
+# QCA65X4 Bluetooth Firmware
+PRODUCT_PACKAGES += \
+	nvm_tlv \
+	rampatch_tlv
+
+# bluetooth vendor properties
+PRODUCT_PROPERTY_OVERRIDES += \
+	bluetooth.core.le.vendor_capabilities.enabled=false
+
+# -------@block_usb-------
+
+# Usb HAL
+PRODUCT_PACKAGES += \
+    android.hardware.usb-service.imx \
+    android.hardware.usb.gadget-service.imx
+
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.usb.rc
+
+# -------@block_multimedia_codec-------
+
+# Vendor seccomp policy files for media components:
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
+    $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy
+
+
+PRODUCT_PACKAGES += \
+    libg1 \
+    libhantro \
+    libcodec \
+    libhantro_h1 \
+    libcodec_enc \
+    DirectAudioPlayer
+
+# imx c2 codec binary
+PRODUCT_PACKAGES += \
+    lib_vpu_wrapper \
+    lib_imx_c2_videodec \
+    lib_imx_c2_videodec_common \
+    lib_imx_c2_videoenc_common \
+    lib_imx_c2_videoenc \
+    lib_imx_c2_v4l2_dev \
+    lib_imx_c2_v4l2_dec \
+    lib_imx_c2_v4l2_enc \
+    lib_imx_c2_unia_pre_filter \
+    lib_imx_c2_filter_device_factory \
+    lib_imx_c2_filter_device_g2d \
+    libc2filterplugin \
+    c2_component_register \
+    c2_component_register_ms \
+    c2_component_register_ra
+
+ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
+ifneq ($(IMX_BUILD_32BIT_ROOTFS),true)
+INSTALL_64BIT_LIBRARY := true
+endif
+-include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
+endif
+
+# -------@block_memory-------
+
+# Include Android Go config for low memory device.
+ifeq ($(LOW_MEMORY),true)
+  $(call inherit-product, build/target/product/go_defaults.mk)
+endif
+
+# -------@license-------
+PRODUCT_COPY_FILES += \
+	device/digi/common/legal/license.html:$(TARGET_COPY_OUT_VENDOR)/etc/license.html
+
+# -------@block_miscellaneous-------
+
+# Copy device related config and binary to board
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.imx8mm.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.imx8mm.rc \
+    $(IMX_DEVICE_PATH)/init.recovery.digi.rc:root/init.recovery.digi.rc \
+    $(IMX_DEVICE_PATH)/init.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.rc \
+    $(IMX_DEVICE_PATH)/required_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/required_hardware.xml
+
+PRODUCT_COPY_FILES += \
+    device/digi/common/runtime/sysinfo:$(TARGET_COPY_OUT_VENDOR)/bin/sysinfo \
+    device/digi/common/runtime/bootanimation.zip:system/media/bootanimation.zip
+
+#LPDDR4 board
+PRODUCT_COPY_FILES += \
+    $(IMX_DEVICE_PATH)/init.imx8mm.lpddr4.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.digi.additional.rc
+
+# Display Device Config
+PRODUCT_COPY_FILES += \
+    device/nxp/imx8m/displayconfig/display_id_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_0.xml
 
 # ONLY devices that meet the CDD's requirements may declare these features
 PRODUCT_COPY_FILES += \
@@ -137,7 +472,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.touchscreen.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.touchscreen.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.usb.host.xml \
-    frameworks/native/data/etc/android.software.vulkan.deqp.level-2020-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level-2020-03-01.xml \
+    frameworks/native/data/etc/android.software.vulkan.deqp.level-2023-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.vulkan.deqp.level-2023-03-01.xml \
+    frameworks/native/data/etc/android.software.opengles.deqp.level-2023-03-01.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.opengles.deqp.level.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.wifi.passpoint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.passpoint.xml \
@@ -153,134 +489,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.activities_on_secondary_displays.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.activities_on_secondary_displays.xml \
     frameworks/native/data/etc/android.software.picture_in_picture.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.picture_in_picture.xml
 
-# Vendor seccomp policy files for media components:
-PRODUCT_COPY_FILES += \
-    $(IMX_DEVICE_PATH)/seccomp/mediacodec-seccomp.policy:vendor/etc/seccomp_policy/mediacodec.policy \
-    $(IMX_DEVICE_PATH)/seccomp/mediaextractor-seccomp.policy:vendor/etc/seccomp_policy/mediaextractor.policy \
-    device/nxp/common/seccomp_policy/codec2.vendor.base.policy:vendor/etc/seccomp_policy/codec2.vendor.base.policy \
-    device/nxp/common/seccomp_policy/codec2.vendor.ext.policy:vendor/etc/seccomp_policy/codec2.vendor.ext.policy
-
-PRODUCT_COPY_FILES += \
-    device/digi/imx8m/ccimx8mmdvk/powerhint_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/powerhint_imx8mm.json
-
-# install_android_fw_uuu.sh script
-PRODUCT_COPY_FILES += \
-    device/digi/common/tools/install_android_fw_uuu.sh:install_android_fw_uuu.sh
-
-# Set permission for GMS packages
-PRODUCT_COPY_FILES += \
-	  device/digi/imx8m/permissions/privapp-permissions-imx.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp.permissions-imx.xml
-
-USE_XML_AUDIO_POLICY_CONF := 1
-
-DEVICE_PACKAGE_OVERLAYS := $(IMX_DEVICE_PATH)/overlay
-
-PRODUCT_CHARACTERISTICS := tablet
-
-PRODUCT_AAPT_CONFIG += xlarge large tvdpi hdpi xhdpi xxhdpi
-
-# HWC2 HAL
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.composer@2.4-service
-
-# Charger Mode
-PRODUCT_PRODUCT_PROPERTIES += \
-    ro.charger.no_ui=false
-
-# Do not skip charger_not_need trigger by default
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    vendor.skip.charger_not_need=0
-
-# Gralloc HAL
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.mapper@2.0-impl-2.1 \
-    android.hardware.graphics.allocator@2.0-impl \
-    android.hardware.graphics.allocator@2.0-service
-
-# RenderScript HAL
-PRODUCT_PACKAGES += \
-    android.hardware.renderscript@1.0-impl
-
-PRODUCT_PACKAGES += \
-    libEGL_VIVANTE \
-    libGLESv1_CM_VIVANTE \
-    libGLESv2_VIVANTE \
-    gralloc_viv.imx \
-    libGAL \
-    libGLSLC \
-    libVSC \
-    libg2d-viv \
-    libgpuhelper \
-
-PRODUCT_PACKAGES += \
-    android.hardware.audio@6.0-impl:32 \
-    android.hardware.audio@2.0-service \
-    android.hardware.audio.effect@6.0-impl:32 \
-    android.hardware.power@1.3-service.imx \
-    android.hardware.light@2.0-impl \
-    android.hardware.light@2.0-service \
-    android.hardware.configstore@1.1-service \
-    configstore@1.1.policy
-
-ifneq ($(IMX8MM_USES_GKI), true)
-# Thermal HAL
-PRODUCT_PACKAGES += \
-    android.hardware.thermal@2.0-service.imx
-
-PRODUCT_COPY_FILES += \
-    device/digi/imx8m/ccimx8mmdvk/thermal_info_config_imx8mm.json:$(TARGET_COPY_OUT_VENDOR)/etc/configs/thermal_info_config_imx8mm.json
-endif
-
-# Usb HAL
-PRODUCT_PACKAGES += \
-    android.hardware.usb@1.1-service.imx
-
-# Bluetooth HAL
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl \
-    android.hardware.bluetooth@1.0-service
-
-# WiFi HAL
-PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service \
-    wifilogd \
-    wificond
-
-# WiFi RRO
-PRODUCT_PACKAGES += \
-    DigiConnectivityOverlay \
-    WifiOverlayQCA65X4
-
-# QCA65X4
-PRODUCT_PACKAGES += \
-    qwlan30 \
-    bdwlan30 \
-    otp30 \
-    utf30 \
-    WCNSS_cfg \
-    WCNSS_qcom_cfg
-
-# # Qcom 1PJ Bluetooth Firmware
-# PRODUCT_COPY_FILES += \
-#     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtnv11.bin:vendor/firmware/nvm_tlv_3.2.bin \
-#     vendor/nxp/qca-wifi-bt/1PJ_QCA9377-3_LEA_2.0/lib/firmware/qca/tfbtfw11.tlv:vendor/firmware/rampatch_tlv_3.2.tlv \
-#     vendor/nxp/qca-wifi-bt/qca_proprietary/Android_HAL/wcnss_filter_8mm:vendor/bin/wcnss_filter
-
-# # NXP 8987 WiFi Firmware
-# PRODUCT_COPY_FILES += \
-#     vendor/nxp/imx-firmware/nxp/FwImage_8987/sdiouart8987_combo_v0.bin:vendor/firmware/sdiouart8987_combo_v0.bin \
-#     vendor/nxp/imx-firmware/nxp/android_wifi_mod_para.conf:vendor/firmware/wifi_mod_para_sd8987.conf
-
-# Wifi regulatory
-PRODUCT_COPY_FILES += \
-    external/wireless-regdb/regulatory.db:vendor/firmware/regulatory.db \
-    external/wireless-regdb/regulatory.db.p7s:vendor/firmware/regulatory.db.p7s
-
-# QCA65X4 Bluetooth Firmware
-PRODUCT_PACKAGES += \
-	nvm_tlv \
-	rampatch_tlv
-
 # Custom Digi packages
 PRODUCT_PACKAGES += \
         com.digi.android \
@@ -289,152 +497,19 @@ PRODUCT_PACKAGES += \
         FirmwareUpdateSample \
         mca_tool
 
-# Default system properties
-TARGET_SYSTEM_PROP := $(IMX_DEVICE_PATH)/system.prop
-
-# Cellular generic files
-PRODUCT_COPY_FILES += \
-        device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
-
-# Telit RIL packages
-PRODUCT_PACKAGES += \
-        chat \
-        libreference-ril-telit-serial \
-        libtelit-rild \
-        ip-up-ppp0 \
-        ip-down-ppp0
-
-# Telit RIL files
-PRODUCT_COPY_FILES += \
-        device/digi/common/cellular/telit/configuration/options:system/etc/telit/ppp_options \
-        device/digi/common/cellular/telit/configuration/ppp_connect:system/etc/telit/ppp_connect \
-        device/digi/common/cellular/telit/configuration/ppp_disconnect:system/etc/telit/ppp_disconnect
-
 # Jars boot order.
 PRODUCT_BOOT_JARS += \
-        CloudConnectorAndroid \
         digiservices \
         RXTXcomm
 
-# Keymaster HAL
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-service.trusty
-endif
-
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.0-service-imx
-
-# DRM HAL
-TARGET_ENABLE_MEDIADRM_64 := true
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service
-
-# new gatekeeper HAL
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service.software-imx
-
-ifneq ($(BUILD_TARGET_FS),ubifs)
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.frp.pst=/dev/block/by-name/presistdata
-endif
-
-PRODUCT_PACKAGES += \
-    libg1 \
-    libhantro \
-    libcodec \
-    libhantro_h1 \
-    libcodec_enc
-
-# imx c2 codec binary
-PRODUCT_PACKAGES += \
-    lib_vpu_wrapper \
-    lib_imx_c2_videodec \
-    lib_imx_c2_vpuwrapper_dec \
-    lib_imx_c2_videodec_common \
-    lib_imx_c2_videoenc_common \
-    lib_imx_c2_vpuwrapper_enc \
-    lib_imx_c2_videoenc \
-    lib_imx_c2_process \
-    lib_imx_c2_process_dummy_post \
-    lib_imx_c2_process_g2d_pre \
-    c2_component_register \
-    c2_component_register_ms \
-    c2_component_register_ra
-
-# Add oem unlocking option in settings.
-PRODUCT_PROPERTY_OVERRIDES += ro.frp.pst=/dev/block/by-name/presistdata
-PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
-
-# Add Trusty OS backed gatekeeper and secure storage proxy
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
-PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-service.trusty \
-    storageproxyd
-endif
-
-#DRM Widevine 1.2 L3 support
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service \
-    android.hardware.drm@1.3-service.widevine \
-    android.hardware.drm@1.3-service.clearkey \
-    libwvdrmcryptoplugin \
-    libwvhidl \
-    libwvdrmengine \
-
-#Dumpstate HAL 1.1 support
-PRODUCT_PACKAGES += \
-    android.hardware.dumpstate@1.1-service.imx
-
-ifeq ($(PRODUCT_IMX_TRUSTY),true)
-#Oemlock HAL 1.0 support
-PRODUCT_PACKAGES += \
-    android.hardware.oemlock@1.0-service.imx
-endif
+# Keymint configuration
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.software.device_id_attestation.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.device_id_attestation.xml
 
 # Included GMS package
+ifeq ($(filter TRUE true 1,$(IMX_BUILD_32BIT_ROOTFS) $(IMX_BUILD_32BIT_64BIT_ROOTFS)),)
+$(call inherit-product-if-exists, vendor/partner_gms/products/gms_64bit_only.mk)
+else
 $(call inherit-product-if-exists, vendor/partner_gms/products/gms.mk)
+endif
 PRODUCT_SOONG_NAMESPACES += vendor/partner_gms
-
-# Specify rollback index for boot and vbmeta partition
-ifneq ($(AVB_RBINDEX),)
-BOARD_AVB_ROLLBACK_INDEX := $(AVB_RBINDEX)
-else
-BOARD_AVB_ROLLBACK_INDEX := 0
-endif
-
-ifneq ($(AVB_BOOT_RBINDEX),)
-BOARD_AVB_BOOT_ROLLBACK_INDEX := $(AVB_BOOT_RBINDEX)
-else
-BOARD_AVB_BOOT_ROLLBACK_INDEX := 0
-endif
-
-IMX-DEFAULT-G2D-LIB := libg2d-viv
-
-ifeq ($(PREBUILT_FSL_IMX_CODEC),true)
-ifneq ($(IMX8_BUILD_32BIT_ROOTFS),true)
-INSTALL_64BIT_LIBRARY := true
-endif
--include $(FSL_CODEC_PATH)/fsl-codec/fsl-codec.mk
-endif
-
-# Resume on Reboot support
-PRODUCT_PACKAGES += \
-    android.hardware.rebootescrow-service.default
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.rebootescrow.device=/dev/block/pmem0
-
-ifneq ($(IMX8MM_USES_GKI),)
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.gki.enable=true
-endif
-
-PRODUCT_SOONG_NAMESPACES += hardware/google/camera
-PRODUCT_SOONG_NAMESPACES += vendor/nxp-opensource/imx/camera
-
-$(call  inherit-product-if-exists, vendor/nxp-private/security/nxp_security.mk)
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)

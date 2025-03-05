@@ -2,19 +2,6 @@ import /vendor/etc/init/hw/init.${ro.hardware}.usb.rc
 import /vendor/etc/init/hw/init.${ro.hardware}.${ro.boot.soc_type}.rc
 import /vendor/etc/init/hw/init.${ro.hardware}.additional.rc
 
-service vendor.charger /system/bin/charger
-    class charger
-    user system
-    group system wakelock input
-    capabilities SYS_BOOT
-    file /dev/kmsg w
-    file /sys/fs/pstore/console-ramoops-0 r
-    file /sys/fs/pstore/console-ramoops r
-    file /proc/last_kmsg r
-
-on charger
-    start vendor.charger
-
 on early-init
     # mount the debugfs
     mount debugfs none /sys/kernel/debug/ mode=0755
@@ -38,14 +25,6 @@ on early-init && property:ro.boot.mode=charger
     setprop vendor.skip.charger_not_need 1
 
 on init && property:vendor.skip.charger_not_need=0
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
-    symlink /sdcard /storage/sdcard0
-
-    # setup the global environment
-    export CORE_REGISTER_FILE /vendor/etc/core_register
-    export COMPONENT_REGISTER_FILE /vendor/etc/component_register
-    export CONTENTPIPE_REGISTER_FILE /vendor/etc/contentpipe_register
 
     # disable cursor blink for fbcon, if no splash screen support
     write /sys/class/graphics/fbcon/cursor_blink 0
@@ -53,29 +32,38 @@ on init && property:vendor.skip.charger_not_need=0
     # deattch the fbcon as hdmi hotplug conflict with fbcon
     write /sys/class/vtconsole/vtcon1/bind 0
 
-    chown system system /dev/stune/top-app/schedtune.boost
-    chmod 664 /dev/stune/top-app/schedtune.boost
-    chown system system /dev/stune/top-app/schedtune.prefer_idle
-    chmod 664 /dev/stune/top-app/schedtune.prefer_idle
-    chown system system /dev/stune/foreground/schedtune.boost
-    chmod 664 /dev/stune/foreground/schedtune.boost
-    chown system system /dev/stune/foreground/schedtune.prefer_idle
-    chmod 664 /dev/stune/foreground/schedtune.prefer_idle
-    chown system system /dev/stune/schedtune.boost
-    chmod 664 /dev/stune/schedtune.boost
+    chown system system /dev/cpuctl/top-app/cpu.uclamp.min
+    chmod 664 /dev/cpuctl/top-app/cpu.uclamp.min
+    chown system system /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
+    chmod 664 /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive
+    chown system system /dev/cpuctl/foreground/cpu.uclamp.min
+    chmod 664 /dev/cpuctl/foreground/cpu.uclamp.min
+    chown system system /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive
+    chmod 664 /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive
+    chown system system /dev/cpuctl/rt/cpu.uclamp.min
+    chmod 664 /dev/cpuctl/rt/cpu.uclamp.min
+    chown system system /dev/cpuctl/rt/cpu.uclamp.latency_sensitive
+    chmod 664 /dev/cpuctl/rt/cpu.uclamp.latency_sensitive
+    chown system system /dev/cpuctl/background/cpu.uclamp.max
+    chmod 664 /dev/cpuctl/background/cpu.uclamp.max
 
-    # set default schedTune value for foreground/top-app (only affects EAS)
-    write /dev/stune/foreground/schedtune.boost 10
-    write /dev/stune/foreground/schedtune.prefer_idle 1
-    write /dev/stune/top-app/schedtune.boost 40
-    write /dev/stune/top-app/schedtune.prefer_idle 1
-    write /dev/stune/rt/schedtune.boost 50
-    write /dev/stune/rt/schedtune.prefer_idle 1
+    # set default uclamp value for foreground/top-app/rt/background (only affects EAS)
+    write /dev/cpuctl/foreground/cpu.uclamp.min 20
+    write /dev/cpuctl/foreground/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/top-app/cpu.uclamp.min 50
+    write /dev/cpuctl/top-app/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/rt/cpu.uclamp.min 60
+    write /dev/cpuctl/rt/cpu.uclamp.latency_sensitive 1
+    write /dev/cpuctl/background/cpu.uclamp.max 50
+
+on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
+    start storageproxyd
 
 on late-fs && property:vendor.skip.charger_not_need=0
-    # Start keymaster/gatekeeper service
-    start vendor.gatekeeper-1-0-${ro.boot.keystore}
-    start vendor.keymaster-4-0-${ro.boot.keystore}
+    # Start keymaster/gatekeeper/oemlock service
+    start vendor.gatekeeper-${ro.boot.keystore}
+    start vendor.keymint-${ro.boot.keystore}
+    start vendor.oemlock-1-0-${ro.boot.keystore}
     setprop vendor.powerhal.init 1
 
     # Wait for keymaster
@@ -83,11 +71,8 @@ on late-fs && property:vendor.skip.charger_not_need=0
 
     mount_all /vendor/etc/fstab.digi --late
 
-on late-fs && property:vendor.storageproxyd=trusty && property:vendor.skip.charger_not_need=0
-    start vendor.oemlock-1-0
-
 on early-boot && property:vendor.skip.charger_not_need=0
-    # For evk_8mm, when swap used about 400M, upgrade the level.
+    # For ccimx8mm, when swap used about 400M, upgrade the level.
     setprop ro.lmk.upgrade_pressure 80
     setprop ro.lmk.downgrade_pressure 95
     setprop ro.lmk.critical_upgrade true
@@ -95,7 +80,7 @@ on early-boot && property:vendor.skip.charger_not_need=0
     # Set permission for IIM node
     symlink /dev/mxs_viim /dev/mxc_mem
 
-    setprop hwc.stretch.filter  1
+    setprop vendor.hwc.stretch.filter  1
 
     # Default g2d [dpu|pxp|viv] lib to be used
     setprop vendor.imx.default-g2d viv
@@ -109,7 +94,7 @@ on early-boot && property:vendor.skip.charger_not_need=0
     #Enable GPU 2D do CSC on imx8mm platform
     setprop vendor.camera.2d.enable true
 
-   # Tweak the mmc device read ahead buffer size
+    # Tweak the mmc device read ahead buffer size
     write /sys/block/mmcblk0/queue/read_ahead_kb 2048
     write /sys/block/mmcblk1/queue/read_ahead_kb 2048
 
@@ -120,6 +105,9 @@ on early-boot && property:vendor.skip.charger_not_need=0
 
     # Set tracefs permission to 755
     chmod 0755 /sys/kernel/debug/tracing
+
+    # Set external camera mjpeg decoder type
+    setprop vendor.camera.mjpg.decoder hardware
 
     # Set sw_sync group to graphics and set permission to 664
     chown root graphics /sys/kernel/debug/sync/sw_sync
@@ -210,6 +198,10 @@ service bugreport /system/bin/dumpstate -d -p -B -z \
     oneshot
     keycodes 114 115 116
 
+service vsidaemon /vendor/bin/vsidaemon
+    class main
+    user root
+
 on boot && property:vendor.skip.charger_not_need=0
     start audioserver
     start mediadrm
@@ -217,7 +209,7 @@ on boot && property:vendor.skip.charger_not_need=0
     start drm
 
 on fs && property:vendor.skip.charger_not_need=0
-# mount ext4 partitions
+    # mount ext4 partitions
     mount_all /vendor/etc/fstab.digi --early
 
     # Adjust parameters for dm-verity device
@@ -276,9 +268,3 @@ on property:ro.boot.vendor.sysrq=1 && property:vendor.skip.charger_not_need=0
 # setenv append_bootargs androidboot.usb.debugging=1
 on property:ro.boot.usb.debugging=1
     setprop persist.sys.usb.config adb
-
-# Telit RIL
-service vendor.telit.ppp /system/bin/pppd file /etc/telit/ppp_options
-    group shell radio
-    oneshot
-    disabled
