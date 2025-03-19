@@ -1,35 +1,24 @@
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-rtc/rtc/rtc0/hctosys                u:object_r:sysfs_rtc:s0
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-cc8m-rtc/rtc/rtc0/hctosys             u:object_r:sysfs_rtc:s0
 
 # SD
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30b50000.mmc/mmc_host/mmc1/mmc1:aaaa/block/mmcblk1 u:object_r:sysfs_block_devices:s0
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30b50000.mmc/mmc_host/mmc1/mmc1:aaaa/block/mmcblk1                  u:object_r:sysfs_block_devices:s0
 
 # EMMC
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30b60000.mmc/mmc_host/mmc0/mmc0:0001/block/mmcblk0                     u:object_r:sysfs_block_devices:s0
-
-
-#sys/class/net
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30be0000.ethernet/net                                                  u:object_r:sysfs_net:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30840000.spi/spi_master/spi2/spi2.0/net                                u:object_r:sysfs_net:s0
-
-# android.system.suspend@1.0-service
-genfscon sysfs /devices/virtual/power_supply/battery/wakeup0                                                                     u:object_r:sysfs_wakeup:s0
-genfscon sysfs /devices/virtual/power_supply/usb/wakeup1                                                                         u:object_r:sysfs_wakeup:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-rtc/wakeup/wakeup2                  u:object_r:sysfs_wakeup:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-rtc/rtc/rtc0/wakeup3                u:object_r:sysfs_wakeup:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30be0000.ethernet/net/eth0/wakeup4                                     u:object_r:sysfs_wakeup:s0
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30b60000.mmc/mmc_host/mmc0/mmc0:0001/block/mmcblk0                  u:object_r:sysfs_block_devices:s0
 
 # GPIO
-genfscon sysfs /class/gpio                                                                                                       u:object_r:sysfs_gpio:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-gpio                                u:object_r:sysfs_gpio:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30800000/30840000.spi/spi_master/spi2/spi2.0/gpio                               u:object_r:sysfs_gpio:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30200000.gpio                                                          u:object_r:sysfs_gpio:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30210000.gpio                                                          u:object_r:sysfs_gpio:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30220000.gpio                                                          u:object_r:sysfs_gpio:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30230000.gpio                                                          u:object_r:sysfs_gpio:s0
-genfscon sysfs /devices/platform/soc@0/soc@0:bus@30000000/30240000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /class/gpio                                                                                                 u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-cc8m-gpio                                u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30840000.spi/spi_master/spi2/spi2.0/gpio                               u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/30000000.bus/supplier:platform:30200000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/30000000.bus/supplier:platform:30210000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/30000000.bus/supplier:platform:30220000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/30000000.bus/supplier:platform:30230000.gpio                                                          u:object_r:sysfs_gpio:s0
+genfscon sysfs /devices/platform/soc@0/30000000.bus/supplier:platform:30240000.gpio                                                          u:object_r:sysfs_gpio:s0
 
 # Device Tree
-genfscon sysfs /firmware/devicetree                                                                                              u:object_r:sysfs_device_tree:s0
+genfscon sysfs /firmware/devicetree                                                                                        u:object_r:sysfs_device_tree:s0
 
-# Backlight
-genfscon sysfs /devices/platform/lvds_backlight/backlight                                                                        u:object_r:sysfs_leds:s0
+#sys/class/net
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30be0000.ethernet/net                                               u:object_r:sysfs_net:s0
+genfscon sysfs /devices/platform/soc@0/30800000.bus/30840000.spi/spi_master/spi2/spi2.0/net                             u:object_r:sysfs_net:s0

@@ -1,90 +1,55 @@
-#sd boot
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/dtbo_[ab]        u:object_r:dtbo_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/boot_[ab]        u:object_r:boot_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/system_[ab]      u:object_r:system_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/vendor_[ab]      u:object_r:system_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/product_[ab]     u:object_r:system_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/misc             u:object_r:misc_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/metadata         u:object_r:metadata_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/presistdata      u:object_r:frp_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/userdata         u:object_r:userdata_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/vbmeta_[ab]      u:object_r:vbmeta_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b50000\.mmc/by-name/super            u:object_r:super_block_device:s0
-
-#emmc boot
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/dtbo_[ab]        u:object_r:dtbo_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/boot_[ab]        u:object_r:boot_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/system_[ab]      u:object_r:system_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/vendor_[ab]      u:object_r:system_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/product_[ab]     u:object_r:system_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/misc             u:object_r:misc_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/metadata         u:object_r:metadata_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/presistdata      u:object_r:frp_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/userdata         u:object_r:userdata_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/vbmeta_[ab]      u:object_r:vbmeta_block_device:s0
-/dev/block/platform/soc@0/soc@0\:bus@30800000/30b60000\.mmc/by-name/super            u:object_r:super_block_device:s0
+/dev/block/mmcblk0boot0                      u:object_r:emmc_boot0:s0
+/dev/block/mmcblk1                           u:object_r:sdcard:s0
 
 #peripheral
-/vendor/bin/fsl_sensor_fusion                                                        u:object_r:sensors_exec:s0
-/dev/ttymxc[0-9]*                                                                    u:object_r:tty_device:s0
-/dev/ttyMCA[0-9]*                                                                    u:object_r:tty_device:s0
-/dev/sda[0-8]*                                                                       u:object_r:fuse:s0
-/dev/i2c-[0-9]+                                                                      u:object_r:i2c_device:s0
-/dev/spidev[0-9.]*                                                                   u:object_r:spi_device:s0
-/dev/lock(/.*)?                                                                      u:object_r:lock_path:s0
-
-# Firmware update
-/data/vendor/fw_update(/.*)?                                                         u:object_r:fwupdate_vendor_data_file:s0
+/vendor/bin/fsl_sensor_fusion   u:object_r:sensors_exec:s0
+/dev/ttymxc[0-9]*               u:object_r:tty_device:s0
+/dev/ttyMCA[0-9]*               u:object_r:tty_device:s0
+/dev/sda[0-8]*                  u:object_r:fuse:s0
+/dev/i2c-[0-9]+                 u:object_r:i2c_device:s0
+/dev/spidev[0-9.]*              u:object_r:spi_device:s0
 
 #Thermal HAL service
 /vendor/bin/hw/android\.hardware\.thermal@2\.0-service.imx         u:object_r:hal_thermal_default_exec:s0
+/vendor/bin/hw/android\.hardware\.thermal-service\.imx             u:object_r:hal_thermal_default_exec:s0
 
+# android.system.suspend@1.0-service
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-powerkey/wakeup                                                     u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-powerkey/wakeup/wakeup[0-9]*(/.*)?                                  u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/wakeup                                                       u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/wakeup/wakeup[0-9]*(/.*)?                                    u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/rtc/rtc0/alarmtimer.[0-9].auto/wakeup                        u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30000000.bus/30370000.snvs/30370000.snvs:snvs-rtc-lp/rtc/rtc0/alarmtimer.[0-9].auto/wakeup/wakeup[0-9]*(/.*)?     u:object_r:sysfs_wakeup:s0
+/sys/devices/virtual/power_supply/battery/wakeup[0-9]*(/.*)?                                                                                  u:object_r:sysfs_wakeup:s0
+/sys/devices/virtual/power_supply/usb/wakeup[0-9]*(/.*)?                                                                                      u:object_r:sysfs_wakeup:s0
+/sys/devices/virtual/wakeup/wakeup[0-9]*(/.*)?                                                                                                u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30800000.bus/30a30000.i2c/i2c-1/1-0050/power_supply/tcpm-source-psy-1-0050/wakeup[0-9]*(/.*)?                     u:object_r:sysfs_wakeup:s0
+/sys/devices/platform/soc@0/30800000.bus/30be0000.ethernet/net/eth0/wakeup[0-9]*(/.*)?                                                        u:object_r:sysfs_wakeup:s0
+# /sys/devices/platform/soc@0/30800000.bus/30b40000.mmc/mmc_host/mmc0/mmc0:0001/mmc0:0001:1/wakeup                                              u:object_r:sysfs_wakeup:s0
+# /sys/devices/platform/soc@0/30800000.bus/30b40000.mmc/mmc_host/mmc0/mmc0:0001/mmc0:0001:1/wakeup/wakeup[0-9]*(/.*)?                           u:object_r:sysfs_wakeup:s0
+
+# Firmware update
+/data/vendor/fw_update(/.*)?                                u:object_r:fwupdate_vendor_data_file:s0
+
+#Hardware Media C2 service
 /vendor/bin/hw/android\.hardware\.media\.c2@1\.0-service    u:object_r:mediacodec_exec:s0
 
 /dev/block/pmem0  u:object_r:rebootescrow_device:s0
 
-#adc
-/sys/bus/iio/devices(/.*)?                                                           u:object_r:sysfs_adc:s0
-/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8x-adc(/.*)?    u:object_r:sysfs_adc:s0
-
-#cpu
-/sys/devices/virtual/thermal/thermal_zone0/trip_point_[01]_temp                      u:object_r:sysfs_cpu:s0
-/sys/devices/virtual/thermal/thermal_zone0/temp                                      u:object_r:sysfs_cpu:s0
-
-#cursor_blink
-/sys/devices/virtual/graphics/fbcon/cursor_blink                                  u:object_r:sysfs_cursor_blink:s0
-
-#gpio
-/sys/class/gpio/export                                                               u:object_r:sysfs_gpio:s0
-/sys/class/gpio/unexport                                                             u:object_r:sysfs_gpio:s0
-/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-gpio(/.*)?   u:object_r:sysfs_gpio:s0
-/sys/devices/platform/soc@0/soc@0:bus@30800000/30840000.spi/spi_master/spi2/spi2.0/gpio(/.*)?  u:object_r:sysfs_gpio:s0
-/sys/devices/platform/soc@0/soc@0:bus@30000000/30200000.gpio(/.*)?                   u:object_r:sysfs_gpio:s0
-/sys/devices/platform/soc@0/soc@0:bus@30000000/30210000.gpio(/.*)?                   u:object_r:sysfs_gpio:s0
-/sys/devices/platform/soc@0/soc@0:bus@30000000/30220000.gpio(/.*)?                   u:object_r:sysfs_gpio:s0
-/sys/devices/platform/soc@0/soc@0:bus@30000000/30230000.gpio(/.*)?                   u:object_r:sysfs_gpio:s0
-/sys/devices/platform/soc@0/soc@0:bus@30000000/30240000.gpio(/.*)?                   u:object_r:sysfs_gpio:s0
-
-#MCA cancel poweroff
-/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-pwrkey/mca_cancel_pwroff  u:object_r:sysfs_mca_pwroff:s0
-
-#gpu
-/sys/devices/platform/38000000.gpu/gpu_mult                                          u:object_r:sysfs_gpu:s0
-/sys/bus/platform/drivers/galcore/gpu3DMinClock                                      u:object_r:sysfs_gpu:s0
-
 #device-tree
 /sys/firmware/devicetree/base(/.*)?                                                  u:object_r:sysfs_device_tree:s0
 
-#pwm
-/sys/class/pwm(/.*)?                                                                 u:object_r:sysfs_pwm:s0
-/sys/devices/platform/soc@0/soc@0:bus@30400000/30670000.pwm/pwm(/.*)?                u:object_r:sysfs_pwm:s0
-/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-pwm/pwm(/.*)?     u:object_r:sysfs_pwm:s0
+/sys/bus/platform/drivers/galcore/gpu3DMinClock                                   u:object_r:sysfs_gpu:s0
 
-#services
-/system/bin/diginativeservice     -l                                                 u:object_r:diginative_exec:s0
-/system/bin/diginativeservice32                                                      u:object_r:diginative_exec:s0
-/system/bin/diginativeservice64                                                      u:object_r:diginative_exec:s0
+# MCA cancel power-off sequence
+/sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-som-pwrkey/mca_cancel_pwroff  u:object_r:sysfs_mca_pwroff:s0
 
-#tamper
-/sys/devices/platform/soc@0/soc@0:bus@30800000/30a20000.i2c/i2c-0/0-0063/mca-cc8m-tamper(/.*)?    u:object_r:sysfs_tamper:s0
-/dev/iio:device[0-9.]*                                                                            u:object_r:tamper_device:s0
+#gpio
+/sys/class/gpio/export                                                            u:object_r:sysfs_gpio:s0
+/sys/class/gpio/unexport                                                          u:object_r:sysfs_gpio:s0
+/sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-som-gpio(/.*)?   u:object_r:sysfs_gpio:s0
+/sys/devices/platform/soc@0/30000000.bus/30200000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/soc@0/30000000.bus/30210000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/soc@0/30000000.bus/30220000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/soc@0/30000000.bus/30230000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+/sys/devices/platform/soc@0/30000000.bus/30240000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0

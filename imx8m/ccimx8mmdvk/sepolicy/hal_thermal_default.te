@@ -1,1 +1,2 @@
-allow hal_thermal_default sysfs_cpu:file { open read getattr };
+allow hal_thermal_default sysfs_cpu:dir { open read search };
+allow hal_thermal_default sysfs_cpu:file { getattr open read write };
