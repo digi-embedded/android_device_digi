@@ -282,8 +282,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     android.hardware.audio@7.1-impl \
     android.hardware.audio.service \
-    android.hardware.audio.effect@7.0-impl:32 \
-    android.hardware.bluetooth.audio@2.1-impl
+    android.hardware.audio.effect@7.0-impl:32
 
 ifneq ($(PRODUCT_IMX_CAR),true)
 PRODUCT_PACKAGES += \

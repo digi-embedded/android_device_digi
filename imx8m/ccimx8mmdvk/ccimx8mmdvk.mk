@@ -362,8 +362,8 @@ PRODUCT_COPY_FILES += \
 
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.1-impl \
-    android.hardware.bluetooth@1.1-service
+    android.hardware.bluetooth@1.0-impl \
+    android.hardware.bluetooth@1.0-service
 
 # QCA65X4 Bluetooth Firmware
 PRODUCT_PACKAGES += \
