@@ -95,7 +95,7 @@
 /sys/class/pwm/pwmchip*     pwm5/polarity        0644  system  system
 
 # MCA cancel power-off sequence
-/sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-cc8m-pwrkey mca_cancel_pwroff 0644  system  system
+/sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-som-pwrkey mca_cancel_pwroff 0644  system  system
 
 # Tamper
 /sys/bus/iio/devices/iio:device*   tamper_events    0644   system   system
