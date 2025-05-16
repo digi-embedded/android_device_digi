@@ -44,6 +44,15 @@
 # MCA cancel power-off sequence
 /sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-som-pwrkey/mca_cancel_pwroff  u:object_r:sysfs_mca_pwroff:s0
 
+#adc
+/sys/bus/iio/devices(/.*)?                                                        u:object_r:sysfs_adc:s0
+/sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-som-adc(/.*)?    u:object_r:sysfs_adc:s0
+
+#cpu
+/sys/devices/virtual/thermal(/.*)?                                                u:object_r:sysfs_cpu:s0
+/sys/devices/virtual/thermal/thermal_zone[0-9]*/type                              u:object_r:sysfs_cpu:s0
+/sys/devices/virtual/thermal/thermal_zone[0-9]*/temp                              u:object_r:sysfs_cpu:s0
+
 #gpio
 /sys/class/gpio/export                                                            u:object_r:sysfs_gpio:s0
 /sys/class/gpio/unexport                                                          u:object_r:sysfs_gpio:s0
@@ -53,3 +62,13 @@
 /sys/devices/platform/soc@0/30000000.bus/30220000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
 /sys/devices/platform/soc@0/30000000.bus/30230000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
 /sys/devices/platform/soc@0/30000000.bus/30240000.gpio(/.*)?                            u:object_r:sysfs_gpio:s0
+
+#pwm
+/sys/class/pwm(/.*)?                                                              u:object_r:sysfs_pwm:s0
+/sys/devices/platform/soc@0/30400000.bus/30670000/pwm(/.*)?                         u:object_r:sysfs_pwm:s0
+/sys/devices/platform/soc@0/30800000.bus/30a20000.i2c/i2c-0/0-0063/mca-som-pwm/pwm(/.*)?    u:object_r:sysfs_pwm:s0
+
+#services
+/system/bin/diginativeservice  -l  u:object_r:diginative_exec:s0
+/system/bin/diginativeservice32    u:object_r:diginative_exec:s0
+/system/bin/diginativeservice64    u:object_r:diginative_exec:s0
