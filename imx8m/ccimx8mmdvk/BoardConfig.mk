@@ -150,6 +150,7 @@ TARGET_BOARD_DTS_CONFIG := \
 	ccimx8m-dvk_user-leds.dtbo \
 	ccimx8m_bt.dtbo \
 	ccimx8m_mca-keypad.dtbo \
+	ccimx8m_trusty.dtbo \
 	ccimx8m_wifi.dtbo
 
 # -------@block_sepolicy-------
