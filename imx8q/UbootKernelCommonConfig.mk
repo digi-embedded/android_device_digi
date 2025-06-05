@@ -6,3 +6,6 @@ TARGET_UBOOT_ARCH := arm64
 KERNEL_IMX_PATH := vendor/digi
 UBOOT_IMX_PATH := vendor/digi
 QCACLD_PATH := vendor/digi/qcacld-2.0
+
+# define bootloader rollback index
+BOOTLOADER_RBINDEX ?= 0
