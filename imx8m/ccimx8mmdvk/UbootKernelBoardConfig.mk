@@ -1,8 +1,10 @@
 TARGET_BOOTLOADER_POSTFIX := bin
 UBOOT_POST_PROCESS := true
 
-TARGET_BOOTLOADER_CONFIG := imx8mm:ccimx8mm_dvk_android_defconfig
-TARGET_BOOTLOADER_CONFIG += imx8mm-trusty:ccimx8mm_dvk_android_trusty_defconfig
+TARGET_BOOTLOADER_CONFIG := ccimx8mmdvk:ccimx8mm_dvk_android_defconfig
+ifeq ($(PRODUCT_IMX_TRUSTY),true)
+TARGET_BOOTLOADER_CONFIG += ccimx8mmdvk-trusty:ccimx8mm_dvk_android_trusty_defconfig
+endif
 
 # imx8mm kernel defconfig
 TARGET_KERNEL_DEFCONFIG := gki_defconfig

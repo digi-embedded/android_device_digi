@@ -21,7 +21,6 @@ do
 	fi
 done < ${CONFIG_REPO_PATH}/common/imx_path/ImxPathConfig.mk
 
-
 if [ "${AARCH64_GCC_CROSS_COMPILE}" != "" ]; then
     ATF_CROSS_COMPILE=`eval echo ${AARCH64_GCC_CROSS_COMPILE}`
 else
@@ -39,30 +38,28 @@ build_imx_uboot()
 	echo Building i.MX U-Boot with firmware
 	UBOOT_PLATFORM="${2}"
 	UBOOT_DTB="ccimx8mm-dvk.dtb"
-	cp --remove-destination ${UBOOT_OUT}/u-boot-nodtb.bin ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/.
-	cp --remove-destination ${UBOOT_OUT}/spl/u-boot-spl.bin  ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/.
-	cp --remove-destination ${UBOOT_OUT}/tools/mkimage  ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/mkimage_uboot
-	cp --remove-destination ${UBOOT_OUT}/arch/arm/dts/${UBOOT_DTB} ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/.
-	cp --remove-destination ${FSL_PROPRIETARY_PATH}/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_pmu_train* ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/.
+	MKIMAGE_PLATFORM="iMX8MM"
+	TEE_LOAD_ADDR="0x7e000000"
+	ATF_PLATFORM="imx8mm"
+	cp --remove-destination "${UBOOT_OUT}"/u-boot-nodtb.bin "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/.
+	cp --remove-destination "${UBOOT_OUT}"/spl/u-boot-spl.bin  "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/.
+	cp --remove-destination "${UBOOT_OUT}"/tools/mkimage  "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/mkimage_uboot
+	cp --remove-destination "${UBOOT_OUT}"/arch/arm/dts/${UBOOT_DTB} "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/.
+	cp --remove-destination "${FSL_PROPRIETARY_PATH}"/linux-firmware-imx/firmware/ddr/synopsys/lpddr4_pmu_train* "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/.
 
-	make -C ${IMX_PATH}/arm-trusted-firmware/ PLAT=`echo $2 | cut -d '-' -f1` clean
-	if [ "`echo $2 | cut -d '-' -f2`" = "trusty" ]; then
-		cp --remove-destination ${DIGI_FIRMWARE_PATH}/uboot-firmware/imx8m/tee-ccimx8mm.bin ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/tee.bin
-		make -C ${IMX_PATH}/arm-trusted-firmware/ CROSS_COMPILE="${ATF_CROSS_COMPILE}" PLAT=`echo $2 | cut -d '-' -f1` bl31 -B SPD=trusty IMX_ANDROID_BUILD=true 1>/dev/null || exit 1
+	make -C "${IMX_PATH}"/arm-trusted-firmware/ PLAT=${ATF_PLATFORM} realclean
+	if [ "$(echo "${UBOOT_PLATFORM}" | cut -d '-' -f2)" = "trusty" ]; then
+		cp --remove-destination "${DIGI_FIRMWARE_PATH}"/uboot-firmware/imx8m/tee-ccimx8mm.bin "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/tee.bin
+		make -C "${IMX_PATH}"/arm-trusted-firmware/ CROSS_COMPILE="${ATF_CROSS_COMPILE}" PLAT=${ATF_PLATFORM} bl31 -B SPD=trusty IMX_ANDROID_BUILD=true 1>/dev/null || exit 1
 	else
-		if [ -f ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/tee.bin ] ; then
-			rm -rf ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/tee.bin
-		fi
-		if [ -f ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/tee.bin.lz4 ] ; then
-			rm -rf ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/tee.bin.lz4
-		fi
-		make -C ${IMX_PATH}/arm-trusted-firmware/ CROSS_COMPILE="${ATF_CROSS_COMPILE}" PLAT=`echo $2 | cut -d '-' -f1` bl31 -B IMX_ANDROID_BUILD=true 1>/dev/null || exit 1
+		rm -f "${IMX_MKIMAGE_PATH}"/imx-mkimage/${MKIMAGE_PLATFORM}/tee.bin
+		make -C "${IMX_PATH}"/arm-trusted-firmware/ CROSS_COMPILE="${ATF_CROSS_COMPILE}" PLAT=${ATF_PLATFORM} bl31 -B IMX_ANDROID_BUILD=true 1>/dev/null || exit 1
 	fi
-	cp --remove-destination ${IMX_PATH}/arm-trusted-firmware/build/`echo $2 | cut -d '-' -f1`/release/bl31.bin ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/bl31.bin
+	cp --remove-destination "${IMX_PATH}"/arm-trusted-firmware/build/${ATF_PLATFORM}/release/bl31.bin "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/bl31.bin
 
-	make -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ clean
-	make --no-print-directory -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=iMX8MM dtbs=${UBOOT_DTB} flash_spl_uboot 2>&1 | tee ${UBOOT_COLLECTION}/mkimage-"${UBOOT_PLATFORM}".log || exit 1
-	cp --remove-destination ${UBOOT_OUT}/arch/arm/dts/${UBOOT_DTB} ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/.
-	make --no-print-directory -C ${IMX_MKIMAGE_PATH}/imx-mkimage/ SOC=iMX8MM dtbs=${UBOOT_DTB} print_fit_hab 2>&1 | tee ${UBOOT_COLLECTION}/mkimage-print_fit_hab.log || exit 1
-	cp --remove-destination ${IMX_MKIMAGE_PATH}/imx-mkimage/iMX8M/flash.bin ${UBOOT_COLLECTION}/u-boot-${UBOOT_PLATFORM}.imx
+	make -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ clean
+	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} TEE_LOAD_ADDR=${TEE_LOAD_ADDR} dtbs=${UBOOT_DTB} flash_spl_uboot 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage-"${UBOOT_PLATFORM}".log || exit 1
+	cp --remove-destination "${UBOOT_OUT}"/arch/arm/dts/${UBOOT_DTB} "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/.
+	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} TEE_LOAD_ADDR=${TEE_LOAD_ADDR} dtbs=${UBOOT_DTB} print_fit_hab 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage-"${UBOOT_PLATFORM}"-print_fit_hab.log || exit 1
+	cp --remove-destination "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/flash.bin "${UBOOT_COLLECTION}"/u-boot-"${UBOOT_PLATFORM}".imx
 }
