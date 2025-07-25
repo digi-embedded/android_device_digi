@@ -33,6 +33,31 @@ build_pre_image()
 	echo "android build without building M4 image"
 }
 
+build_trustfence_tools_zip() {
+	echo "== Building Trustfence tools ZIP"
+	TF_TOOLS_DIR="trustfence-tools-${1}"
+	UBOOT_SCRIPTS_DIR="$(realpath vendor/digi/uboot-imx/scripts)"
+	TF_KEY_SCRIPTS_DIR="$(realpath device/digi/common/trustfence)"
+	CSF_TEMPLATES="encrypt_ahab_uboot sign_ahab_uboot"
+
+	(
+		cd "${UBOOT_COLLECTION}" || { echo "[ERROR] cd \"${UBOOT_COLLECTION}\""; return; }
+		mkdir -p "${TF_TOOLS_DIR}"/bin "${TF_TOOLS_DIR}"/csf_templates
+		mv mkimage*.log "${TF_TOOLS_DIR}"
+
+		install -m 0755 "${UBOOT_SCRIPTS_DIR}"/sign_spl_ahab.sh "${TF_TOOLS_DIR}"/trustfence-sign-uboot.sh
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/keys/ahab_pki_tree.sh "${TF_TOOLS_DIR}"/bin/trustfence-gen-pki.sh
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/ca/openssl.cnf "${TF_TOOLS_DIR}"/bin/openssl.cnf
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/ca/v3_ca.cnf "${TF_TOOLS_DIR}"/bin/v3_ca.cnf
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/ca/v3_usr.cnf "${TF_TOOLS_DIR}"/bin/v3_usr.cnf
+		for f in ${CSF_TEMPLATES}; do
+			cp --remove-destination "${UBOOT_SCRIPTS_DIR}"/csf_templates/"${f}" "${TF_TOOLS_DIR}"/csf_templates
+		done
+		zip -qXr "${TF_TOOLS_DIR}".zip "${TF_TOOLS_DIR}"
+		rm -rf "${TF_TOOLS_DIR}"
+	)
+}
+
 build_imx_uboot()
 {
 	echo "== Building i.MX U-Boot"
@@ -62,7 +87,8 @@ build_imx_uboot()
 	make -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ clean
 	pwd_backup=${PWD}
 	PWD=${PWD}/"${IMX_MKIMAGE_PATH}"/imx-mkimage/
-	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} REV=${REV} flash_spl 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage-"${UBOOT_PLATFORM}".log || exit 1
+	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} REV=${REV} flash_spl 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage.log || exit 1
 	PWD=${pwd_backup}
 	cp --remove-destination "${IMX_MKIMAGE_PATH}"/imx-mkimage/${MKIMAGE_PLATFORM}/flash.bin "${UBOOT_COLLECTION}"/u-boot-"${UBOOT_PLATFORM}".imx
+	build_trustfence_tools_zip "${UBOOT_PLATFORM}"
 }

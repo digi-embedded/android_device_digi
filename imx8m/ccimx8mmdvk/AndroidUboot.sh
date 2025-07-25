@@ -33,6 +33,30 @@ build_pre_image()
 	:
 }
 
+build_trustfence_tools_zip() {
+	echo "== Building Trustfence tools ZIP"
+	TF_TOOLS_DIR="trustfence-tools-${1}"
+	UBOOT_SCRIPTS_DIR="$(realpath vendor/digi/uboot-imx/scripts)"
+	TF_KEY_SCRIPTS_DIR="$(realpath device/digi/common/trustfence)"
+	CSF_TEMPLATES="encrypt_sign_uboot_fit encrypt_sign_uboot_spl encrypt_uboot_fit encrypt_uboot_spl sign_uboot_fit sign_uboot_spl"
+
+	(
+		cd "${UBOOT_COLLECTION}" || { echo "[ERROR] cd \"${UBOOT_COLLECTION}\""; return; }
+		mkdir -p "${TF_TOOLS_DIR}"/bin "${TF_TOOLS_DIR}"/csf_templates
+		mv mkimage*.log "${TF_TOOLS_DIR}"
+		install -m 0755 "${UBOOT_SCRIPTS_DIR}"/sign_spl_fit.sh "${TF_TOOLS_DIR}"/trustfence-sign-uboot.sh
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/keys/hab4_pki_tree.sh "${TF_TOOLS_DIR}"/bin/trustfence-gen-pki.sh
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/ca/openssl.cnf "${TF_TOOLS_DIR}"/bin/openssl.cnf
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/ca/v3_ca.cnf "${TF_TOOLS_DIR}"/bin/v3_ca.cnf
+		install -m 0755 "${TF_KEY_SCRIPTS_DIR}"/ca/v3_usr.cnf "${TF_TOOLS_DIR}"/bin/v3_usr.cnf
+		for f in ${CSF_TEMPLATES}; do
+			cp --remove-destination "${UBOOT_SCRIPTS_DIR}"/csf_templates/"${f}" "${TF_TOOLS_DIR}"/csf_templates
+		done
+		zip -qXr "${TF_TOOLS_DIR}".zip "${TF_TOOLS_DIR}"
+		rm -rf "${TF_TOOLS_DIR}"
+	)
+}
+
 build_imx_uboot()
 {
 	echo Building i.MX U-Boot with firmware
@@ -58,8 +82,9 @@ build_imx_uboot()
 	cp --remove-destination "${IMX_PATH}"/arm-trusted-firmware/build/${ATF_PLATFORM}/release/bl31.bin "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/bl31.bin
 
 	make -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ clean
-	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} TEE_LOAD_ADDR=${TEE_LOAD_ADDR} dtbs=${UBOOT_DTB} flash_spl_uboot 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage-"${UBOOT_PLATFORM}".log || exit 1
+	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} TEE_LOAD_ADDR=${TEE_LOAD_ADDR} dtbs=${UBOOT_DTB} flash_spl_uboot 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage.log || exit 1
 	cp --remove-destination "${UBOOT_OUT}"/arch/arm/dts/${UBOOT_DTB} "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/.
-	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} TEE_LOAD_ADDR=${TEE_LOAD_ADDR} dtbs=${UBOOT_DTB} print_fit_hab 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage-"${UBOOT_PLATFORM}"-print_fit_hab.log || exit 1
+	make --no-print-directory -C "${IMX_MKIMAGE_PATH}"/imx-mkimage/ SOC=${MKIMAGE_PLATFORM} TEE_LOAD_ADDR=${TEE_LOAD_ADDR} dtbs=${UBOOT_DTB} print_fit_hab 2>&1 | tee "${UBOOT_COLLECTION}"/mkimage-print_fit_hab.log || exit 1
 	cp --remove-destination "${IMX_MKIMAGE_PATH}"/imx-mkimage/iMX8M/flash.bin "${UBOOT_COLLECTION}"/u-boot-"${UBOOT_PLATFORM}".imx
+	build_trustfence_tools_zip "${UBOOT_PLATFORM}"
 }
